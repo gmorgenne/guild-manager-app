@@ -15,6 +15,17 @@ export const guildRouter = router({
       badge: z.number()
     }))
     .mutation(({ input, ctx }) => createGuildHandler({ input, ctx })),
+  getGuildById: publicProcedure
+    .input(z.object({ id: z.string().nullish() }).nullish())
+    .query(({ input, ctx }) => {
+        return ctx.prisma.guild.findFirst({
+            where: {
+                id: {
+                    equals: input?.id ?? ""
+                }
+            }
+        });
+    }),
   getUserGuild: publicProcedure
     .input(z.object({ userId: z.string().nullish() }).nullish())
     .query(({ input, ctx }) => {
@@ -42,6 +53,7 @@ export const guildRouter = router({
   })
 });
 
+// controller stuff
 const createGuildHandler = async ({ input, ctx }: { input: CreateGuildInput; ctx: Context }) => {
   try {
     const user = await ctx.session?.user;
@@ -69,12 +81,14 @@ const createGuildHandler = async ({ input, ctx }: { input: CreateGuildInput; ctx
   }
 };
 
+// service stuff
 const createGuild = async (input: Prisma.GuildCreateInput) => {
   return (await prisma?.guild.create({
     data: input
   }));
 }
 
+// types
 export type CreateGuildInput = {
   name:            string;
   primaryColor:    string;
