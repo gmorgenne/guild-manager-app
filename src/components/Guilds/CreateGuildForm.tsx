@@ -28,7 +28,9 @@ const CreateGuildForm = (): JSX.Element => {
             badge: parseInt(data.badge),
             primaryColor: primaryColor?.hex ?? "",
             secondaryColor: secondaryColor?.hex ?? ""
-        })
+        });
+
+        // if success redirect somewhere?
     }
 
     return (
