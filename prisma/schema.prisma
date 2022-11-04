@@ -56,6 +56,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  guilds        Guild[]
 }
 
 model VerificationToken {
@@ -64,4 +65,14 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Guild {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  primaryColor    String
+  secondaryColor  String
+  badge           Int
 }
