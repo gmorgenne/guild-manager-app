@@ -7,12 +7,15 @@ const HeroPreview = (props: Hero): JSX.Element => {
             <h2>Name: {props.name}</h2>
             <div>Race: {props.race}</div>
             <div>Class: {props.class}</div>
+            <div>Guild: {props.guildId}</div>
             <table>
                 <thead>
-                    <th>Str</th>
-                    <th>Dex</th>
-                    <th>Mag</th>
-                    <th>Con</th>
+                    <tr>
+                        <th>Str</th>
+                        <th>Dex</th>
+                        <th>Mag</th>
+                        <th>Con</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
