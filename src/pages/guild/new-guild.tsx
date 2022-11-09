@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { CreateGuildForm } from "../../components/Guilds"
+import CreateGuildForm from "../../components/Guilds/CreateGuildForm"
 
 const NewGuild: NextPage = () => {
     return (
