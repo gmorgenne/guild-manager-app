@@ -16,7 +16,7 @@ const GuildPage: NextPage = () => {
                     <h1>Guild Overview & stuff</h1>
                     <div className="p-4">
                         <GuildPreview {...guild} />
-                        <Link href="/heroes">Add Hero</Link>
+                        <Link href="/heroes/available">Add Hero</Link>
                         <br />
                         <Link href={`/guild/heroes/${guild.id}`}>Guild Hero Roster</Link>
                     </div>
