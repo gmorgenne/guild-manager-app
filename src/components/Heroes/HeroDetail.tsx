@@ -1,19 +1,16 @@
 import type { Hero } from "@prisma/client";
 import Link from "next/link";
-import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 
 const HeroDetail = (props: Hero): JSX.Element => {
     const isAvailable = props.guildId === "0";
     const mutation = trpc.hero.addHero.useMutation();
     const guildId = sessionStorage.getItem("guild") ?? "0";
-    const [addedSuccess, setAddedSuccess] = useState(false);
 
     // TODO: add in contract info if available
 
     const addHeroToGuild = () => {
         mutation.mutate({ guildId: guildId, heroId: props.id });
-        setAddedSuccess(true);
     }
 
     return (
@@ -34,10 +31,10 @@ const HeroDetail = (props: Hero): JSX.Element => {
             <div>Speed: {props.speed}</div>
             <div>Purse: {props.purse}</div>
 
-            {isAvailable && !addedSuccess && (
+            {isAvailable && !mutation.isSuccess && (
                 <button onClick={addHeroToGuild}>Add Hero to your Guild!</button>
             )}
-            {addedSuccess && <h5>Added Successfully!</h5>}
+            {mutation.isSuccess && <h5>Added Successfully!</h5>}
             {guildId !== "0" && (
                 <Link href={`/guild/${guildId}`}>Back to Guild</Link>
             )}
