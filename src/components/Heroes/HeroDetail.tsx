@@ -15,7 +15,8 @@ const HeroDetail = (props: Hero): JSX.Element => {
 
     return (
         <div className="hero-detail">
-            <h2>Name: {props.name}</h2>
+            <h1 className="text-2xl">Hero Info</h1>
+            <div>Name: {props.name}</div>
             <div>Sex: {props.sex}</div>
             <div>Race: {props.race}</div>
             <div>Class: {props.class}</div>
@@ -31,13 +32,15 @@ const HeroDetail = (props: Hero): JSX.Element => {
             <div>Speed: {props.speed}</div>
             <div>Purse: {props.purse}</div>
 
-            {isAvailable && !mutation.isSuccess && (
-                <button onClick={addHeroToGuild}>Add Hero to your Guild!</button>
-            )}
-            {mutation.isSuccess && <h5>Added Successfully!</h5>}
-            {guildId !== "0" && (
-                <Link href={`/guild/${guildId}`}>Back to Guild</Link>
-            )}
+            <div className="flex">
+                {isAvailable && !mutation.isSuccess && (
+                    <button className="btn" onClick={addHeroToGuild}>Add Hero to your Guild!</button>
+                )}
+                {mutation.isSuccess && <h5>Added Successfully!</h5>}
+                {guildId !== "0" && (
+                    <Link href={`/guild/${guildId}`} className="btn">Back to Guild</Link>
+                )}
+            </div>
         </div>
     )
 }
