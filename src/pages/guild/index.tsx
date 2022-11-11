@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+import Head from "next/head";
 import Link from "next/link";
 import GuildPreview from "../../components/Guilds/GuildPreview";
 import { trpc } from "../../utils/trpc";
@@ -14,35 +14,38 @@ const Guild: NextPage = () => {
     }
 
     return (
-        <div>
-            <div className="user-data">
-                <h2>User Data:</h2>
-                {sessionData?.user?.name && <div>Name: {sessionData?.user?.name}</div>}
-                {sessionData?.user?.email && <div>Email: {sessionData?.user?.email}</div>}
-                {sessionData?.user?.image && <Image src={sessionData?.user?.image} alt={sessionData?.user?.name ?? ""} width={30} height={30} />}
-            </div>
+        <>
+            <Head>
+                <title>Guild Manager</title>
+                <meta name="description" content="Guild Manager - Create a guild, manage it into the ground!" />
+            </Head>
 
-            <Link href="/guild/new-guild">Create New Guild</Link>
+            <div className="my-8">
+                <Link href="/guild/new-guild" className="btn">
+                    Create New Guild
+                </Link>
 
-            <div className="user-guilds">
-                {userGuilds && (
-                    <div className="guild-list">
-                        <h1>Your Guilds:</h1>
-                        <div className="flex">
-                        {userGuilds.map((guild, i) => {
-                            return (
-                                <div className="guild p-4" key={i}>
-                                    <Link href={`/guild/${guild.id}`} onClick={() => { setSessionGuild(guild.id) }}>
-                                        <GuildPreview {...guild} />
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                <div className="user-guilds mt-8">
+                    {userGuilds && (
+                        <div className="guild-list">
+                            <h2 className="text-xl mb-4">Your Guilds:</h2>
+                            <div className="cards">
+                                {userGuilds.map((guild, i) => {
+                                    return (
+                                        <div className="card" key={i}>
+                                            <Link href={`/guild/${guild.id}`} onClick={() => { setSessionGuild(guild.id) }}>
+                                                <GuildPreview {...guild} />
+                                            </Link>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
-        </div>
+
+        </>
     )
 }
 

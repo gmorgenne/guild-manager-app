@@ -6,11 +6,11 @@ const GuildList: NextPage = () => {
     const guilds = trpc.guild.getAll.useQuery()?.data;
     return (
         <div className="guild-list">
-            <h2>All Guilds:</h2>
-            <div className="guilds-list flex p-4">
+            <h1 className="text-2xl my-8">All Guilds</h1>
+            <div className="cards">
                 {guilds && guilds.map((guild, i) => {
                     return (
-                        <div className="guild p-4" key={i}>
+                        <div className="card" key={i}>
                             <GuildPreview {...guild} />
                         </div>
                     )

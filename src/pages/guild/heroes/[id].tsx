@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import HeroPreview from "../../../components/Heroes/HeroPreview";
 import { trpc } from "../../../utils/trpc";
@@ -10,15 +11,18 @@ const HeroesPage: NextPage = () => {
 
     return (
         <div>
-            <h1>Guild Heroes</h1>
-            <div className="heroes-list flex p-4">
+            <h1 className="text-2xl my-8">Guild Heroes</h1>
+            <div className="cards">
                 {heroes && heroes.map((hero, i) => {
                     return (
-                        <div className="hero p-4" key={i}>
+                        <div className="card" key={i}>
                             <HeroPreview {...hero} />
                         </div>
                     )
                 })}
+            </div>
+            <div className="mt-8">
+                <Link href={`/guild/${id}`} className="btn">Back to guild</Link>
             </div>
         </div>
     )

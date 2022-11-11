@@ -13,12 +13,13 @@ const GuildPage: NextPage = () => {
         <div>
             {guild && (
                 <div>
-                    <h1>Guild Overview & stuff</h1>
-                    <div className="p-4">
+                    <h1 className="text-2xl my-8">Guild Overview</h1>
+                    <div className="p-4 rounded border-2 border-gray-500 max-w-prose">
                         <GuildPreview {...guild} />
-                        <Link href="/heroes/available">Add Hero</Link>
-                        <br />
-                        <Link href={`/guild/heroes/${guild.id}`}>Guild Hero Roster</Link>
+                    </div>
+                    <div className="flex">
+                        <Link href="/heroes/available" className="btn">Add Hero</Link>
+                        <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
                     </div>
                 </div>
             )}
