@@ -288,7 +288,7 @@ const getRandomInt = (min: number, max: number) => {
 const generateStats = () => {
   const arr: number[] = [];
   while(arr.length < 6) {
-    arr.push(getRandomInt(8, 21));
+    arr.push(getRandomInt(8, 19));
   }
   arr.sort((a, b) => { return b - a });
   return arr;
