@@ -36,7 +36,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
                 {isAvailable && !mutation.isSuccess && (
                     <button className="btn" onClick={addHeroToGuild}>Add Hero to your Guild!</button>
                 )}
-                {mutation.isSuccess && <h5>Added Successfully!</h5>}
+                {mutation.isSuccess && <button disabled={true} className="btn success">Added Successfully!</button>}
                 {guildId !== "0" && (
                     <Link href={`/guild/${guildId}`} className="btn">Back to Guild</Link>
                 )}
