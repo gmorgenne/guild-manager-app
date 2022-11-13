@@ -21,7 +21,7 @@ const HeroesPage: NextPage = () => {
                 {heroes?.data && heroes.data.map((hero, i) => {
                     return (
                         <div className="card" key={i}>
-                            <HeroPreview {...hero} />
+                            <HeroPreview hero={hero} link={true} />
                         </div>
                     )
                 })}

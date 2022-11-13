@@ -1,20 +1,37 @@
 import type { Hero } from "@prisma/client";
 import Link from "next/link";
 
-const HeroPreview = (props: Hero): JSX.Element => {
+export type HeroPreviewProps = {
+    hero: Hero;
+    link: boolean;
+}
+
+const Preview = (hero : Hero): JSX.Element => {
+    const tableCellClass = (stat: number) => {
+        let className = "table-cell";
+        if (stat > 17) {
+            className += " font-bold";
+        }
+        if (stat < 11) {
+            className += " text-red-400";
+        }
+        return className;
+    }
+    
     return (
-        <Link  href={`/heroes/${props.id}`}>
-            <div className="flex justify-between p-4">
+        <>
+        <div className="flex justify-between p-4 bg-white">
                 <div className="mr-4 bg-yellow-100">
-                    <div>Level: {props.level}</div>
-                    <div>Race: {props.race}</div>
-                    <div>Class: {props.class}</div>
+                    <div>Level: {hero.level}</div>
+                    <div>Race: {hero.race}</div>
+                    <div>Class: {hero.class}</div>
+                    <div>Alignment: {hero.alignment}</div>
                 </div>
                 <img src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" />
             </div>
             <div className="bg-gray-300">
             <table className="text-center mx-auto w-full border border-red-900 border-separate">
-                <caption className="text-lg my-2">{props.name}</caption>
+                <caption className="text-lg my-2">{hero.name}</caption>
                 <thead>
                     <tr>
                         <th className="table-cell">Str</th>
@@ -27,17 +44,31 @@ const HeroPreview = (props: Hero): JSX.Element => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td className="table-cell">{props.strength}</td>
-                        <td className="table-cell">{props.dexterity}</td>
-                        <td className="table-cell">{props.magic}</td>
-                        <td className="table-cell">{props.constitution}</td>
-                        <td className="table-cell">{props.defense}</td>
-                        <td className="table-cell">{props.resistance}</td>
+                        <td className={tableCellClass(hero.strength)}>{hero.strength}</td>
+                        <td className={tableCellClass(hero.dexterity)}>{hero.dexterity}</td>
+                        <td className={tableCellClass(hero.magic)}>{hero.magic}</td>
+                        <td className={tableCellClass(hero.constitution)}>{hero.constitution}</td>
+                        <td className={tableCellClass(hero.defense)}>{hero.defense}</td>
+                        <td className={tableCellClass(hero.resistance)}>{hero.resistance}</td>
                     </tr>
                 </tbody>
             </table>
             </div>
-        </Link>
+        </>
+    )
+}
+
+const HeroPreview = ({ hero, link } : HeroPreviewProps): JSX.Element => {
+    return (
+        <>
+        {link ?
+            <Link  href={`/heroes/${hero.id}`}>
+                <Preview {...hero} />
+            </Link>
+            :
+            <Preview {...hero} />
+        }
+        </>
     )
 }
 

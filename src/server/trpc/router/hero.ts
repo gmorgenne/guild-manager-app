@@ -38,23 +38,23 @@ export const heroRouter = router({
       return ctx.prisma.hero.findMany();
     }),
   getHero: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string().nullish() }).nullish())
     .query(({ input, ctx }) => {
       return ctx.prisma.hero.findFirst({
         where: {
           id: {
-            equals: input.id
+            equals: input?.id ?? ""
           }
         }
       })
     }),
   getHeroesByGuild: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string().nullish() }).nullish())
     .query(({ input, ctx }) => {
       return ctx.prisma.hero.findMany({
         where: {
           guildId: {
-            equals: input.id
+            equals: input?.id ?? "0"
           }
         }
       })
