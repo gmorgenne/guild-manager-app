@@ -104,7 +104,8 @@ const createHeroHandler = async ({ input }: { input: CreateHeroInput; ctx: Conte
         connect: {
           id: "0"
         }
-      }
+      },
+      contractExpiration: "9999-01-01T00:00:00Z"
     });
 
     return {
@@ -151,7 +152,15 @@ const removeHeroFromGuildHandler = async ({ input }: { input: string; ctx: Conte
 
 // service stuff
 const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
-  const hero = await prisma?.hero.update({
+  const hero = await prisma?.hero.findFirst({
+    where: {
+      id: input.heroId
+    }
+  });
+  const newDate = new Date();
+  const newContractLength = hero?.contractDemand ?? 20;
+  newDate.setDate(new Date().getDate() + newContractLength);
+  const updatedHero = await prisma?.hero.update({
     where: {
       id: input.heroId
     },
@@ -160,9 +169,32 @@ const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
         connect: {
           id: input.guildId
         }
+      },
+      contractExpiration: {
+        set: newDate
       }
     }
-  })
+  });
+
+  const guild = await prisma?.guild.findFirst({
+    where: {
+      id: input.guildId
+    }
+  });
+  const newPurse = (guild?.purse ?? 0) - (hero?.contractCost ?? 20);
+  const updatedGuild = await prisma?.guild.update({
+    where: {
+      id: input.guildId
+    },
+    data: {
+      purse: newPurse
+    }
+  });
+
+  return {
+    hero: updatedHero,
+    guild: updatedGuild
+  }
 }
 const CreateHero = async (input: Prisma.HeroCreateInput) => {
   if (!input.guild) {
@@ -262,7 +294,8 @@ const GenerateHero = async () => {
     defense: def ?? 8,
     movement: mov ?? 30,
     speed: spd ?? 10,
-    purse: getRandomInt(0, 100)
+    purse: getRandomInt(0, 100),
+    contractExpiration: "9999-01-01T00:00:00Z"
   };
 }
 const RemoveHeroFromGuild = async (input: string) => {
