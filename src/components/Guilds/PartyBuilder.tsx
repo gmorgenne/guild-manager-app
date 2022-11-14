@@ -9,8 +9,8 @@ const PartyBuilder = (): JSX.Element => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop();
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: id })?.data;
-    // TODO: add initialAvailableHeroes = heroes where partyID is null or 0 or whatever...
-    const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(heroes ?? []);
+    const initialAvailableHeroes = heroes?.filter((hero) => { return hero.partyId == null }) ?? [];
+    const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(initialAvailableHeroes);
     const [partyHeroes, setPartyHeroes] = useState<Hero[]>();
     const [partyName, setPartyName] = useState("Party 1");
     const party = useMemo(() => {
@@ -51,6 +51,9 @@ const PartyBuilder = (): JSX.Element => {
                 if (alignments?.length > 2) {
                     compatibility += getRelevance(alignments[0] ?? "", alignments[alignments?.length - 1] ?? "");
                 }
+                const uniqueAlignments = [...new Set(alignments)];
+                const modifier = Math.min(uniqueAlignments?.length, alignments?.length);
+                return compatibility / modifier;
             }
             return compatibility;
         }
@@ -64,7 +67,13 @@ const PartyBuilder = (): JSX.Element => {
 
     const assignPartyToQuest = () => {
         // TODO: save party to db
+        // TODO: set session data for use on quest selection page
         console.log('assign party to quest');
+    }
+    const assignPartyToTraining = () => {
+        // TODO: save party to db
+        // TODO: set parties questId to 0 (training quest)
+        console.log('assign party to training');
     }
     const addHeroToParty = (e: MouseEventHandler<HTMLButtonElement>, hero: Hero) => {
         setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
@@ -92,11 +101,14 @@ const PartyBuilder = (): JSX.Element => {
                     <p>Assign heroes to parties to take on quests! Once the party is assigned a quest that party will not be editable until they return.</p>
                     {partyHeroes && (
                         <div className="bg-yellow-100 p-4">
-                            <div className="flex justify-between items-center">
+                            <div className="lg:flex justify-between items-center">
                                 <h2 className="text-xl my-2">
                                     <input name="partyName" value={partyName} type="text" onChange={renameParty} className="h-10 px-2" />
                                 </h2>
-                                <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>
+                                <div>
+                                    <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>
+                                    <button onClick={assignPartyToTraining} className="btn">Assign Party To Training</button>
+                                </div>
                                 <span>Compatibility: <span className="font-bold">{`${(party.compatibility * 100).toFixed(2)}%`}</span></span>
                             </div>
                             <div className="cards">
