@@ -5,7 +5,7 @@ import { trpc } from "../../utils/trpc";
 
 const HeroesPage: NextPage = () => {
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0" });
-    const guildId = sessionStorage.getItem("guild");
+    const guildId = sessionStorage.getItem("guild") ?? "";
 
     return (
         <div>
