@@ -31,6 +31,21 @@ const HeroDetail = (props: Hero): JSX.Element => {
             <div>Movement: {props.movement}</div>
             <div>Speed: {props.speed}</div>
             <div>Purse: {props.purse}</div>
+            <div>Happiness: {props.happiness}</div>
+
+            {(guildId === props.guildId || isAvailable) && (
+                <div>
+                    <div>Contract Cost: {props.contractCost}</div>
+                    <div>Contract Demands: {props.contractDemand} days</div>
+                    <div>Contract Expirations: {props.contractExpiration.toLocaleDateString("en-us")}</div>
+                </div>
+            )}
+            <div>
+                <h4>Stats:</h4>
+                <div>Kills: {props.kills}</div>
+                <div>Successful Quests: {props.successfulQuests}</div>
+                <div>Total Purse Acquired: {props.purseAcquired}</div>
+            </div>
 
             <div className="flex">
                 {isAvailable && !mutation.isSuccess && (
