@@ -24,6 +24,9 @@ const Guild: NextPage = () => {
                 <Link href="/guild/new-guild" className="btn">
                     Create New Guild
                 </Link>
+                <Link href="/guild/guilds" className="btn">
+                    All Guilds
+                </Link>
 
                 <div className="user-guilds mt-8">
                     {userGuilds && (

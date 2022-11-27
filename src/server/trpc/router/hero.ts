@@ -1,8 +1,7 @@
 import { prisma } from './../../db/client';
 import type { Context } from './../context';
-import { protectedProcedure } from './../trpc';
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, protectedProcedure } from "../trpc";
 import type { Prisma } from '@prisma/client';
 
 export const heroRouter = router({
@@ -59,6 +58,17 @@ export const heroRouter = router({
         }
       })
     }),
+  getHeroesByPartyId: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.hero.findMany({
+        where: {
+          partyId: {
+            equals: input?.id
+          }
+        }
+      })
+    }),
   removeHeroFromGuild: protectedProcedure
     .input(z.string())
     .mutation(({ input, ctx }) => removeHeroFromGuildHandler({ input, ctx })),
@@ -79,7 +89,7 @@ const addHeroToGuildHandler = async ({ input }: { input: AddHeroToGuildInput, ct
   catch (err: any) {
     throw(err);
   }
-}
+};
 const createHeroHandler = async ({ input }: { input: CreateHeroInput; ctx: Context }) => {
   try {
     const hero = await CreateHero({
@@ -134,7 +144,7 @@ const generateHeroHandler = async () => {
   catch (err: any) {
     throw err;
   }
-}
+};
 const removeHeroFromGuildHandler = async ({ input }: { input: string; ctx: Context }) => {
   try {
     const hero = RemoveHeroFromGuild(input);
@@ -148,7 +158,7 @@ const removeHeroFromGuildHandler = async ({ input }: { input: string; ctx: Conte
   } catch (err: any) {
     throw err;
   }
-}
+};
 
 // service stuff
 const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
@@ -195,7 +205,7 @@ const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     hero: updatedHero,
     guild: updatedGuild
   }
-}
+};
 const CreateHero = async (input: Prisma.HeroCreateInput) => {
   if (!input.guild) {
     input.guild = {
@@ -207,7 +217,7 @@ const CreateHero = async (input: Prisma.HeroCreateInput) => {
   return (await prisma?.hero.create({
     data: input
   }));
-}
+};
 const GenerateHero = async () => {
   const sex = getRandomBool();
   const race = randomFromArray(Races, "Human");
@@ -297,7 +307,7 @@ const GenerateHero = async () => {
     purse: getRandomInt(0, 100),
     contractExpiration: "9999-01-01T00:00:00Z"
   };
-}
+};
 const RemoveHeroFromGuild = async (input: string) => {
   const hero = await prisma?.hero.update({
     where: {
@@ -308,16 +318,16 @@ const RemoveHeroFromGuild = async (input: string) => {
     }
   });
   return hero;
-}
+};
 // service privates ;) //
 const getRandomBool = () => {
   return Math.random() < 0.5;
-}
+};
 const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 const generateStats = () => {
   const arr: number[] = [];
   while(arr.length < 6) {
@@ -325,11 +335,11 @@ const generateStats = () => {
   }
   arr.sort((a, b) => { return b - a });
   return arr;
-}
+};
 const randomFromArray = (array: Array<string>, defaultValue: string) => {
   const i = getRandomInt(0, array.length - 1);
   return array[i] ?? defaultValue;
-}
+};
 const randomName = (race: string, sex: boolean) => { 
   if (sex) {
     switch (race) {
@@ -367,7 +377,7 @@ const randomName = (race: string, sex: boolean) => {
     }
   }
   return "Terry";
-}
+};
 
 
 
@@ -375,7 +385,7 @@ const randomName = (race: string, sex: boolean) => {
 export type AddHeroToGuildInput = {
   guildId: string;
   heroId: string;
-}
+};
 export type CreateHeroInput = {
   name: string;
   sex: boolean;
@@ -392,7 +402,7 @@ export type CreateHeroInput = {
   movement: number;
   speed: number;
   purse: number;
-}
+};
 const Alignments = [
   "LawfulGood",
   "LawfulMoral",

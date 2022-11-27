@@ -8,18 +8,19 @@ import { trpc } from "../../utils/trpc";
 
 const GuildPage: NextPage = () => {
     const { asPath } = useRouter();
-    const id = asPath.split('/').pop();
+    const id = asPath.split('/').pop() || "";
     const guild = trpc.guild.getGuildById.useQuery({ id: id })?.data;
-    // TODO: display active parties with activity info (quest, training, etc...)
-    // TODO: determine other info for guild screen: facilities, guild upgrades, world/city view, contract expiration warnings, 
-    // TODO: other party actions? (material gathering, studying, drinking to boost bond/morale, regular quest, league quest)
+
+    // TODO:
+    // determine other info for guild screen: facilities, guild upgrades, world/city view, contract expiration warnings, 
+    // other party actions? (material gathering, studying, drinking to boost bond/morale, regular quest, league quest)
 
     return (
         <div>
             {guild && (
                 <div>
                     <h1 className="text-2xl my-8">Guild Overview</h1>
-                    <div className="md:flex">
+                    <section className="md:flex">
                         <div className="p-4 rounded border-2 border-gray-500 max-w-1/2">
                             <GuildPreview {...guild} />
                             <span>Created Date: {guild.createdDate.toLocaleDateString("en-us")}</span>
@@ -48,12 +49,12 @@ const GuildPage: NextPage = () => {
                         <div className="md:ml-8 bg-yellow-400 text-center p-4">
                             <span>Guild Purse: {guild.purse}</span>
                         </div>
-                    </div>
-                    <div className="flex">
+                    </section>
+                    <section className="flex">
                         <Link href="/heroes/available" className="btn">Add Hero</Link>
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
-                    </div>
-                    <ActiveParties />
+                    </section>
+                    <ActiveParties guildId={id} />
                     <PartyBuilder />
                 </div>
             )}

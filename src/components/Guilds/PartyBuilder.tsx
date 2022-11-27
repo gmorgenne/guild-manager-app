@@ -64,16 +64,31 @@ const PartyBuilder = (): JSX.Element => {
             name: partyName
         }
     }, [partyHeroes, partyName]);
+    const createPartyMutation = trpc.party.createParty.useMutation({
+        onSuccess: (data) => {
+            console.log('new party: ', data);
+        }
+    })
 
     const assignPartyToQuest = () => {
-        // TODO: save party to db
-        // TODO: set session data for use on quest selection page
-        console.log('assign party to quest');
+        createPartyMutation.mutate({
+            compatibility: party.compatibility,
+            guild: id ?? "0",
+            heroIds: partyHeroes?.map(hero => hero.id) || [],
+            name: party.name
+        })
+        // TODO: 
+        // set session data for use on quest selection page
+        // redirect to quest selection page?
     }
     const assignPartyToTraining = () => {
-        // TODO: save party to db
-        // TODO: set parties questId to 0 (training quest)
-        console.log('assign party to training');
+        createPartyMutation.mutate({
+            compatibility: party.compatibility,
+            guild: id ?? "0",
+            heroIds: partyHeroes?.map(hero => hero.id) || [],
+            name: party.name,
+            quest: "0"
+        });
     }
     const addHeroToParty = (e: MouseEventHandler<HTMLButtonElement>, hero: Hero) => {
         setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
@@ -94,7 +109,7 @@ const PartyBuilder = (): JSX.Element => {
     }
 
     return (
-        <>
+        <section>
             {party && (
                 <div>
                     <h2 className="text-xl my-8">Party Builder</h2>
@@ -103,6 +118,7 @@ const PartyBuilder = (): JSX.Element => {
                         <div className="bg-yellow-100 p-4">
                             <div className="lg:flex justify-between items-center">
                                 <h2 className="text-xl my-2">
+                                    <label>Name: </label>
                                     <input name="partyName" value={partyName} type="text" onChange={renameParty} className="h-10 px-2" />
                                 </h2>
                                 <div>
@@ -139,7 +155,7 @@ const PartyBuilder = (): JSX.Element => {
                     </div>
                 </div>
             )}
-        </>
+        </section>
     )
 }
 
