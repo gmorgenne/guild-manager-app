@@ -1,17 +1,9 @@
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import GuildPreview from "../../components/Guilds/GuildPreview";
-import { trpc } from "../../utils/trpc";
+import UserGuildList from "../../components/Guilds/UserGuildList";
 
 const Guild: NextPage = () => {
-    const { data: sessionData } = useSession();
-    const userGuilds = trpc.guild.getUserGuilds.useQuery({ userId: sessionData?.user?.id })?.data;
-
-    const setSessionGuild = (guildId: string) => {
-        sessionStorage.setItem("guild", guildId);
-    }
 
     return (
         <>
@@ -28,24 +20,7 @@ const Guild: NextPage = () => {
                     All Guilds
                 </Link>
 
-                <div className="user-guilds mt-8">
-                    {userGuilds && (
-                        <div className="guild-list">
-                            <h2 className="text-xl mb-4">Your Guilds:</h2>
-                            <div className="cards">
-                                {userGuilds.map((guild, i) => {
-                                    return (
-                                        <div className="card" key={i}>
-                                            <Link href={`/guild/${guild.id}`} onClick={() => { setSessionGuild(guild.id) }}>
-                                                <GuildPreview {...guild} />
-                                            </Link>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <UserGuildList />
             </div>
 
         </>
