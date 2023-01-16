@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { trpc } from "../../utils/trpc";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import BadgeSelector from "../Badges/BadgeSelector";
 
 interface IFormValues {
     name: string;
@@ -13,6 +14,7 @@ interface IFormValues {
 const CreateGuildForm = (): JSX.Element => {
     const [primaryColor, setPrimaryColor] = useState<Color>();
     const [secondaryColor, setSecondaryColor] = useState<Color>();
+    const [selectedBadge, setSelectedBadge] = useState<number>(0);
     const { handleSubmit, register } = useForm<IFormValues>();
     const mutation = trpc.guild.createGuild.useMutation({
         onSuccess: (data) => {
@@ -30,6 +32,10 @@ const CreateGuildForm = (): JSX.Element => {
         })
     }
 
+    const selectBadge = (index: number) => {
+        setSelectedBadge(index);
+    };
+
     return (
         <form className="create-guild-form form" onSubmit={handleSubmit(createGuild)}>
             <fieldset>
@@ -43,7 +49,7 @@ const CreateGuildForm = (): JSX.Element => {
                 <div className="w-10 h-10 mb-5" style={{ backgroundColor: primaryColor?.rgba }}>
                 </div>
                 {primaryColor?.rgba}
-                <InputColor initialValue="#db011c" onChange={setPrimaryColor} />
+                <InputColor initialValue="#63de7c" onChange={setPrimaryColor} />
             </fieldset>
             <fieldset>
                 <label>Secondary Color:</label>
@@ -55,11 +61,12 @@ const CreateGuildForm = (): JSX.Element => {
             <fieldset>
                 <label>
                     Badge:
-                    <input type="number" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} />
+                    <BadgeSelector SelectedIndex={selectedBadge} PrimaryColor={primaryColor?.hex || "#fff"} SecondaryColor={secondaryColor?.hex || "#000"} selectBadge={selectBadge} />
+                    <input type="number" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} value={selectedBadge} />
                 </label>
             </fieldset>
             <fieldset>
-                <input type="submit" disabled={mutation.isLoading} value="Submit" />
+                <input type="submit" disabled={mutation.isLoading} value="Submit" className="btn" />
                 {mutation.error && <p>Something went wrong creating guild! {mutation.error.message}</p>}
             </fieldset>
             <div className={mutation.isSuccess ? "visible" : "invisible"}>
