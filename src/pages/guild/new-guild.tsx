@@ -3,10 +3,10 @@ import CreateGuildForm from "../../components/Guilds/CreateGuildForm"
 
 const NewGuild: NextPage = () => {
     return (
-        <div>
+        <section className="section">
             <h1>Create New Guild</h1>
             <CreateGuildForm />
-        </div>
+        </section>
     )
 }
 

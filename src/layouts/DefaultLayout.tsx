@@ -9,7 +9,11 @@ const DefaultLayout = ({ children }: any) => {
             <header>
                 <div className="flex justify-between items-center">
                     <Menu />
-                    <Link href="/"><h1 className="text-5xl text-center">Guild Manager</h1></Link>
+                    <Link href="/">
+                        <h2 className="text-5xl font-extrabold text-center text-gray-700">
+                            Guild <span className="text-green-400">Manager</span>
+                        </h2>
+                    </Link>
                     <UserMenu />
                 </div>
             </header>

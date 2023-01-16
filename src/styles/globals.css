@@ -19,8 +19,12 @@
     @apply relative rounded border-2 border-gray-500 shadow-xl duration-500 motion-safe:hover:scale-105;
 }
 
+.center {
+    @apply items-center justify-center text-center
+}
+
 .section {
-    @apply container mx-auto flex flex-col items-center justify-center p-4
+    @apply container mx-auto flex flex-col p-4
 }
 
 .tabs-container {
