@@ -20,7 +20,7 @@
 }
 
 .section {
-    @apply container mx-auto flex min-h-screen flex-col items-center justify-center p-4
+    @apply container mx-auto flex flex-col items-center justify-center p-4
 }
 
 .tabs-container {

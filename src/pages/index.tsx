@@ -29,7 +29,14 @@ const Home: NextPage = () => {
         </div>
       </section>
       <section className="section">
-
+        <h2>Key Features</h2>
+        <p>Here is a list of things you can do:</p>
+        <ul>
+          <li>Create Guild</li>
+          <li>Hire Heroes</li>
+          <li>Train Heroes</li>
+          <li>More to come...</li>
+        </ul>
       </section>
     </>
   );
