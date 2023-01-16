@@ -1,6 +1,7 @@
 import type { Hero } from "@prisma/client";
 import { useRouter } from "next/router";
 import type { ChangeEvent, MouseEventHandler } from "react";
+import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import HeroPreview from "../../components/Heroes/HeroPreview";
 import { trpc } from "../../utils/trpc";
@@ -9,8 +10,7 @@ const PartyBuilder = (): JSX.Element => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop();
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: id })?.data;
-    const initialAvailableHeroes = heroes?.filter((hero) => { return hero.partyId == null }) ?? [];
-    const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(initialAvailableHeroes);
+    const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(heroes ?? []);
     const [partyHeroes, setPartyHeroes] = useState<Hero[]>();
     const [partyName, setPartyName] = useState("Party 1");
     const party = useMemo(() => {
@@ -68,7 +68,15 @@ const PartyBuilder = (): JSX.Element => {
         onSuccess: (data) => {
             console.log('new party: ', data);
         }
-    })
+    });
+    
+    useEffect(() => {
+        console.log('useEffect, heroes changed');
+        if (heroes) {
+            console.log('set heroes');
+            setAvailableHeroes(heroes);
+        }
+    }, [heroes])
 
     const assignPartyToQuest = () => {
         createPartyMutation.mutate({
