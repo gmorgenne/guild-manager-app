@@ -1,11 +1,14 @@
 import type { Hero } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { trpc } from "../../utils/trpc";
 
 const HeroDetail = (props: Hero): JSX.Element => {
-    const isAvailable = props.guildId === "0";
+    const { data: sessionData } = useSession();
+    const isAuthenticated = sessionData?.user != undefined;
     const mutation = trpc.hero.addHero.useMutation();
     const guildId = sessionStorage.getItem("guild") ?? "0";
+    const isAvailable = isAuthenticated && props.guildId === "0" && guildId != "0";
 
     // TODO: add in contract info if available
 
