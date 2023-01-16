@@ -71,9 +71,7 @@ const PartyBuilder = (): JSX.Element => {
     });
     
     useEffect(() => {
-        console.log('useEffect, heroes changed');
         if (heroes) {
-            console.log('set heroes');
             setAvailableHeroes(heroes);
         }
     }, [heroes])
