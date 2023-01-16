@@ -1,7 +1,7 @@
+import { prisma } from './../../db/client';
 import type { Context } from './../context';
-import { protectedProcedure } from './../trpc';
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, protectedProcedure } from "../trpc";
 import type { Prisma } from '@prisma/client';
 
 export const guildRouter = router({
