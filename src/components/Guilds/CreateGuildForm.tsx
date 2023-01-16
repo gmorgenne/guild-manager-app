@@ -50,12 +50,12 @@ const CreateGuildForm = (): JSX.Element => {
                 <div className="w-10 h-10 mb-5" style={{ backgroundColor: secondaryColor?.rgba }}>
                 </div>
                 {secondaryColor?.rgba}
-                <InputColor initialValue="#db011c" onChange={setSecondaryColor} />
+                <InputColor initialValue="#ffffff" onChange={setSecondaryColor} />
             </fieldset>
             <fieldset>
                 <label>
                     Badge:
-                    <input type="tel" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} />
+                    <input type="number" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} />
                 </label>
             </fieldset>
             <fieldset>
