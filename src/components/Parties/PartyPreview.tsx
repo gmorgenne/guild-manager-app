@@ -1,6 +1,5 @@
 import type { Party } from "@prisma/client";
 import Link from "next/link";
-import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 import HeroPreview from "../Heroes/HeroPreview";
@@ -26,9 +25,8 @@ const PartyPreview = ({ party }: PartyPreviewProps): JSX.Element => {
     const cancelTraining = () => {
         console.log('stop training');
     }
-    const renameParty = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-        renamePartyMutation.mutate({ id: party.id, name: value });
+    const renameParty = (name: string) => {
+        renamePartyMutation.mutate({ id: party.id, name: name });
     }
 
     // TODO:
@@ -39,7 +37,7 @@ const PartyPreview = ({ party }: PartyPreviewProps): JSX.Element => {
             <div className="lg:flex justify-between items-center">
                 <h2 className="text-xl my-2">
                     <label>Name: </label>
-                    <input name="partyName" value={partyName} type="text" onChange={renameParty} className="h-10 px-2" />
+                    <input name="partyName" value={partyName} type="text" onChange={(e) => renameParty(e.target.value)} className="h-10 px-2" />
                 </h2>
                 <div>
                     {/* Party Actions, if applicable */}

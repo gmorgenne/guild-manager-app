@@ -74,7 +74,7 @@ const PartyBuilder = (): JSX.Element => {
         if (heroes) {
             setAvailableHeroes(heroes.filter((hero) => { return hero.partyId == null }));
         }
-    }, [heroes])
+    }, [heroes]);
 
     const assignPartyToQuest = () => {
         createPartyMutation.mutate({
@@ -82,11 +82,12 @@ const PartyBuilder = (): JSX.Element => {
             guild: id ?? "0",
             heroIds: partyHeroes?.map(hero => hero.id) || [],
             name: party.name
-        })
+        });
+        clearParty();
         // TODO: 
         // set session data for use on quest selection page
         // redirect to quest selection page?
-    }
+    };
     const assignPartyToTraining = () => {
         createPartyMutation.mutate({
             compatibility: party.compatibility,
@@ -95,12 +96,17 @@ const PartyBuilder = (): JSX.Element => {
             name: party.name,
             quest: "0"
         });
-    }
+        clearParty();
+    };
     const addHeroToParty = (e: MouseEventHandler<HTMLButtonElement>, hero: Hero) => {
         setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
         const heroes = availableHeroes?.filter((h) => { return hero != h });
         setAvailableHeroes(heroes ?? []);
     }
+    const clearParty = () => {
+        setPartyHeroes([]);
+        setPartyName("");
+    };
     const removeHeroFromParty = (e: MouseEventHandler<HTMLButtonElement>, hero: Hero) => {
         setAvailableHeroes(availableHeroes?.concat({ ...hero }) ?? [hero]);
         const index = partyHeroes?.indexOf(hero) ?? -1;
@@ -108,11 +114,11 @@ const PartyBuilder = (): JSX.Element => {
             const heroes = partyHeroes?.filter((h) => { return hero != h });
             setPartyHeroes(heroes);
         }
-    }
+    };
     const renameParty = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setPartyName(value);
-    }
+    };
 
     return (
         <section>
