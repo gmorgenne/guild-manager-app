@@ -72,7 +72,7 @@ const PartyBuilder = (): JSX.Element => {
     
     useEffect(() => {
         if (heroes) {
-            setAvailableHeroes(heroes);
+            setAvailableHeroes(heroes.filter((hero) => { return hero.partyId == null }));
         }
     }, [heroes])
 
