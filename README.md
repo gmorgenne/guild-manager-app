@@ -1,27 +1,28 @@
-# Create T3 App
+# Guild Manager App
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
+This app is a game where you can control a guild of heroes similar to a sports team. 
+Hire heroes, train them, send them on quests, and compete in the league of guilds.
 
-## What's next? How do I make an app with this?
+## How to get started contributing to this app
 
-We try to keep this project as simple as possible, so you can start with the most basic configuration and then move on to more advanced configuration.
+- install prerequisites:
+  - git [git for windows](https://gitforwindows.org/)
+  - nodejs (recommend using nvm for node version management) [mac/linux](https://github.com/nvm-sh/nvm) [windows](https://github.com/coreybutler/nvm-windows)
+  - yarn:
+    - npm: `npm install yarn` or globally with `npm install --global yarn`
+    - chocolatey: `choco install yarn`
+  - docker
+- clone repository and create local .env
+- build postgres docker containers `docker compose -f "docker-compose.yml" up -d --build`
+- setup prisma
+  - populate prisma dbs `yarn prisma db push`
+  - migrate `yarn prisma migrate dev`
+  - generate client `yarn prisma generate`
+- run app `yarn dev`
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Technologies Used
 
 - [Next-Auth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
 - [TailwindCSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
-
-We also [roll our own docs](https://beta.create.t3.gg) with some summary information and links to the respective documentation.
-
-Also checkout these awesome tutorials on `create-t3-app`.
-
-- [Build a Blog With the T3 Stack - tRPC, TypeScript, Next.js, Prisma & Zod](https://www.youtube.com/watch?v=syEWlxVFUrY)
-- [Build a Live Chat Application with the T3 Stack - TypeScript, Tailwind, tRPC](https://www.youtube.com/watch?v=dXRRY37MPuk)
-- [Build a full stack app with create-t3-app](https://www.nexxel.dev/blog/ct3a-guestbook)
-- [A first look at create-t3-app](https://dev.to/ajcwebdev/a-first-look-at-create-t3-app-1i8f)
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://beta.create.t3.gg/en/deployment/vercel) and [Docker](https://beta.create.t3.gg/en/deployment/docker) for more information.
