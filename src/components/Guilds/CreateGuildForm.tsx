@@ -19,6 +19,7 @@ const CreateGuildForm = (): JSX.Element => {
     const mutation = trpc.guild.createGuild.useMutation({
         onSuccess: (data) => {
             const id = data.data.guild?.id;
+            sessionStorage.setItem("guild", id);
             window.location.assign(`/guild/${id}`);
         }
     });
