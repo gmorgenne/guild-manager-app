@@ -1,0 +1,11 @@
+export { dwarfFemaleNames } from './dwarf-female-names';
+export { dwarfMaleNames } from './dwarf-male-names';
+export { elfFemaleNames } from './elf-female-names';
+export { elfMaleNames } from './elf-male-names';
+export { humanFemaleNames } from './human-female-names';
+export { humanMaleNames} from './human-male-names';
+export { minotaurFemaleNames } from './minotaur-female-names';
+export { minotaurMaleNames } from './minotaur-male-names';
+export { orcFemaleNames } from './orc-female-names';
+export { orcMaleNames } from './orc-male-names';
+export { warforgedNames } from './warforged-names';
