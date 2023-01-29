@@ -1,4 +1,5 @@
 import type { Hero } from "@prisma/client";
+import Image from "next/image";
 import Link from "next/link";
 
 export type HeroPreviewProps = {
@@ -27,7 +28,7 @@ const Preview = (hero : Hero): JSX.Element => {
                     <div>Class: {hero.class}</div>
                     <div>Alignment: {hero.alignment}</div>
                 </div>
-                <img src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" />
+                <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" />
             </div>
             <div className="bg-gray-300">
             <table className="text-center mx-auto w-full border border-red-900 border-separate">
