@@ -9,9 +9,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
     const mutation = trpc.hero.addHero.useMutation();
     const guildId = sessionStorage.getItem("guild") ?? "0";
     const isAvailable = isAuthenticated && props.guildId === "0" && guildId != "0";
-
-    // TODO: add in contract info if available
-
+    
     const addHeroToGuild = () => {
         mutation.mutate({ guildId: guildId, heroId: props.id });
     }
