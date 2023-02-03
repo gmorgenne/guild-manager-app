@@ -50,6 +50,9 @@ const GuildPage: NextPage = () => {
                             <span>Guild Purse: {guild.purse}</span>
                         </div>
                     </section>
+                    <section>
+                        Guild located in: {guild.municipality?.name}
+                    </section>
                     <section className="flex">
                         <Link href="/heroes/available" className="btn">Add Hero</Link>
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
