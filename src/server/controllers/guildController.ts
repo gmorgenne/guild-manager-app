@@ -13,6 +13,11 @@ export const createGuildHandler = async ({ input, ctx }: { input: CreateGuildInp
                 connect: {
                     id: user?.id
                 }
+            },
+            municipality: {
+                connect: {
+                    id: "0"
+                }
             }
         });
 
