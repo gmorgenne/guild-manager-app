@@ -28,7 +28,7 @@ const Preview = (hero : Hero): JSX.Element => {
                     <div>Class: {hero.class}</div>
                     <div>Alignment: {hero.alignment}</div>
                 </div>
-                <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" />
+                <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} />
             </div>
             <div className="bg-gray-300">
                 <table className="text-center mx-auto w-full border border-red-900 border-separate">
