@@ -7,7 +7,7 @@ export const createEncounter = async (input: Prisma.EncounterCreateInput) => {
         data: input
     }));
 }
-export const generateEncounter = async () => {
+export const generateEncounter = async () : Promise<Prisma.EncounterCreateInput> => {
     const enemies = getRandomInt(1, 15);
     const severity = getRandomInt(1, 6);
     const basePurseGain = getRandomInt(5, 250);
@@ -16,5 +16,5 @@ export const generateEncounter = async () => {
         experienceGain: enemies * severity * 10,
         purseGain: basePurseGain + (severity * enemies),
         severity: severity
-    }
+    };
 }
