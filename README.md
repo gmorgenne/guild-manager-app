@@ -23,6 +23,7 @@ Hire heroes, train them, send them on quests, and compete in the league of guild
 
 ## Technologies Used
 
+- [nextjs](https://nextjs.org/)
 - [Next-Auth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
 - [TailwindCSS](https://tailwindcss.com)
