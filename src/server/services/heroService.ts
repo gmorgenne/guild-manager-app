@@ -1,12 +1,7 @@
-import {
-    dwarfFemaleNames, dwarfMaleNames, elfFemaleNames, elfMaleNames,
-    humanFemaleNames, humanMaleNames, minotaurFemaleNames, minotaurMaleNames,
-    orcFemaleNames, orcMaleNames, warforgedNames
-} from '../../types/hero-names';
 import { prisma } from './../db/client';
 import type { Prisma } from '@prisma/client';
 import type { AddHeroToGuildInput } from '../../types/hero';
-import { getRandomBool, getRandomInt } from './commonService';
+import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
 import { Races } from "../../types/races";
 import { Classes } from "../../types/classes";
 import { Alignments } from '../../types/alignments';
@@ -177,46 +172,4 @@ const generateStats = () => {
     }
     arr.sort((a, b) => { return b - a });
     return arr;
-};
-const randomFromArray = (array: Array<string>, defaultValue: string) => {
-    const i = getRandomInt(0, array.length - 1);
-    return array[i] ?? defaultValue;
-};
-const randomName = (race: string, sex: boolean) => {
-    if (sex) {
-        switch (race) {
-            case "Dwarf":
-                return randomFromArray(dwarfMaleNames, "Thaliggs");
-            case "Elf":
-                return randomFromArray(elfMaleNames, "Wrancan");
-            case "Human":
-                return randomFromArray(humanMaleNames, "Siggi");
-            case "Minotaur":
-                return randomFromArray(minotaurMaleNames, "Neamin Stonefury");
-            case "Orc":
-                return randomFromArray(orcMaleNames, "zhukk The Violent");
-            case "Warforged":
-                return randomFromArray(warforgedNames, "Judge");
-            default:
-                return "Male";
-        }
-    } else {
-        switch (race) {
-            case "Dwarf":
-                return randomFromArray(dwarfFemaleNames, "Dimnora");
-            case "Elf":
-                return randomFromArray(elfFemaleNames, "Daleth");
-            case "Human":
-                return randomFromArray(humanFemaleNames, "Gitta");
-            case "Minotaur":
-                return randomFromArray(minotaurFemaleNames, "Laanmi Toughheart");
-            case "Orc":
-                return randomFromArray(orcFemaleNames, "rhing Pride Saber");
-            case "Warforged":
-                return randomFromArray(warforgedNames, "Judge");
-            default:
-                return "Female";
-        }
-    }
-    return "Terry";
 };
