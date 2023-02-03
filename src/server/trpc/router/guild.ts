@@ -19,6 +19,9 @@ export const guildRouter = router({
                 id: {
                     equals: input?.id ?? ""
                 }
+            },
+            include: {
+              municipality: true
             }
         });
     }),
