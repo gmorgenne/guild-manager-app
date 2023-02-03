@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import HeroPreview from "../../components/Heroes/HeroPreview";
 import { trpc } from "../../utils/trpc";
 
 const HeroesPage: NextPage = () => {
-    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0" });
-    const guildId = sessionStorage.getItem("guild") ?? "";
+    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0" })?.data;
+    const [guildId, setGuildId] = useState("");
+
+    useEffect(() => {
+        if (typeof window === 'undefined') 
+            return;
+        const guild = sessionStorage.getItem("guild") ?? "";
+        if (guild)
+            setGuildId(guild);
+    }, []);
 
     return (
         <div>
@@ -16,9 +25,9 @@ const HeroesPage: NextPage = () => {
                     <li className="tab active"><Link href="#">Available</Link></li>
                 </ul>
             </div>
-            {!heroes?.data && <p>Loading...</p>}
+            {!heroes && <p>Loading...</p>}
             <div className="cards">
-                {heroes?.data && heroes.data.map((hero, i) => {
+                {heroes && heroes.map((hero, i) => {
                     return (
                         <div className="card" key={i}>
                             <HeroPreview hero={hero} link={true} />

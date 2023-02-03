@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import HeroPreview from "../../components/Heroes/HeroPreview";
 import { trpc } from "../../utils/trpc";
 
 const HeroesPage: NextPage = () => {
     const { data, error, isError, isLoading } = trpc.hero.getAll.useQuery();
-    const guildId = sessionStorage.getItem("guild");
+    const [guildId, setGuildId] = useState("");
+
+    useEffect(() => {
+        if (typeof window === 'undefined') 
+            return;
+        const guild = sessionStorage.getItem("guild") ?? "";
+        if (guild)
+            setGuildId(guild);
+    }, []);
     
     if (isLoading) {
         return <div>Loading...</div>
