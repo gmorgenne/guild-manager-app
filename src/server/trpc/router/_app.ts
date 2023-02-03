@@ -4,7 +4,9 @@ import { exampleRouter } from "./example";
 import { guildRouter } from './guild';
 import { heroRouter } from './hero';
 import { partyRouter } from './party';
+import { questRouter } from "./quest";
 import { router } from "../trpc";
+
 
 export const appRouter = router({
   auth: authRouter,
@@ -12,7 +14,8 @@ export const appRouter = router({
   example: exampleRouter,
   guild: guildRouter,
   hero: heroRouter,
-  party: partyRouter
+  party: partyRouter,
+  quest: questRouter
 });
 
 // export type definition of API
