@@ -18,6 +18,10 @@ const config = {
       {
         protocol: "https",
         hostname: "cdn.discordapp.com"
+      },
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com"
       }
     ]
   }
