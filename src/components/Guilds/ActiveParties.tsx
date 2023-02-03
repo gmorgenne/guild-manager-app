@@ -21,7 +21,7 @@ const ActiveParties = ({ guildId }: ActivePartyProps): JSX.Element => {
             {parties && (
                 <div className="">
                     <h2 className="text-xl my-8">Active Party List</h2>
-                    <div className="bg-red-100 p-4">
+                    <div className="bg-red-100 p-4 rounded-3xl">
                         {activeParties.map((party, i) => {
                             return (
                                 <div key={i}>
