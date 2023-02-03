@@ -13,6 +13,7 @@ Hire heroes, train them, send them on quests, and compete in the league of guild
     - chocolatey: `choco install yarn`
   - docker
 - clone repository and create local .env
+- run `yarn install` to install dependencies
 - build postgres docker containers `docker compose -f "docker-compose.yml" up -d --build`
 - setup prisma
   - populate prisma dbs `yarn prisma db push`
