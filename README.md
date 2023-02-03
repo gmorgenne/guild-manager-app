@@ -27,3 +27,11 @@ Hire heroes, train them, send them on quests, and compete in the league of guild
 - [Prisma](https://prisma.io)
 - [TailwindCSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
+
+To Run App:
+right-click docker-compose.yml => compose up
+in terminal window => yarn dev
+
+To end:
+in terminal window => ctrl + c 
+right-click docker-compose.yml => compose down
