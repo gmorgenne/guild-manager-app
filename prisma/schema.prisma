@@ -68,22 +68,24 @@ model VerificationToken {
 }
 
 model Guild {
-  id                  String   @id @default(cuid())
+  id                  String        @id @default(cuid())
   userId              String
-  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   name                String
   primaryColor        String
   secondaryColor      String
   badge               Int
   heroes              Hero[]
   parties             Party[]
-  purse               Int      @default(500)
-  createdDate         DateTime @default(now())
-  messHallLevel       Int      @default(0)
-  workshopLevel       Int      @default(0)
-  trainingGroundLevel Int      @default(0)
-  barracksLevel       Int      @default(0)
-  infirmaryLevel      Int      @default(0)
+  purse               Int           @default(500)
+  createdDate         DateTime      @default(now())
+  messHallLevel       Int           @default(0)
+  workshopLevel       Int           @default(0)
+  trainingGroundLevel Int           @default(0)
+  barracksLevel       Int           @default(0)
+  infirmaryLevel      Int           @default(0)
+  municipalityId      String?
+  municipality        Municipality? @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
 }
 
 model Hero {
@@ -141,13 +143,18 @@ model Encounter {
 }
 
 model Quest {
-  id          String        @id @default(cuid())
-  encounters  Encounter[]
-  leagueQuest Boolean       @default(false)
-  location    String?
-  name        String
-  Party       Party[]
-  QuestResult QuestResult[]
+  id             String        @id @default(cuid())
+  encounters     Encounter[]
+  leagueQuest    Boolean       @default(false)
+  location       String?
+  name           String
+  Party          Party[]
+  QuestResult    QuestResult[]
+  giver          String
+  rewardGold     Int
+  rewardItems    String[]
+  municipalityId String
+  municipality   Municipality  @relation(fields: [municipalityId], references: [id], onDelete: Cascade)
 }
 
 model QuestResult {
@@ -160,4 +167,20 @@ model QuestResult {
   quest            Quest   @relation(fields: [questId], references: [id], onDelete: Cascade)
   partyId          String
   party            Party   @relation(fields: [partyId], references: [id], onDelete: Cascade)
+}
+
+model Municipality {
+  id        String   @id @default(cuid())
+  name      String
+  guilds    Guild[]
+  locations String[]
+  quests    Quest[]
+  regionId  String
+  region    Region   @relation(fields: [regionId], references: [id], onDelete: Cascade)
+}
+
+model Region {
+  id             String         @id @default(cuid())
+  name           String
+  municipalities Municipality[]
 }
