@@ -7,13 +7,13 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
         <>
             Quest Detail
 
-            name: [ name of quest, generated as summary of encounters? ] {quest.name}
-            giver: [ random name of municipality resident ]
-            municipality: [ base?, city, town, or village name ]
-            location: [ location of quest encounters ] {quest.location}
-            reward gold: [ gold received if quest is completed ]
-            reward items: [ items received if quest is completed ]
-            encounters: (not displayed on the page directly, but are the different challenges to complete the quest)
+            name: {/* [ name of quest, generated as summary of encounters? ] */} {quest.name}
+            giver: {/* [ random name of municipality resident ] */}
+            municipality: {/* [ base?, city, town, or village name ] */}
+            location: {/* [ location of quest encounters ] {quest.location} */}
+            reward gold: {/* [ gold received if quest is completed ] */}
+            reward items: {/* [ items received if quest is completed ] */}
+            {/* encounters: (not displayed on the page directly, but are the different challenges to complete the quest) */}
 
             turn the encounters into a quest summary?
             examples:

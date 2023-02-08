@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import QuestPreview from "../../components/Quests/QuestPreview";
 import { trpc } from "../../utils/trpc";
 
 const QuestsPage: NextPage = () => {
     const { data, error, isError, isLoading } = trpc.quest.getAll.useQuery();
-    const guildId = sessionStorage.getItem("guild");
+    const [guildId, setGuildId] = useState("");
+
+    useEffect(() => {
+        if (typeof window === 'undefined') 
+            return;
+        const guild = sessionStorage.getItem("guild") ?? "";
+        if (guild)
+            setGuildId(guild);
+    }, []);
 
     if (isLoading) {
         return <div>Loading...</div>

@@ -12,10 +12,13 @@ const Preview = (quest: Quest): JSX.Element => {
         <>
         Quest Preview
 
-        name: [ name of quest, generated as summary of encounters at location? ] {quest.name}
-        municipality: [ base?, city, town, or village name ]
-        location: [ location of quest encounters ] {quest.location}
-        reward: gold & items (items represented as icons?)
+        name: {/* [ name of quest, generated as summary of encounters at location? ] */} {quest.name}
+        <br /><br />
+        municipality: {/* [ base?, city, town, or village name ] */} {quest.municipalityId}
+        <br /><br />
+        location: {/* [ location of quest encounters ] */} {quest.location}
+        <br /><br />
+        reward: {/* gold & items (items represented as icons?) */} Gold: {quest.rewardGold}
         </>
     );
 };
