@@ -56,6 +56,7 @@ const GuildPage: NextPage = () => {
                     <section className="flex">
                         <Link href="/heroes/available" className="btn">Add Hero</Link>
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
+                        <Link href="/quests" className="btn">Available Quests</Link>
                     </section>
                     <ActiveParties guildId={id} />
                     <PartyBuilder />

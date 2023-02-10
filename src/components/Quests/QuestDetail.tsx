@@ -8,16 +8,16 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
             Quest Detail
 
             name: {/* [ name of quest, generated as summary of encounters? ] */} {quest.name}
-            giver: {/* [ random name of municipality resident ] */}
-            municipality: {/* [ base?, city, town, or village name ] */}
-            location: {/* [ location of quest encounters ] {quest.location} */}
-            reward gold: {/* [ gold received if quest is completed ] */}
+            giver: {/* [ random name of municipality resident ] */} {quest.giver}
+            municipality: {/* [ base?, city, town, or village name ] */} 
+            location: {/* [ location of quest encounters ] {quest.location} */} {quest.location}
+            reward gold: {/* [ gold received if quest is completed ] */} {quest.rewardGold}
             reward items: {/* [ items received if quest is completed ] */}
             {/* encounters: (not displayed on the page directly, but are the different challenges to complete the quest) */}
 
-            turn the encounters into a quest summary?
-            examples:
+            {/* examples: */}
             <>
+            {/* 
             Quest Name: Defeat goblins that have taken over local brewery
             Giver: Brewmanchu
             Municipality: Vordim City
@@ -29,8 +29,10 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
                 - travel to brewery
                 - defeat goblins
                 - return to giver
+            */}
             </>
             <>
+            {/*
             Quest Name: Return a stolen item
             Giver: Durwald
             Municipality: Womdra City
@@ -44,11 +46,13 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
                 - (solve puzzle/pick lock/etc...) to find the stolen item
                 - (based on party alignment or compatibility) diplomacy or fight thief on return
                 - return to giver
+            */}
             </>
 
 
             {/* template for quest: */}
             <>
+            {/* 
             Quest Name:
             Giver:
             Municipality:
@@ -57,10 +61,13 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
             Encounters: 
                 - find giver
                 - travel to [location]
-                - return to giver
-
+                - return to giver 
+            */}
             </>
 
+            {/* more notes: */}
+            <>
+            {/* 
             to determine success of quest by party, roll for each of these
             (any fail will result in quest fail):
             1. find [ giver ] in [ municipality ]
@@ -68,7 +75,9 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
             3. foreach encounter: [ attempt to complete encounter ]
             4. return to [ giver ] to claim reward
 
-            if fail, roll to return based on party skill/compatibility/level vs quest severity
+            if fail, roll to return based on party skill/compatibility/level vs quest severity 
+            */}
+            </>
         </>
     );
 }

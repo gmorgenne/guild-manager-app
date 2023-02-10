@@ -1,20 +1,21 @@
-import type { Quest } from "@prisma/client";
+import type { Municipality, Quest } from "@prisma/client";
 import Link from "next/link";
 
 export type QuestPreviewProps = {
     quest: Quest;
     link: boolean;
+    municipality: Municipality;
 }
 
-const Preview = (quest: Quest): JSX.Element => {
+const Preview = ({quest, municipality}: QuestPreviewProps): JSX.Element => {
 
     return (
         <>
         Quest Preview
-
+        <br /><br />
         name: {/* [ name of quest, generated as summary of encounters at location? ] */} {quest.name}
         <br /><br />
-        municipality: {/* [ base?, city, town, or village name ] */} {quest.municipalityId}
+        municipality: {/* [ base?, city, town, or village name ] */} {municipality.name}
         <br /><br />
         location: {/* [ location of quest encounters ] */} {quest.location}
         <br /><br />
@@ -23,15 +24,15 @@ const Preview = (quest: Quest): JSX.Element => {
     );
 };
 
-const QuestPreview = ({quest, link}: QuestPreviewProps) : JSX.Element => {
+const QuestPreview = (props: QuestPreviewProps) : JSX.Element => {
     return (
         <>
-        {link ? 
-            <Link href={`/quests/${quest.id}`}>
-                <Preview {...quest} />    
+        {props.link ? 
+            <Link href={`/quests/${props.quest.id}`}>
+                <Preview {...props} />    
             </Link>
             :
-            <Preview {...quest} />
+            <Preview {...props} />
         }
         </>
         

@@ -86,7 +86,7 @@ const PartyBuilder = (): JSX.Element => {
         clearParty();
         // TODO: 
         // set session data for use on quest selection page
-        // redirect to quest selection page?
+        window.location.assign('/quests');
     };
     const assignPartyToTraining = () => {
         createPartyMutation.mutate({

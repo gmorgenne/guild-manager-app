@@ -14,11 +14,28 @@ export const questRouter = router({
     .input(z.object({ id: z.string().nullish() }).nullish())
     .query(({ input, ctx }) => {
       return ctx.prisma.quest.findFirst({
-      where: {
-        id: {
-        equals: input?.id ?? ""
+        where: {
+          id: {
+            equals: input?.id ?? ""
+          }
+        },
+        include: {
+          municipality: true
         }
-      }
       })
     }),
+  getQuestsByMunicipality: publicProcedure
+    .input(z.object({ id: z.string().nullish() }).nullish())
+    .query(({ input, ctx }) => {
+      return ctx.prisma.quest.findMany({
+        where: {
+          municipalityId: {
+            equals: input?.id ?? "0"
+          }
+        },
+        include: {
+          municipality: true
+        }
+      })
+    })
 });
