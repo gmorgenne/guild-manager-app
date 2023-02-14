@@ -20,33 +20,32 @@ const GuildPage: NextPage = () => {
             {guild && (
                 <div>
                     <h1 className="text-2xl my-8">Guild Overview</h1>
-                    <section className="md:flex">
-                        <div className="p-4 rounded border-2 border-gray-500 max-w-1/2">
+                    <section className="md:flex gap-8 md:items-start">
+                        <div className="rounded border-2 border-gray-500 max-w-1/2">
                             <GuildPreview {...guild} />
-                            <span>Created Date: {guild.createdDate.toLocaleDateString("en-us")}</span>
                         </div>
-                        <table className="text-center md:ml-8">
-                            <caption className="text-lg my-2">Guild Facilities</caption>
-                            <thead>
-                                <tr>
-                                    <th className="table-cell">Mess Hall</th>
-                                    <th className="table-cell">Workshop</th>
-                                    <th className="table-cell">Training Ground</th>
-                                    <th className="table-cell">Barracks</th>
-                                    <th className="table-cell">Infirmary</th>
+                        <table className="text-center block md:table mt-8 md:mt-0">
+                            <caption className="text-lg block md:table-caption">Guild Facilities Levels</caption>
+                            <thead className="block md:table-header-group">
+                                <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
+                                    <th className="tbl-cell">Mess Hall</th>
+                                    <th className="tbl-cell">Workshop</th>
+                                    <th className="tbl-cell">Training Ground</th>
+                                    <th className="tbl-cell">Barracks</th>
+                                    <th className="tbl-cell">Infirmary</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="table-cell">{guild.messHallLevel}</td>
-                                    <td className="table-cell">{guild.workshopLevel}</td>
-                                    <td className="table-cell">{guild.trainingGroundLevel}</td>
-                                    <td className="table-cell">{guild.barracksLevel}</td>
-                                    <td className="table-cell">{guild.infirmaryLevel}</td>
+                            <tbody className="block md:table-row-group">
+                                <tr className="block md:table-row">
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Mess Hall</span>{guild.messHallLevel}</td>
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Workshop</span>{guild.workshopLevel}</td>
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Training Ground</span>{guild.trainingGroundLevel}</td>
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Barracks</span>{guild.barracksLevel}</td>
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Infirmary</span>{guild.infirmaryLevel}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="md:ml-8 bg-yellow-400 text-center p-4">
+                        <div className="bg-yellow-400 text-center p-4 mt-8 md:mt-0">
                             <span>Guild Purse: {guild.purse}</span>
                         </div>
                     </section>
@@ -54,7 +53,7 @@ const GuildPage: NextPage = () => {
                         Guild located in: {guild.municipality?.name}
                     </section>
                     <section className="flex">
-                        <Link href="/heroes/available" className="btn">Add Hero</Link>
+                        <Link href="/heroes/available" className="btn">Hire Hero</Link>
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
                         <Link href="/quests" className="btn">Available Quests</Link>
                     </section>
