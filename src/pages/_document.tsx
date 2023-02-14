@@ -5,7 +5,7 @@ export default class GuildManagerDocument extends Document {
         return (
             <Html lang="en">
                 <Head />
-                <body className="container mx-auto p-4">
+                <body className="mx-auto">
                     <Main />
                     <NextScript />
                 </body>
