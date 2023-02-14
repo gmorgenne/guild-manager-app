@@ -5,10 +5,14 @@ import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const questRouter = router({
   generateQuest: protectedProcedure
-    .query(() => { createQuestHandler() }),
+    .input(z.string().nullish())
+    .query(({ input }) => { createQuestHandler(input) }),
   getAll: publicProcedure
     .query(({ ctx }) => {
-      return ctx.prisma.quest.findMany({ include: { municipality: true } });
+      return ctx.prisma.quest.findMany({
+        where: { NOT: {id: { equals: "0" } }}, // exclude training quests
+        include: { municipality: true }
+      });
     }),
   getQuest: publicProcedure
     .input(z.object({ id: z.string().nullish() }).nullish())

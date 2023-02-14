@@ -1,8 +1,8 @@
 import { createQuest, generateQuest } from "../services/questService";
 
-export const createQuestHandler = async () => {
+export const createQuestHandler = async (municipalityId?: string | null) => {
     try {
-        const questInput = await generateQuest();
+        const questInput = await generateQuest(municipalityId);
         const quest = await createQuest(questInput);
 
         return {

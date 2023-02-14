@@ -10,8 +10,7 @@ export const createQuest = async (input: Prisma.QuestCreateInput) => {
     }));
 }
 
-export const generateQuest = async (): Promise<Prisma.QuestCreateInput> => {
-    // TODO: add optional input that can be used to create quests for certain municipalities
+export const generateQuest = async (municipalityId?: string | null): Promise<Prisma.QuestCreateInput> => {
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
     const giverName = randomName(race, sex);
@@ -37,7 +36,7 @@ export const generateQuest = async (): Promise<Prisma.QuestCreateInput> => {
 
     const municipality = await prisma.municipality.findUnique({
         where: {
-            id: "0" // TODO: pass optional input
+            id: municipalityId || "0"
         }
     });
     const location = municipality?.locations ? randomFromArray(municipality?.locations, "farm") : "farm";
@@ -51,7 +50,7 @@ export const generateQuest = async (): Promise<Prisma.QuestCreateInput> => {
         rewardItems: [], // TODO: determine how to decide reward items
         municipality: {
             connect: {
-                id: "0" // TODO: pass optional input
+                id: municipalityId || "0"
             }
         },
         encounters: {
