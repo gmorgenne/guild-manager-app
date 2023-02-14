@@ -1,4 +1,5 @@
 import type { Hero } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ChangeEvent, MouseEventHandler } from "react";
 import { useEffect } from "react";
@@ -86,7 +87,7 @@ const PartyBuilder = (): JSX.Element => {
         clearParty();
         // TODO: 
         // set session data for use on quest selection page
-        // redirect to quest selection page?
+        window.location.assign('/quests');
     };
     const assignPartyToTraining = () => {
         createPartyMutation.mutate({
@@ -167,6 +168,7 @@ const PartyBuilder = (): JSX.Element => {
                     </div>
                 </div>
             )}
+            {availableHeroes?.length === 0 && <Link href="/heroes/available" className="btn">Hire Hero</Link>}
         </section>
     )
 }
