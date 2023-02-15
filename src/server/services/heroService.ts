@@ -104,12 +104,12 @@ export const GenerateHero = async () => {
             def = stats[5];
             break;
         case "Monk":
-            mag = stats[0];
-            res = stats[1];
-            con = stats[2];
-            dex = stats[3];
-            str = stats[4];
-            def = stats[5];
+            dex = stats[0];
+            con = stats[1];
+            mag = stats[2];
+            res = stats[3];
+            def = stats[4];
+            str = stats[5];
             break;
     }
 
