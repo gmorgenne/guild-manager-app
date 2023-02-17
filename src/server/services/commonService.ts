@@ -15,7 +15,7 @@ export const getRandomInt = (min: number, max: number) => {
 };
 
 export const randomFromArray = (array: Array<string>, defaultValue: string) => {
-  const i = getRandomInt(0, array.length - 1);
+  const i = getRandomInt(0, array.length);
   return array[i] ?? defaultValue;
 };
 
