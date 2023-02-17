@@ -17,7 +17,7 @@ const DefaultLayout = ({ children }: any) => {
                 </div>
                 <Menu />
             </header>
-            <main className="mx-4">
+            <main className="mx-4 mb-8">
                 {children}
             </main>
         </>
