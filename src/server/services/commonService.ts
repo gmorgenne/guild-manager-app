@@ -7,7 +7,8 @@ import {
   halfelfMaleNames, halfingFemaleNames, halfingMaleNames, halforcFemaleNames, halforcMaleNames,
   leoninFemaleNames, leoninMaleNames, lizardfolkFemaleNames, lizardfolkMaleNames, owlinFemaleNames,
   owlinMaleNames, tabaxiFemaleNames, tabaxiMaleNames, tieflingFemaleNames, tieflingMaleNames,
-  tortleFemaleNames, tortleMaleNames, satyrFemaleNames, satyrMaleNames,
+  tortleFemaleNames, tortleMaleNames, satyrFemaleNames, satyrMaleNames, goliathFemaleNames,
+  goliathMaleNames, harengonFemaleNames, harengonMaleNames
 } from '../../types/hero-names';
 
 export const getRandomBool = () => {
@@ -69,6 +70,10 @@ export const randomName = (race: string, sex: boolean) => {
       return sex ? randomFromArray(tortleMaleNames, "Stud") : randomFromArray(tortleFemaleNames, "Studette");
     case "Satyr":
       return sex ? randomFromArray(satyrMaleNames, "Stud") : randomFromArray(satyrFemaleNames, "Studette");
+    case "Goliath":
+      return sex ? randomFromArray(goliathMaleNames, "Stud") : randomFromArray(goliathFemaleNames, "Studette");
+    case "Harengon":
+      return sex ? randomFromArray(harengonMaleNames, "Stud") : randomFromArray(harengonFemaleNames, "Studette");
     default:
       return "Terry";
   }

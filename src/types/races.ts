@@ -20,4 +20,6 @@ export const Races = [
     "Lizardfolk",
     "Tortle",
     "Half-Orc",
+    "Goliath",
+    "Harengon",
 ];

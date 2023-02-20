@@ -39,3 +39,7 @@ export { tortleMaleNames } from './tortle-male-names';
 export { tortleFemaleNames } from './tortle-female-names';
 export { halfelfMaleNames } from './half-elf-male-names';
 export { halfelfFemaleNames } from './half-elf-female-names';
+export { goliathFemaleNames } from './goliath-female-names';
+export { goliathMaleNames } from './goliath-male-names';
+export { harengonFemaleNames } from './harengon-female-names';
+export { harengonMaleNames } from './harengon-male-names';
