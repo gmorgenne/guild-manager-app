@@ -1,0 +1,1 @@
+export const satyrMaleNames = ["Stud,Studette"];

@@ -1,0 +1,1 @@
+export const tortleMaleNames = ["Stud,Studette"];

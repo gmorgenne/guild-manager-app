@@ -1,0 +1,1 @@
+export const halfelfMaleNames = ["Stud,Studette"];

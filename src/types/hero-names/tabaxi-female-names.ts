@@ -1,0 +1,1 @@
+export const tabaxiFemaleNames = ["Stud,Studette"];

@@ -1,0 +1,1 @@
+export const leoninFemaleNames = ["Stud,Studette"];
