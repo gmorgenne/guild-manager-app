@@ -18,7 +18,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
         <div className="hero-detail">
             <h1 className="text-2xl">Hero Info</h1>
             <div>Name: {props.name}</div>
-            <div>Sex: {props.sex}</div>
+            <div>Sex: {props.sex ? "Male" : "Female"}</div>
             <div>Race: {props.race}</div>
             <div>Class: {props.class}</div>
             <div>Alignment: {props.alignment}</div>
