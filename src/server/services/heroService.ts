@@ -111,6 +111,62 @@ export const GenerateHero = async () => {
             def = stats[4];
             str = stats[5];
             break;
+        case "Bard":
+            mag = stats[0];
+            dex = stats[1];
+            con = stats[2];
+            res = stats[3];
+            str = stats[4];
+            def = stats[5];
+            break;
+        case "Druid":
+            res = stats[0];
+            mag = stats[1];
+            con = stats[2];
+            dex = stats[3];
+            def = stats[4];
+            str = stats[5];
+            break;
+        case "Rogue":
+            dex = stats[0];
+            con = stats[1];
+            mag = stats[2];
+            def = stats[3];
+            res = stats[4];
+            str = stats[5];
+            break;
+        case "Sorcerer":
+            mag = stats[0];
+            res = stats[1];
+            dex = stats[2];
+            con = stats[3];
+            def = stats[4];
+            str = stats[5];
+            break;
+        case "Warlock":
+            res = stats[0];
+            mag = stats[1];
+            def = stats[2];
+            con = stats[3];
+            str = stats[4];
+            dex = stats[5];
+            break;
+        case "Paladin":
+            def = stats[0];
+            str = stats[1];
+            con = stats[2];
+            res = stats[3];
+            mag = stats[4];
+            dex = stats[5];
+            break;
+        case "Barbarian":
+            str = stats[0];
+            con = stats[1];
+            dex = stats[2];
+            def = stats[3];
+            res = stats[4];
+            mag = stats[5];
+            break;
     }
 
     switch (race) {

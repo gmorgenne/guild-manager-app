@@ -3,5 +3,12 @@ export const Classes = [
     "Fighter",
     "Ranger",
     "Wizard",
-    "Monk"
+    "Monk",
+    "Bard",
+    "Druid",
+    "Rogue",
+    "Sorcerer",
+    "Warlcok",
+    "Paladin",
+    "Barbarian"
 ];
