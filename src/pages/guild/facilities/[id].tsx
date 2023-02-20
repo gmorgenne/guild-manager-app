@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { trpc } from "../../../utils/trpc";
 
 const FacilitiesPage: NextPage = () => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop() ?? "";
+    const guild = trpc.guild.getGuildById.useQuery({ id: id })?.data;
 
     return (
         <div>
