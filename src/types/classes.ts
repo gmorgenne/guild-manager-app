@@ -8,7 +8,7 @@ export const Classes = [
     "Druid",
     "Rogue",
     "Sorcerer",
-    "Warlcok",
+    "Warlock",
     "Paladin",
     "Barbarian"
 ];
