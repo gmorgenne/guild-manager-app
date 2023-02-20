@@ -1,1 +1,1 @@
-export const dragonbornFemaleNames = ["Stud,Studette"];
+export const dragonbornFemaleNames = ["Stud", "Studette"];
