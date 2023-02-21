@@ -1,7 +1,12 @@
-import type { Quest } from "@prisma/client";
+import type { Encounter, Municipality, Quest } from "@prisma/client";
 
+export type QuestDetailProps = {
+    quest: Quest;
+    encounters: Encounter[];
+    municipality: Municipality
+}
 
-const QuestDetail = (quest: Quest) : JSX.Element => {
+const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : JSX.Element => {
 
     return (
         <>
@@ -11,7 +16,7 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
             <br /><br />
             giver: {/* [ random name of municipality resident ] */} {quest.giver}
             <br /><br />
-            municipality: {/* [ base?, city, town, or village name ] */} 
+            municipality: {/* [ base?, city, town, or village name ] */} {municipality.name}
             <br /><br />
             location: {/* [ location of quest encounters ] {quest.location} */} {quest.location}
             <br /><br />
@@ -20,6 +25,14 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
             reward items: {/* [ items received if quest is completed ] */}
             <br /><br />
             {/* encounters: (not displayed on the page directly, but are the different challenges to complete the quest) */}
+            {encounters && encounters.map((encounter, i) => {
+                return (
+                    <div key={i}>
+                        severity: {encounter.severity}
+                        # enemies: {encounter.enemies}
+                    </div>
+                )
+            })}
 
             {/* examples: */}
             <>

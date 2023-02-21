@@ -32,7 +32,7 @@ const QuestPage: NextPage = () => {
     return (
         <>
             <section>
-                {quest && <QuestDetail {...quest} />}
+                {quest && <QuestDetail encounters={quest.encounters} municipality={quest.municipality} quest={quest} />}
             </section>
             <section>
                 {parties && parties.map((party, i) => {

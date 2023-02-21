@@ -24,7 +24,8 @@ export const questRouter = router({
           }
         },
         include: {
-          municipality: true
+          municipality: true,
+          encounters: true
         }
       })
     }),
