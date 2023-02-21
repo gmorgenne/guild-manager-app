@@ -6,6 +6,7 @@ const Menu = (): JSX.Element => {
             <Link href="/guild">Guild</Link>
             <Link href="/heroes">Heroes</Link>
             <Link href="/quests">Quests</Link>
+            <Link href="/staff">Staff</Link>
         </div>
     )
 }
