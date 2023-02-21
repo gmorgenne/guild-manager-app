@@ -29,6 +29,7 @@ const FacilitiesPage: NextPage = () => {
                         </table>
                 </section>
              )}
+                         {/* Add Button to upgade Facility for a cost (Lvl 2 = 1000 gold?, Lvl 3 = 5000 gold?) */}
                 <section>
                     {`/guild/${id}` && (
                     <div className="mt-8">

@@ -77,6 +77,7 @@ model Guild {
   badge               Int
   heroes              Hero[]
   parties             Party[]
+  staff               Staff[]
   purse               Int           @default(500)
   createdDate         DateTime      @default(now())
   messHallLevel       Int           @default(0)
@@ -183,4 +184,19 @@ model Region {
   id             String         @id @default(cuid())
   name           String
   municipalities Municipality[]
+}
+
+model Staff {
+  id                 String   @id @default(cuid())
+  name               String
+  sex                Boolean
+  level              Int      @default(1)
+  race               String
+  jobClass           String
+  guildId            String
+  guild              Guild?   @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  contractCost       Int      @default(20)
+  contractDemand     Int      @default(20)
+  contractExpiration DateTime
+  happiness          Int      @default(100)
 }
