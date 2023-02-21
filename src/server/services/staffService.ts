@@ -19,3 +19,15 @@ export const AddStaffToGuild = async (input: AddStaffToGuildInput) => {
         staff: updatedStaff
     }
 };
+
+export const RemoveStaffFromGuild = async (input: string) => {
+    const staff = await prisma?.staff.update({
+        where: {
+            id: input
+        },
+        data: {
+            guildId: "0"
+        }
+    });
+    return staff;
+};

@@ -171,28 +171,96 @@ export const GenerateHero = async () => {
 
     switch (race) {
         case "Dwarf":
+            spd = 8;
+            mov = 25;
+            break;
+        case "Elf":
+            spd = 12;
+            mov = 35;
+            break;
+        case "Human":
             spd = 10;
             mov = 30;
             break;
-        case "Elf":
-            spd = 8;
-            mov = 25;
-            break;
-        case "Human":
-            spd = 8;
-            mov = 25;
-            break;
         case "Minotaur":
-            spd = 6;
-            mov = 20;
+            spd = 10;
+            mov = 30;
             break;
         case "Orc":
-            spd = 6;
-            mov = 20;
+            spd = 10;
+            mov = 30;
             break;
         case "Warforged":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Dragonborn":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Gnome":
             spd = 8;
             mov = 25;
+            break;
+        case "Half-Elf":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Halfing":
+            spd = 8;
+            mov = 25;
+            break;
+        case "Tiefling":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Leonin":
+            spd = 12;
+            mov = 35;
+            break;
+        case "Satyr":
+            spd = 12;
+            mov = 35;
+            break;
+        case "Owlin":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Tabaxi":
+            spd = 12;
+            mov = 35;
+            break;
+        case "Bugbear":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Centaur":
+            spd = 14;
+            mov = 40;
+            break;
+        case "Goblin":
+            spd = 8;
+            mov = 25;
+            break;
+        case "Lizardfolk":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Tortle":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Half-Orc":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Goliath":
+            spd = 10;
+            mov = 30;
+            break;
+        case "Harengon":
+            spd = 12;
+            mov = 35;
             break;
     }
 
