@@ -1,4 +1,3 @@
-import type { Party } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { trpc } from "../../utils/trpc";
 import PartyPreview from "../Parties/PartyPreview";
@@ -9,7 +8,7 @@ export interface ActivePartyProps {
 
 const ActiveParties = ({ guildId }: ActivePartyProps): JSX.Element => {
     const parties = trpc.party.getPartiesByGuildId.useQuery({ id: guildId })?.data;
-    const [activeParties, setActiveParties] = useState<Party[]>(parties ?? []);
+    const [activeParties, setActiveParties] = useState(parties ?? []);
 
     useEffect(() => {
         if (parties) {
@@ -25,7 +24,7 @@ const ActiveParties = ({ guildId }: ActivePartyProps): JSX.Element => {
                         {activeParties.map((party, i) => {
                             return (
                                 <div key={i}>
-                                    <PartyPreview party={party} />
+                                    <PartyPreview heroes={party.heroes} party={party} />
                                     <hr className="text-black" />
                                 </div>
                             )

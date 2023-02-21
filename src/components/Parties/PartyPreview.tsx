@@ -1,4 +1,4 @@
-import type { Party } from "@prisma/client";
+import type { Hero, Party } from "@prisma/client";
 import Link from "next/link";
 import { useState } from "react";
 import { trpc } from "../../utils/trpc";
@@ -6,10 +6,10 @@ import HeroPreview from "../Heroes/HeroPreview";
 import PartyQuestSummary from "./PartyQuestSummary";
 
 export interface PartyPreviewProps {
+    heroes: Hero[]
     party: Party
 }
-const PartyPreview = ({ party }: PartyPreviewProps): JSX.Element => {
-    const heroes = trpc.hero.getHeroesByPartyId.useQuery({ id: party.id })?.data;
+const PartyPreview = ({ heroes, party }: PartyPreviewProps): JSX.Element => {
     const [partyName, setPartyName] = useState(party.name);
     const renamePartyMutation = trpc.party.renameParty.useMutation({
         onSuccess: (data) => {
@@ -21,6 +21,7 @@ const PartyPreview = ({ party }: PartyPreviewProps): JSX.Element => {
 
     const assignPartyToQuest = () => {
         console.log('assign party to quest');
+        window.location.assign('/quests');
     }
     const cancelTraining = () => {
         console.log('stop training');
