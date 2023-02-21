@@ -1,8 +1,14 @@
-import { createPartyHandler, renamePartyHandler } from "../../controllers/partyController";
+import { assignPartyToQuestHandler, createPartyHandler, renamePartyHandler } from "../../controllers/partyController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
 export const partyRouter = router({
+    assignPartyToQuest: protectedProcedure
+        .input(z.object({
+            partyId: z.string(),
+            questId: z.string()
+        }))
+        .mutation(({ input, ctx }) => assignPartyToQuestHandler({ input, ctx })),
     createParty: protectedProcedure
         .input(z.object({
             compatibility: z.number(),
@@ -12,6 +18,23 @@ export const partyRouter = router({
             quest: z.string().nullable().optional()
         }))
         .mutation(({ input, ctx }) => createPartyHandler({ input, ctx })),
+    getAvailablePartiesByGuildId: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .query(({ input, ctx }) => {
+            return ctx.prisma.party.findMany({
+                where: {
+                    guildId: {
+                        equals: input?.id
+                    },
+                    questId: {
+                        equals: null
+                    }
+                },
+                include: {
+                    heroes: true
+                }
+            })
+        }),
     getPartiesByGuildId: protectedProcedure
         .input(z.object({ id: z.string() }))
         .query(({ input, ctx }) => {
@@ -20,6 +43,9 @@ export const partyRouter = router({
                     guildId: {
                         equals: input?.id
                     }
+                },
+                include: {
+                    heroes: true
                 }
             })
         }),

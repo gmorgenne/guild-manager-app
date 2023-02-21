@@ -1,6 +1,6 @@
 import { prisma } from './../db/client';
 import type { Prisma } from '@prisma/client';
-import type { AddHeroToPartyInput, RenamePartyInput } from '../../types/party';
+import type { AddHeroToPartyInput, AssignPartyToQuestInput, RenamePartyInput } from '../../types/party';
 
 export const AddHeroToParty = async (input: AddHeroToPartyInput) => {
     const updatedHero = await prisma?.hero.update({
@@ -18,6 +18,24 @@ export const AddHeroToParty = async (input: AddHeroToPartyInput) => {
 
     return {
         hero: updatedHero
+    }
+};
+export const AssignPartyToQuest = async (input: AssignPartyToQuestInput) => {
+    const updatedParty = await prisma?.party.update({
+        where: {
+            id: input.partyId
+        },
+        data: {
+            quest: {
+                connect: {
+                    id: input.questId
+                }
+            }
+        }
+    });
+
+    return {
+        party: updatedParty
     }
 };
 export const CreateParty = async (input: Prisma.PartyCreateInput) => {
