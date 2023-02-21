@@ -6,7 +6,7 @@ import { trpc } from "../../utils/trpc";
 const StaffPage: NextPage = () => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop() ?? "";
-    const staff = trpc.staff.getHero.useQuery({ id: id })?.data;
+    const staff = trpc.staff.getStaff.useQuery({ id: id })?.data;
     return (
         <div>
             {staff && (
