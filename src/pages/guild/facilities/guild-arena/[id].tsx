@@ -29,7 +29,10 @@ const FacilitiesPage: NextPage = () => {
                         </table>
                 </section>
              )}
-                         {/* Add Button to upgade Facility for a cost (Lvl 2 = 1000 gold?, Lvl 3 = 5000 gold?) */}
+                        {/* Add Button to upgade Facility for a cost (Lvl 2 = 1000 gold?, Lvl 3 = 5000 gold?) */}
+                        <section className="flex">
+                            <Link href={`/guild/staff/${id}`} className="btn">Guild Staff</Link>
+                        </section>
                 <section>
                     {`/guild/${id}` && (
                     <div className="mt-8">

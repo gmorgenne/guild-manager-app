@@ -43,13 +43,16 @@ const FacilitiesPage: NextPage = () => {
                         <Link href={`/guild/facilities/infirmary/${id}`} className="btn">Infirmary</Link>
                         <Link href={`/guild/facilities/guild-arena/${id}`} className="btn">Guild Arena</Link>
             </section>
-                <section>
-                    {`/guild/${id}` && (
-                    <div className="mt-8">
-                        <Link href={`/guild/${id}`} className="btn">Back to guild</Link>
-                    </div>
-                    )}
+                <section className="flex">
+                    <Link href={`/guild/staff/${id}`} className="btn">Guild Staff</Link>
                 </section>
+                    <section>
+                        {`/guild/${id}` && (
+                        <div className="mt-8">
+                            <Link href={`/guild/${id}`} className="btn">Back to guild</Link>
+                        </div>
+                        )}
+                    </section>
         </div>
     )
 }
