@@ -6,13 +6,19 @@ const QuestDetail = (quest: Quest) : JSX.Element => {
     return (
         <>
             Quest Detail
-
+            <br /><br />
             name: {/* [ name of quest, generated as summary of encounters? ] */} {quest.name}
+            <br /><br />
             giver: {/* [ random name of municipality resident ] */} {quest.giver}
+            <br /><br />
             municipality: {/* [ base?, city, town, or village name ] */} 
+            <br /><br />
             location: {/* [ location of quest encounters ] {quest.location} */} {quest.location}
+            <br /><br />
             reward gold: {/* [ gold received if quest is completed ] */} {quest.rewardGold}
+            <br /><br />
             reward items: {/* [ items received if quest is completed ] */}
+            <br /><br />
             {/* encounters: (not displayed on the page directly, but are the different challenges to complete the quest) */}
 
             {/* examples: */}
