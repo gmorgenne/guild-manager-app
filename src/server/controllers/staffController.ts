@@ -26,6 +26,7 @@ export const createStaffHandler = async ({ input }: { input: CreateStaffInput; c
             experience: 0,
             race: input.race,
             jobClass: input.jobClass,
+            jobSpec: input.jobSpec,
             guild: {
                 connect: {
                     id: "0"
@@ -63,12 +64,12 @@ export const generateStaffHandler = async () => {
 };
 export const removeStaffFromGuildHandler = async ({ input }: { input: string; ctx: Context }) => {
     try {
-        const hero = RemoveStaffFromGuild(input);
+        const staff = RemoveStaffFromGuild(input);
 
         return {
             status: 'success',
             data: {
-                hero
+                staff
             }
         }
     } catch (err: any) {
