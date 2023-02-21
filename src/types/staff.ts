@@ -8,4 +8,5 @@ export type CreateStaffInput = {
     sex: boolean;
     race: string;
     jobClass: string;
+    jobSpec: string;
 };
