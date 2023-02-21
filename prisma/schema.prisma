@@ -193,6 +193,7 @@ model Staff {
   level              Int      @default(1)
   race               String
   jobClass           String
+  jobSpec            String
   guildId            String
   guild              Guild?   @relation(fields: [guildId], references: [id], onDelete: Cascade)
   contractCost       Int      @default(20)
