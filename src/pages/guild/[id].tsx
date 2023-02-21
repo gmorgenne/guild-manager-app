@@ -58,6 +58,7 @@ const GuildPage: NextPage = () => {
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
                         <Link href="/quests" className="btn">Available Quests</Link>
                         <Link href={`/guild/facilities/${guild.id}`} className="btn">Guild Facilities</Link>
+                        <Link href={`/guild/staff/${guild.id}`} className="btn">Guild Staff</Link>
                     </section>
                     <ActiveParties guildId={id} />
                     <PartyBuilder />
