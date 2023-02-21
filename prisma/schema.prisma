@@ -191,6 +191,7 @@ model Staff {
   name               String
   sex                Boolean
   level              Int      @default(1)
+  experience         Int      @default(0)
   race               String
   jobClass           String
   jobSpec            String
