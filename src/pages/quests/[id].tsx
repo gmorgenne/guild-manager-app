@@ -18,6 +18,7 @@ const QuestPage: NextPage = () => {
             questId: id,
             partyId: partyId
         });
+        window.location.assign(`/guild/${guildId}`);
     };
 
     useEffect(() => {
