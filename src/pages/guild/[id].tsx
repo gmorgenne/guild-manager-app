@@ -46,7 +46,7 @@ const GuildPage: NextPage = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="bg-yellow-400 text-center p-4 mt-8 md:mt-0">
+                        <div className="bg-yellow-400 text-center p-4 mt-8 md:mt-0 rounded">
                             <span>Guild Purse: {guild.purse}</span>
                         </div>
                     </section>
