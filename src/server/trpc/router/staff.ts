@@ -19,8 +19,8 @@ export const staffRouter = router({
           guild: z.string()
         }))
         .mutation(({ input, ctx }) => createStaffHandler({ input, ctx })),
-        generateStaff: protectedProcedure
-        .query(() => { generateStaffHandler() }),
+    generateStaff: protectedProcedure
+        .query(() => { generateStaffHandler().then((data) => { return data.data.staff }) }),
     getAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.staff.findMany();
     }),

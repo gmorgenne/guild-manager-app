@@ -64,7 +64,6 @@ export const CreateStaff = async (input: Prisma.StaffCreateInput) => {
         data: input
     }));
 };
-
 export const GenerateStaff = async () => {
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
