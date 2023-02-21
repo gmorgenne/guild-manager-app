@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
 import { Races } from "../../types/races";
 import { createEncounterHandler } from '../controllers/encounterController';
+import { randomInt } from 'crypto';
 
 export const createQuest = async (input: Prisma.QuestCreateInput) => {
     return (await prisma?.quest.create({
@@ -14,6 +15,7 @@ export const generateQuest = async (municipalityId?: string | null): Promise<Pri
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
     const giverName = randomName(race, sex);
+    municipalityId = municipalityId || randomInt(0, 3).toString();
     let purseGain = 0;
 
     const encounterIds: string[] = [];
