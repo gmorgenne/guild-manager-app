@@ -1,5 +1,5 @@
-import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler, removeHeroFromGuildHandler } from "../../controllers/heroController";
 import { z } from "zod";
+import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler, removeHeroFromGuildHandler } from "../../controllers/heroController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const heroRouter = router({

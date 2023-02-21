@@ -15,7 +15,8 @@ const Preview = (staff : Staff): JSX.Element => {
                 <div className="mr-4 bg-yellow-100">
                     <div>Level: {staff.level}</div>
                     <div>Race: {staff.race}</div>
-                    <div>JobClass: {staff.jobClass}</div>
+                    <div>Job Class: {staff.jobClass}</div>
+                    <div>Job Speciality: {staff.jobSpec}</div>
                 </div>
                 <Image src="https://via.placeholder.com/100?text=Staff" alt="staff preview thumbnail" height={120} width={100} />
             </div>

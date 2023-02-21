@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { addStaffToGuildHandler } from "../../controllers/staffController";
+import { addStaffToGuildHandler, createStaffHandler, generateStaffHandler, removeStaffFromGuildHandler } from "../../controllers/staffController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const staffRouter = router({
@@ -9,6 +9,18 @@ export const staffRouter = router({
             staffId: z.string()
         }))
         .mutation(({ input, ctx }) => addStaffToGuildHandler({ input, ctx })),
+    createStaff: protectedProcedure
+        .input(z.object({
+          name: z.string(),
+          sex: z.boolean(),
+          race: z.string(),
+          jobClass: z.string(),
+          jobSpec: z.string(),
+          guild: z.string()
+        }))
+        .mutation(({ input, ctx }) => createStaffHandler({ input, ctx })),
+        generateStaff: protectedProcedure
+        .query(() => { generateStaffHandler() }),
     getAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.staff.findMany();
     }),
@@ -33,5 +45,8 @@ export const staffRouter = router({
                     }
                 }
             })
-        })
+        }),
+    removeStaffFromGuild: protectedProcedure
+        .input(z.string())
+        .mutation(({ input, ctx }) => removeStaffFromGuildHandler({ input, ctx })),
 });
