@@ -20,8 +20,8 @@ export const Alignments = [
     "RebelImpure",
     "RebelEvil",
     "ChaoticGood",
-    "ChoaticMoral",
-    "ChoaticNeutral",
-    "ChoaticImpure",
-    "ChoaticEvil"
+    "ChaoticMoral",
+    "ChaoticNeutral",
+    "ChaoticImpure",
+    "ChaoticEvil"
 ];
