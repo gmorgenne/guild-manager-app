@@ -28,15 +28,15 @@ const GuildPage: NextPage = () => {
                             <div>League: m.1/r.1/g.1</div>
                             <div>Guild Purse: <span className="bg-yellow-400">{guild.purse}</span></div>
                             <div>Guild located in: {guild.municipality?.name}</div>
-                            <div className="flex gap-8 mb-8">
+                            <div className="flex gap-4 my-4">
                                 <Link href="/heroes/available" className="btn--full">Hire Hero</Link>
                                 <Link href={`/guild/heroes/${guild.id}`} className="btn--full">Guild Hero Roster</Link>
                             </div>
-                            <div className="flex gap-8 mb-8">
+                            <div className="flex gap-4 mb-4">
                                 <Link href="/quests" className="btn--full">Available Quests</Link>
                                 <Link href={`/guild/facilities/${guild.id}`} className="btn--full">Guild Facilities</Link>
                             </div>
-                            <div className="flex gap-8 mb-8">
+                            <div className="flex gap-4 mb-4">
                                 <Link href={`/guild/staff/${guild.id}`} className="btn--full">Guild Staff</Link>
                             </div>
                         </div>
