@@ -3,7 +3,7 @@ import GuildBadge from "../Badges/GuildBadge";
 
 const GuildPreview = (guild: Guild): JSX.Element => {
     return (
-        <div className="guild-preview max-w-xs p-4 bg-gray-400 rounded-3xl">
+        <div className="guild-preview p-4 bg-gray-400 rounded-3xl">
             <div className="mx-auto w-20 h-20">
                 <GuildBadge PrimaryColor={guild.primaryColor} SecondaryColor={guild.secondaryColor} Index={guild.badge} />
             </div>

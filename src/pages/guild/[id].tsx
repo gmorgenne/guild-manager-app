@@ -16,55 +16,59 @@ const GuildPage: NextPage = () => {
     // other party actions? (material gathering, studying, drinking to boost bond/morale, regular quest, league quest)
 
     return (
-        <div>
+        <section>
             {guild && (
-                <div>
-                    <h1 className="text-2xl my-8">Guild Overview</h1>
-                    <section className="md:flex gap-8 md:items-start">
-                        <div className="rounded border-2 border-gray-500 max-w-1/2">
+                <section className="flex flex-col gap-8">
+                    <h1 className="text-2xl mt-8">Guild Overview</h1>
+                    <section className="flex flex-col md:flex-row gap-8 md:items-start justify-between">
+                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-400">
                             <GuildPreview {...guild} />
                         </div>
-                        <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Guild Facilities Levels</caption>
-                            <thead className="block md:table-header-group">
-                                <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                    <th className="tbl-cell">Guild Hall</th>
-                                    <th className="tbl-cell">Training Grounds</th>
-                                    <th className="tbl-cell">Infirmary</th>
-                                    <th className="tbl-cell">Guild Arena</th>
-                                    <th className="tbl-cell">Workshop</th>
-
-                                </tr>
-                            </thead>
-                            <tbody className="block md:table-row-group">
-                                <tr className="block md:table-row">
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Hall</span>{guild.messHallLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Training Grounds</span>{guild.trainingGroundLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Infirmary</span>{guild.infirmaryLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Arena</span>{guild.barracksLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Workshop</span>{guild.workshopLevel}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div className="bg-yellow-300 text-center p-4 mt-8 md:mt-0 rounded">
-                            <span>Guild Purse: {guild.purse}</span>
+                        <div className="text-center rounded-3xl border-2 border-gray-500 bg-gray-400 p-4 min-w-[50%]">
+                            <div>League: m.1/r.1/g.1</div>
+                            <div>Guild Purse: <span className="bg-yellow-400">{guild.purse}</span></div>
+                            <div>Guild located in: {guild.municipality?.name}</div>
+                            <div className="flex gap-8 mb-8">
+                                <Link href="/heroes/available" className="btn--full">Hire Hero</Link>
+                                <Link href={`/guild/heroes/${guild.id}`} className="btn--full">Guild Hero Roster</Link>
+                            </div>
+                            <div className="flex gap-8 mb-8">
+                                <Link href="/quests" className="btn--full">Available Quests</Link>
+                                <Link href={`/guild/facilities/${guild.id}`} className="btn--full">Guild Facilities</Link>
+                            </div>
+                            <div className="flex gap-8 mb-8">
+                                <Link href={`/guild/staff/${guild.id}`} className="btn--full">Guild Staff</Link>
+                            </div>
                         </div>
-                    </section>
-                    <section>
-                        Guild located in: {guild.municipality?.name}
-                    </section>
-                    <section className="flex bg-gray-400 rounded">
-                        <Link href="/heroes/available" className="btn">Hire Hero</Link>
-                        <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
-                        <Link href="/quests" className="btn">Available Quests</Link>
-                        <Link href={`/guild/facilities/${guild.id}`} className="btn">Guild Facilities</Link>
-                        <Link href={`/guild/staff/${guild.id}`} className="btn">Guild Staff</Link>
+                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-400 p-4">
+                            <h4 className="text-lg font-bold my-2 md:mt-0">Guild Facilities Levels</h4>
+                            <div className="flex justify-between">
+                                <span>Guild Hall:</span>
+                                <span>{guild.messHallLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Training Grounds:</span>
+                                <span>{guild.trainingGroundLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Infirmary:</span>
+                                <span>{guild.infirmaryLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Guild Arena:</span>
+                                <span>{guild.barracksLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Workshop:</span>
+                                <span>{guild.workshopLevel}</span>
+                            </div>
+                        </div>
                     </section>
                     <ActiveParties guildId={id} />
                     <PartyBuilder />
-                </div>
+                </section>
             )}
-        </div>
+        </section>
     )
 }
 
