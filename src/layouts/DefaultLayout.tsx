@@ -7,10 +7,10 @@ const DefaultLayout = ({ children }: any) => {
     return (
         <>
             <header>
-                <div className="flex justify-between items-center mx-4">
+                <div className="flex justify-between items-center mx-4 bg-gray-400">
                     <Link href="/">
-                        <h2 className="text-3xl sm:text-5xl font-extrabold text-center text-gray-700">
-                            Guild <span className="text-green-400">Manager</span>
+                        <h2 className="text-3xl sm:text-5xl font-extrabold text-center text-gray-700 bg-gray-400">
+                            Guild <span className="text-indigo-500 bg-gray-400">Manager</span>
                         </h2>
                     </Link>
                     <UserMenu />
