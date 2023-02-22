@@ -128,7 +128,7 @@ const PartyBuilder = (): JSX.Element => {
                     <h2 className="text-xl my-8">Party Builder</h2>
                     <p>Assign heroes to parties to take on quests! Once the party is assigned a quest that party will not be editable until they return.</p>
                     {partyHeroes && (
-                        <div className="bg-yellow-100 p-4">
+                        <div className="bg-gray-400 p-4 rounded-3xl">
                             <div className="lg:flex justify-between items-center">
                                 <h2 className="text-xl my-2">
                                     <label>Name: </label>

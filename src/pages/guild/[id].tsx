@@ -46,14 +46,14 @@ const GuildPage: NextPage = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="bg-yellow-400 text-center p-4 mt-8 md:mt-0 rounded">
+                        <div className="bg-yellow-300 text-center p-4 mt-8 md:mt-0 rounded">
                             <span>Guild Purse: {guild.purse}</span>
                         </div>
                     </section>
                     <section>
                         Guild located in: {guild.municipality?.name}
                     </section>
-                    <section className="flex">
+                    <section className="flex bg-gray-400 rounded">
                         <Link href="/heroes/available" className="btn">Hire Hero</Link>
                         <Link href={`/guild/heroes/${guild.id}`} className="btn">Guild Hero Roster</Link>
                         <Link href="/quests" className="btn">Available Quests</Link>
