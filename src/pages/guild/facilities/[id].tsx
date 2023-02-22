@@ -11,41 +11,45 @@ const FacilitiesPage: NextPage = () => {
     return (
         <div>
             {guild && (
-                <section>
-                   <h1 className="text-2xl my-8">Guild Facilities</h1>
-                       <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Guild Facilities Levels</caption>
-                            <thead className="block md:table-header-group">
-                                <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                <th className="tbl-cell">Guild Hall</th>
-                                    <th className="tbl-cell">Training Grounds</th>
-                                    <th className="tbl-cell">Infirmary</th>
-                                    <th className="tbl-cell">Guild Arena</th>
-                                    <th className="tbl-cell">Workshop</th>
-
-                                </tr>
-                            </thead>
-                            <tbody className="block md:table-row-group">
-                                <tr className="block md:table-row">
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Hall</span>{guild.messHallLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Training Grounds</span>{guild.trainingGroundLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Infirmary</span>{guild.infirmaryLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Arena</span>{guild.barracksLevel}</td>
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Workshop</span>{guild.workshopLevel}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <section className="flex flex-col md:flex-row gap-8 md:items-start justify-between">
+                            <div className="text-center rounded-3xl border-2 border-gray-500 bg-gray-300 p-4 min-w-[50%]">
+                                <div className="flex gap-4 my-4">
+                                    <Link href={`/guild/facilities/guild-hall/${id}`} className="btn--full">Guild Hall</Link>
+                                    <Link href={`/guild/facilities/training-grounds/${id}`} className="btn--full">Training Grounds</Link>
+                                </div>
+                                <div className="flex gap-4 mb-4">
+                                <Link href={`/guild/facilities/infirmary/${id}`} className="btn--full">Infirmary</Link>
+                                <Link href={`/guild/facilities/guild-arena/${id}`} className="btn--full">Guild Arena</Link>
+                                </div>
+                                <div className="flex gap-4 mb-4">
+                                    <Link href={`/guild/staff/${guild.id}`} className="btn--full">Guild Staff</Link>
+                                </div>
+                            </div>
+                            <div className="rounded-3xl border-2 border-gray-500 bg-gray-300 p-4">
+                            <h4 className="text-lg font-bold my-2 md:mt-0">Guild Facilities Levels</h4>
+                            <div className="flex justify-between">
+                                <span>Guild Hall:</span>
+                                <span>{guild.messHallLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Training Grounds:</span>
+                                <span>{guild.trainingGroundLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Infirmary:</span>
+                                <span>{guild.infirmaryLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Guild Arena:</span>
+                                <span>{guild.barracksLevel}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Workshop:</span>
+                                <span>{guild.workshopLevel}</span>
+                            </div>
+                        </div>
                 </section>
              )}
-            <section className="flex">
-                        <Link href={`/guild/facilities/guild-hall/${id}`} className="btn">Guild Hall</Link>
-                        <Link href={`/guild/facilities/training-grounds/${id}`} className="btn">Training Grounds</Link>
-                        <Link href={`/guild/facilities/infirmary/${id}`} className="btn">Infirmary</Link>
-                        <Link href={`/guild/facilities/guild-arena/${id}`} className="btn">Guild Arena</Link>
-            </section>
-                <section className="flex">
-                    <Link href={`/guild/staff/${id}`} className="btn">Guild Staff</Link>
-                </section>
                     <section>
                         {`/guild/${id}` && (
                         <div className="mt-8">
