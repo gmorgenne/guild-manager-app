@@ -80,10 +80,10 @@ model Guild {
   staff               Staff[]
   purse               Int           @default(500)
   createdDate         DateTime      @default(now())
-  messHallLevel       Int           @default(0)
+  guildHallLevel      Int           @default(0)
   workshopLevel       Int           @default(0)
   trainingGroundLevel Int           @default(0)
-  barracksLevel       Int           @default(0)
+  guildArenaLevel     Int           @default(0)
   infirmaryLevel      Int           @default(0)
   municipalityId      String?
   municipality        Municipality? @relation(fields: [municipalityId], references: [id], onDelete: Cascade)

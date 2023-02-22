@@ -22,7 +22,7 @@ const FacilitiesPage: NextPage = () => {
                             </thead>
                             <tbody className="block md:table-row-group">
                                 <tr className="block md:table-row">
-                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Arena</span>{guild.barracksLevel}</td>
+                                    <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Arena</span>{guild.guildArenaLevel}</td>
 
                                 </tr>
                             </tbody>

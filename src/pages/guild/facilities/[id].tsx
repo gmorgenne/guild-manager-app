@@ -29,7 +29,7 @@ const FacilitiesPage: NextPage = () => {
                             <h4 className="text-lg font-bold my-2 md:mt-0">Guild Facilities Levels</h4>
                             <div className="flex justify-between">
                                 <span>Guild Hall:</span>
-                                <span>{guild.messHallLevel}</span>
+                                <span>{guild.guildHallLevel}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span>Training Grounds:</span>
@@ -41,7 +41,7 @@ const FacilitiesPage: NextPage = () => {
                             </div>
                             <div className="flex justify-between">
                                 <span>Guild Arena:</span>
-                                <span>{guild.barracksLevel}</span>
+                                <span>{guild.guildArenaLevel}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span>Workshop:</span>
