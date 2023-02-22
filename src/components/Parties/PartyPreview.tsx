@@ -17,15 +17,13 @@ const PartyPreview = ({ heroes, party }: PartyPreviewProps): JSX.Element => {
         }
     });
     const activeQuest = party.questId ? party.questId !== "0" : false;
-    const cancelTrainingAvailable = party.questId ? party.questId === "0" : false;
+    const assignQuestAvailable = party.questId ? party.questId != "0" : false;
 
     const assignPartyToQuest = () => {
         console.log('assign party to quest');
         window.location.assign('/quests');
     }
-    const cancelTraining = () => {
-        console.log('stop training');
-    }
+    
     const renameParty = (name: string) => {
         renamePartyMutation.mutate({ id: party.id, name: name });
     }
@@ -43,8 +41,7 @@ const PartyPreview = ({ heroes, party }: PartyPreviewProps): JSX.Element => {
                 <div>
                     {/* Party Actions, if applicable */}
                     {activeQuest && <Link href="#">Quest Status</Link>}
-                    {(!activeQuest && !cancelTrainingAvailable) && <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>}
-                    {cancelTrainingAvailable && <button onClick={cancelTraining} className="btn">Cancel Training</button>}
+                    {(!activeQuest && assignQuestAvailable) && <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>}
                 </div>
                 <span>Compatibility: <span className="font-bold">{`${(party.compatibility * 100).toFixed(2)}%`}</span></span>
             </div>
