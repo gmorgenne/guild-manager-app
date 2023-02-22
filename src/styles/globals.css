@@ -40,13 +40,13 @@
     @apply flex flex-wrap -mb-px;
 }
 .tab {
-    @apply mr-2;
+    @apply mr-2  bg-indigo-100 hover:bg-indigo-300 text-indigo-500 rounded-t-lg;
 }
 .tabs .tab a {
-    @apply inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300;
+    @apply inline-block p-4 rounded-t-lg border-b-2 dark:border-indigo-300 hover:text-indigo-500 hover:border-indigo-400 dark:hover:text-indigo-700;
 }
 .tabs .tab.active a {
-    @apply text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500;
+    @apply text-indigo-900 bg-indigo-200 dark:text-indigo-600 dark:border-indigo-200 font-bold;
 }
 
 .tbl-cell {
