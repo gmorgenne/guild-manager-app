@@ -21,10 +21,10 @@ const GuildPage: NextPage = () => {
                 <section className="flex flex-col gap-8">
                     <h1 className="text-2xl mt-8">Guild Overview</h1>
                     <section className="flex flex-col md:flex-row gap-8 md:items-start justify-between">
-                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-400">
+                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-300">
                             <GuildPreview {...guild} />
                         </div>
-                        <div className="text-center rounded-3xl border-2 border-gray-500 bg-gray-400 p-4 min-w-[50%]">
+                        <div className="text-center rounded-3xl border-2 border-gray-500 bg-gray-300 p-4 min-w-[50%]">
                             <div>League: m.1/r.1/g.1</div>
                             <div>Guild Purse: <span className="bg-yellow-400">{guild.purse}</span></div>
                             <div>Guild located in: {guild.municipality?.name}</div>
@@ -40,7 +40,7 @@ const GuildPage: NextPage = () => {
                                 <Link href={`/guild/staff/${guild.id}`} className="btn--full">Guild Staff</Link>
                             </div>
                         </div>
-                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-400 p-4">
+                        <div className="rounded-3xl border-2 border-gray-500 bg-gray-300 p-4">
                             <h4 className="text-lg font-bold my-2 md:mt-0">Guild Facilities Levels</h4>
                             <div className="flex justify-between">
                                 <span>Guild Hall:</span>
