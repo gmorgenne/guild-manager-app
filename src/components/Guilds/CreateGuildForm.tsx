@@ -38,7 +38,7 @@ const CreateGuildForm = (): JSX.Element => {
     };
 
     return (
-        <form className="create-guild-form flex flex-wrap form gap-4" onSubmit={handleSubmit(createGuild)}>
+        <form className="create-guild-form flex flex-wrap flex-col form gap-4" onSubmit={handleSubmit(createGuild)}>
             <fieldset>
                 <label>
                     <div className="font-bold">Name:</div>
