@@ -62,5 +62,5 @@
 }
 
 .badge.selected {
-    @apply border-black
+    @apply border border-black;
 }
