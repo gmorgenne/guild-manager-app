@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <section className="section center">
         <h1 className="text-5xl font-extrabold leading-normal text-gray-700 md:text-[5rem]">
-          Guild <span className="text-green-400">Manager</span>
+          Guild <span className="text-indigo-500">Manager</span>
         </h1>
         <p>
           Become the manager of a guild. Hire heroes, train them, create parties and send them on quests.

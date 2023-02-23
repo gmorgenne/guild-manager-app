@@ -8,18 +8,17 @@ const BadgeSelector = ({PrimaryColor, SecondaryColor, SelectedIndex, selectBadge
 
     return (
         <>
-            <h4>Badge Selector</h4>
             <div className="container flex gap-4">
-                <div className={`badge w-16 h-16${SelectedIndex == 0 ? ' selected' : ''}`} onClick={() => selectBadge(0)}>
+                <div className={`badge w-20 h-20${SelectedIndex == 0 ? ' selected' : ''}`} onClick={() => selectBadge(0)}>
                     <ApertureBadge PrimaryColor={PrimaryColor} SecondaryColor={SecondaryColor} />
                 </div>
-                <div className={`badge w-16 h-16${SelectedIndex == 1 ? ' selected' : ''}`} onClick={() => selectBadge(1)}>
+                <div className={`badge w-20 h-20${SelectedIndex == 1 ? ' selected' : ''}`} onClick={() => selectBadge(1)}>
                     <BowtieBadge PrimaryColor={PrimaryColor} SecondaryColor={SecondaryColor} />
                 </div>
-                <div className={`badge w-16 h-16${SelectedIndex == 2 ? ' selected' : ''}`} onClick={() => selectBadge(2)}>
+                <div className={`badge w-20 h-20${SelectedIndex == 2 ? ' selected' : ''}`} onClick={() => selectBadge(2)}>
                     <NuclearBadge PrimaryColor={PrimaryColor} SecondaryColor={SecondaryColor} />
                 </div>
-                <div className={`badge w-16 h-16${SelectedIndex == 3 ? ' selected' : ''}`} onClick={() => selectBadge(3)}>
+                <div className={`badge w-20 h-20${SelectedIndex == 3 ? ' selected' : ''}`} onClick={() => selectBadge(3)}>
                     <PlanetBadge PrimaryColor={PrimaryColor} SecondaryColor={SecondaryColor} />
                 </div>
             </div>

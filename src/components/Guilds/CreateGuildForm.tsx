@@ -38,30 +38,30 @@ const CreateGuildForm = (): JSX.Element => {
     };
 
     return (
-        <form className="create-guild-form form" onSubmit={handleSubmit(createGuild)}>
+        <form className="create-guild-form flex flex-wrap form gap-4" onSubmit={handleSubmit(createGuild)}>
             <fieldset>
                 <label>
-                    Name:
-                    <input type="text" {...register("name", { required: true })} />
+                    <div className="font-bold">Name:</div>
+                    <input className="bg-slate-200 hover:bg-slate-300" type="text" {...register("name", { required: true })} />
                 </label>
             </fieldset>
             <fieldset>
-                <label>Primary Color:</label>
-                <div className="w-10 h-10 mb-5" style={{ backgroundColor: primaryColor?.rgba }}>
+                <label className="font-bold">Primary Color:</label>
+                <div style={{ backgroundColor: primaryColor?.rgba }}>
                 </div>
                 {primaryColor?.rgba}
                 <InputColor initialValue="#63de7c" onChange={setPrimaryColor} />
             </fieldset>
             <fieldset>
-                <label>Secondary Color:</label>
-                <div className="w-10 h-10 mb-5" style={{ backgroundColor: secondaryColor?.rgba }}>
+                <label className="font-bold">Secondary Color:</label>
+                <div style={{ backgroundColor: secondaryColor?.rgba }}>
                 </div>
                 {secondaryColor?.rgba}
                 <InputColor initialValue="#ffffff" onChange={setSecondaryColor} />
             </fieldset>
             <fieldset>
                 <label>
-                    Badge:
+                    <div className="font-bold">Guild Emblem:</div>
                     <BadgeSelector SelectedIndex={selectedBadge} PrimaryColor={primaryColor?.hex || "#fff"} SecondaryColor={secondaryColor?.hex || "#000"} selectBadge={selectBadge} />
                     <input type="number" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} value={selectedBadge} />
                 </label>
