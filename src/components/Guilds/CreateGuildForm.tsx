@@ -47,17 +47,15 @@ const CreateGuildForm = (): JSX.Element => {
             </fieldset>
             <fieldset>
                 <label className="font-bold">Primary Color:</label>
-                <div style={{ backgroundColor: primaryColor?.rgba }}>
+                <div>
+                    <InputColor initialValue="#63de7c" onChange={setPrimaryColor} />
                 </div>
-                {primaryColor?.rgba}
-                <InputColor initialValue="#63de7c" onChange={setPrimaryColor} />
             </fieldset>
             <fieldset>
                 <label className="font-bold">Secondary Color:</label>
-                <div style={{ backgroundColor: secondaryColor?.rgba }}>
+                <div>
+                    <InputColor initialValue="#ffffff" onChange={setSecondaryColor} />
                 </div>
-                {secondaryColor?.rgba}
-                <InputColor initialValue="#ffffff" onChange={setSecondaryColor} />
             </fieldset>
             <fieldset>
                 <label>
