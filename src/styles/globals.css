@@ -60,3 +60,7 @@
 .close {
     @apply absolute -top-2 -right-2 text-white font-bold bg-red-600 py-1 px-3 rounded-3xl;
 }
+
+.badge.selected {
+    @apply border-black
+}
