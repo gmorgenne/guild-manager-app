@@ -60,7 +60,7 @@ const CreateGuildForm = (): JSX.Element => {
             <fieldset>
                 <label>
                     <div className="font-bold">Guild Emblem:</div>
-                    <BadgeSelector SelectedIndex={selectedBadge} PrimaryColor={primaryColor?.hex || "#fff"} SecondaryColor={secondaryColor?.hex || "#000"} selectBadge={selectBadge} />
+                    <BadgeSelector SelectedIndex={selectedBadge} PrimaryColor={primaryColor?.hex || "#fff"} SecondaryColor={secondaryColor?.hex || "#000"} selectBadge={selectBadge}  />
                     <input type="number" {...register("badge", { required: true, pattern: { value: /^[0-9*]/i, message: "" } })} value={selectedBadge} hidden />
                 </label>
             </fieldset>
