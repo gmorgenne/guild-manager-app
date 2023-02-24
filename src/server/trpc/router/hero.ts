@@ -15,6 +15,7 @@ export const heroRouter = router({
       sex: z.boolean(),
       race: z.string(),
       class: z.string(),
+      subclass: z.string(),
       alignment: z.string(),
       healthPoints: z.number(),
       strength: z.number(),

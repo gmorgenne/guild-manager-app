@@ -7,6 +7,7 @@ export type CreateHeroInput = {
     sex: boolean;
     race: string;
     class: string;
+    subclass: string;
     alignment: string;
     healthPoints: number;
     strength: number;

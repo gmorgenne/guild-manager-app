@@ -26,6 +26,7 @@ export const createHeroHandler = async ({ input }: { input: CreateHeroInput; ctx
             experience: 0,
             race: input.race,
             class: input.class,
+            subclass: input.subclass,
             alignment: input.alignment,
             healthPoints: input.healthPoints,
             strength: input.strength,

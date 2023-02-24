@@ -26,7 +26,7 @@ const Preview = (hero : Hero): JSX.Element => {
                     <div className="flex justify-between gap-2">Level: <span>{hero.level}</span></div>
                     <div className="flex justify-between gap-2">Race: <span>{hero.race}</span></div>
                     <div className="flex justify-between gap-2">Class: <span>{hero.class}</span></div>
-                    <div className="flex justify-between gap-2">SubClass:</div>
+                    <div className="flex justify-between gap-2">Subclass: <span>{hero.subclass}</span></div>
                     <div className="flex justify-between gap-2">Alignment: <span className="ml-1">{hero.alignment}</span></div>
                 </div>
                 <div className="border border-indigo-900 flex"> <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} /> </div> 

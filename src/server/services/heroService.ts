@@ -5,6 +5,7 @@ import { getRandomBool, getRandomInt, randomFromArray, randomName } from './comm
 import { Races } from "../../types/races";
 import { Classes } from "../../types/classes";
 import { Alignments } from '../../types/alignments';
+import { Subclasses} from "../..type/subclasses";
 
 export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     const hero = await prisma?.hero.findFirst({
@@ -68,6 +69,7 @@ export const GenerateHero = async () => {
     const race = randomFromArray(Races, "Human");
     const stats = generateStats();
     const heroClass = randomFromArray(Classes, "Fighter");
+    const heroSubclass = randomFromArray(Subclasses, "Champion");
     let str, dex, mag, con, res, def, mov, spd = 8;
 
     switch (heroClass) {
@@ -269,6 +271,7 @@ export const GenerateHero = async () => {
         sex: sex,
         race: race,
         class: heroClass,
+        subclass: heroSubclass,
         alignment: randomFromArray(Alignments, "NeutralGood"),
         level: 1,
         experience: 0,

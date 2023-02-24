@@ -97,6 +97,7 @@ model Hero {
   experience         Int      @default(0)
   race               String
   class              String
+  subclass           String
   alignment          String
   healthPoints       Int
   strength           Int
