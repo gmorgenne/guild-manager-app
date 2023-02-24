@@ -21,8 +21,8 @@ const Preview = (hero : Hero): JSX.Element => {
     
     return (
         <>
-            <div className="border border-purple-900 flex justify-between p-4 bg-blue-100 rounded-t-3xl">
-                <div className="border border-purple-900 rounded-2xl mr-4 bg-gray-300 p-1">
+            <div className="border border-indigo-900 flex justify-between p-4 bg-blue-100 rounded-t-3xl">
+                <div className="border border-indigo-900 rounded-2xl mr-4 bg-gray-300 p-1">
                     <div className="flex justify-between">Level: <span>{hero.level}</span></div>
                     <div className="flex justify-between">Race: <span>{hero.race}</span></div>
                     <div className="flex justify-between">Class: <span>{hero.class}</span></div>
@@ -32,8 +32,8 @@ const Preview = (hero : Hero): JSX.Element => {
                 <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} />
             </div>
             <div className="bg-indigo-400 rounded-b-3xl">
-                <table className="text-center mx-auto w-full border border-purple-900 border-separate rounded-b-3xl">
-                    <caption className="border border-purple-900 font-bold text-lg">{hero.name}</caption>
+                <table className="text-center mx-auto w-full border border-indigo-900 border-separate rounded-b-3xl">
+                    <caption className="border border-indigo-900 font-bold text-lg">{hero.name}</caption>
                     <thead>
                         <tr>
                             <th className="table-cell">Str</th>
