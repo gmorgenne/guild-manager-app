@@ -14,25 +14,26 @@ const Preview = (hero : Hero): JSX.Element => {
             className += " font-bold";
         }
         if (stat < 11) {
-            className += " text-red-400";
+            className += " text-red-700";
         }
         return className;
     }
     
     return (
         <>
-            <div className="flex justify-between p-4 bg-white">
-                <div className="mr-4 bg-yellow-100 p-1">
+            <div className="border border-purple-900 flex justify-between p-4 bg-blue-100 rounded-t-3xl">
+                <div className="border border-purple-900 rounded-2xl mr-4 bg-gray-300 p-1">
                     <div className="flex justify-between">Level: <span>{hero.level}</span></div>
                     <div className="flex justify-between">Race: <span>{hero.race}</span></div>
                     <div className="flex justify-between">Class: <span>{hero.class}</span></div>
+                    <div className="flex justify-between">SubClass:</div>
                     <div className="flex justify-between">Alignment: <span className="ml-1">{hero.alignment}</span></div>
                 </div>
                 <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} />
             </div>
-            <div className="bg-gray-300">
-                <table className="text-center mx-auto w-full border border-red-900 border-separate">
-                    <caption className="text-lg my-2">{hero.name}</caption>
+            <div className="bg-indigo-400 rounded-b-3xl">
+                <table className="text-center mx-auto w-full border border-purple-900 border-separate rounded-b-3xl">
+                    <caption className="border border-purple-900 font-bold text-lg">{hero.name}</caption>
                     <thead>
                         <tr>
                             <th className="table-cell">Str</th>

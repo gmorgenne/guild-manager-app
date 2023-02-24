@@ -22,7 +22,7 @@
     @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5;
 }
 .card {
-    @apply relative shadow-xl duration-500 motion-safe:hover:scale-105;
+    @apply relative shadow-xl duration-500 motion-safe:hover:scale-105 rounded-3xl;
 }
 
 .center {
