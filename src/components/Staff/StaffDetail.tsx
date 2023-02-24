@@ -21,6 +21,7 @@ const StaffDetail = (props: Staff): JSX.Element => {
             <div>Sex: {props.sex ? "Male" : "Female"}</div>
             <div>Race: {props.race}</div>
             <div>Job Class: {props.jobClass}</div>
+            <div>Job Speciality: {props.jobSpec}</div>
             <div>Happiness: {props.happiness}</div>
 
             {(guildId === props.guildId || isAvailable) && (
