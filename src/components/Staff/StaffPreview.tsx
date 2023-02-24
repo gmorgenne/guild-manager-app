@@ -13,10 +13,10 @@ const Preview = (staff : Staff): JSX.Element => {
         <>
             <div className="border border-blue-900 flex justify-between p-4 bg-indigo-100 rounded-t-3xl">
                 <div className="border border-blue-900 rounded-2xl mr-4 bg-gray-300 p-1">
-                    <div className="flex justify-between">Level: {staff.level}</div>
-                    <div className="flex justify-between">Race: {staff.race}</div>
-                    <div className="flex justify-between">Job Class: {staff.jobClass}</div>
-                    <div className="flex justify-between">Job Speciality: {staff.jobSpec}</div>
+                    <div className="flex justify-between gap-2">Level: <span>{staff.level}</span></div>
+                    <div className="flex justify-between gap-2">Race: <span>{staff.race}</span></div>
+                    <div className="flex justify-between gap-2">Job Class: <span>{staff.jobClass}</span></div>
+                    <div className="flex justify-between gap-2">Job Speciality: <span>{staff.jobSpec}</span></div>
                 </div>
                 <Image src="https://via.placeholder.com/100?text=Staff" alt="staff preview thumbnail" height={120} width={100} />
             </div>

@@ -23,11 +23,11 @@ const Preview = (hero : Hero): JSX.Element => {
         <>
             <div className="border border-indigo-900 flex justify-between p-4 bg-blue-100 rounded-t-3xl">
                 <div className="border border-indigo-900 rounded-2xl mr-4 bg-gray-300 p-1">
-                    <div className="flex justify-between">Level: <span>{hero.level}</span></div>
-                    <div className="flex justify-between">Race: <span>{hero.race}</span></div>
-                    <div className="flex justify-between">Class: <span>{hero.class}</span></div>
-                    <div className="flex justify-between">SubClass:</div>
-                    <div className="flex justify-between">Alignment: <span className="ml-1">{hero.alignment}</span></div>
+                    <div className="flex justify-between gap-2">Level: <span>{hero.level}</span></div>
+                    <div className="flex justify-between gap-2">Race: <span>{hero.race}</span></div>
+                    <div className="flex justify-between gap-2">Class: <span>{hero.class}</span></div>
+                    <div className="flex justify-between gap-2">SubClass:</div>
+                    <div className="flex justify-between gap-2">Alignment: <span className="ml-1">{hero.alignment}</span></div>
                 </div>
                 <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} />
             </div>
