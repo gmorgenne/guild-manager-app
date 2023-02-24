@@ -18,7 +18,7 @@ const Preview = (staff : Staff): JSX.Element => {
                     <div className="flex justify-between gap-2">Job Class: <span>{staff.jobClass}</span></div>
                     <div className="flex justify-between gap-2">Job Speciality: <span>{staff.jobSpec}</span></div>
                 </div>
-                <Image src="https://via.placeholder.com/100?text=Staff" alt="staff preview thumbnail" height={120} width={100} />
+                <div className="border border-blue-900 flex"> <Image src="https://via.placeholder.com/100?text=Staff" alt="staff preview thumbnail" height={120} width={100} /> </div>
             </div>
             <div className="bg-blue-400 rounded-b-3xl">
                 <table className="text-center mx-auto w-full border border-blue-900 border-separate rounded-b-3xl">
