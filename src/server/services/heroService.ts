@@ -5,7 +5,7 @@ import { getRandomBool, getRandomInt, randomFromArray, randomName } from './comm
 import { Races } from "../../types/races";
 import { Classes } from "../../types/classes";
 import { Alignments } from '../../types/alignments';
-import { Subclasses} from "../..type/subclasses";
+import { Subclasses} from "../..types/subclasses";
 
 export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     const hero = await prisma?.hero.findFirst({
