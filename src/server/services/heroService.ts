@@ -2,10 +2,11 @@ import { prisma } from './../db/client';
 import type { Prisma } from '@prisma/client';
 import type { AddHeroToGuildInput } from '../../types/hero';
 import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
-import { Races } from "../../types/races";
-import { Classes } from "../../types/classes";
+import { Races } from '../../types/races';
+import { Classes } from '../../types/classes';
+import { Subclasses } from '../..types/subclasses';
 import { Alignments } from '../../types/alignments';
-import { Subclasses} from "../..types/subclasses";
+
 
 export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     const hero = await prisma?.hero.findFirst({
