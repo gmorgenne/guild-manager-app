@@ -4,7 +4,7 @@ import type { AddHeroToGuildInput } from '../../types/hero';
 import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
 import { Races } from '../../types/races';
 import { Classes } from '../../types/classes';
-import { Subclasses } from '../..types/subclasses';
+import { Subclasses } from '../../types/subclasses';
 import { Alignments } from '../../types/alignments';
 
 
