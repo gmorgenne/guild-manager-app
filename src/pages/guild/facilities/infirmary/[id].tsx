@@ -13,11 +13,11 @@ const FacilitiesPage: NextPage = () => {
             {guild && (
                 <section>
                    <h1 className="text-2xl my-8">Infirmary</h1>
+                      <caption className="text-lg flex">The Infirmary is the place to heal injured heroes. The higher the level of the Infirmary, the more healers that can be hired and the more beds that are available.</caption>
                        <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Infirmary Level</caption>
                             <thead className="block md:table-header-group">
                                 <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                    <th className="tbl-cell">Infirmary</th>
+                                    <th className="tbl-cell">Infirmary Level</th>
                                 </tr>
                             </thead>
                             <tbody className="block md:table-row-group">

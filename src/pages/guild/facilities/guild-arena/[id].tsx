@@ -13,17 +13,16 @@ const FacilitiesPage: NextPage = () => {
             {guild && (
                 <section>
                    <h1 className="text-2xl my-8">Guild Arena</h1>
+                      <caption className="text-lg flex">Guild Arena is unlocked at the Region League level. This is allows for Guilds to make money off of Home League matches. The higher the arena level, the higher the ticket prices and the more employees that can be hired. A player can hire an Arena Manager, a Grounds Keeper, and Vendors with this facility. The Arena Manager is a required staff member. The better the staff manager, the more fans are happy, which increases ticket sales. Grounds Keepers increases hero happiness and reduces injury rating during home matches. Vendors sell food and beverages to make more money.</caption>
                        <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Guild Arena Level</caption>
                             <thead className="block md:table-header-group">
                                 <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                    <th className="tbl-cell">Guild Arena</th>
+                                    <th className="tbl-cell">Guild Arena Level</th>
                                 </tr>
                             </thead>
                             <tbody className="block md:table-row-group">
                                 <tr className="block md:table-row">
                                     <td className="flex justify-between md:table-cell tbl-cell"><span className="md:hidden">Guild Arena</span>{guild.guildArenaLevel}</td>
-
                                 </tr>
                             </tbody>
                         </table>

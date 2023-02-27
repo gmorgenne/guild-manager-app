@@ -13,11 +13,11 @@ const FacilitiesPage: NextPage = () => {
             {guild && (
                 <section>
                    <h1 className="text-2xl my-8">Training Grounds</h1>
+                      <caption className="text-lg flex">The Training Grounds are a place to send your heroes to train and gain experience. The higher the Training Grounds, the more heroes you can assign to training and the more experience they will gain. You are required to have a Guild Coach assigned to the Training Grounds to lead your team through their League Matches. Grounds Keepers increase hero happiness and reduce injury chances. A Guild Scout can help to discovery Free Agents stats and give better insights into heroes.</caption>
                        <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Training Grounds Level</caption>
                             <thead className="block md:table-header-group">
                                 <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                    <th className="tbl-cell">Training Grounds</th>
+                                    <th className="tbl-cell">Training Grounds Level</th>
                                 </tr>
                             </thead>
                             <tbody className="block md:table-row-group">

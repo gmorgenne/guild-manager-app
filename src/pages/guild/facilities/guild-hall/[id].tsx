@@ -13,11 +13,11 @@ const FacilitiesPage: NextPage = () => {
             {guild && (
                 <section>
                    <h1 className="text-2xl my-8">Guild Hall</h1>
+                    <caption className="text-lg flex">The Guild Hall is the facility that determines how many heroes your guild can have. The higher level the Guild Hall, the more heroes and staff you can hire. You can hire Butlers and Chefs to work at the Guild Hall to increase hero happiness. Chefs can be used to cook meals that provide unique bonuses for the week.</caption>
                        <table className="text-center block md:table mt-8 md:mt-0">
-                            <caption className="text-lg block md:table-caption">Guild Hall Level</caption>
                             <thead className="block md:table-header-group">
                                 <tr className="block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-                                    <th className="tbl-cell">Guild Hall</th>
+                                    <th className="tbl-cell">Guild Hall Level</th>
                                 </tr>
                             </thead>
                             <tbody className="block md:table-row-group">
