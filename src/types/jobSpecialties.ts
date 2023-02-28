@@ -6,5 +6,5 @@ JobSpecialties.set("Grounds Keeper", ["Tidy", "Equipment Specialist"]);
 JobSpecialties.set("Chef", ["STR+", "MAG+", "DEF+", "DEX+", "RES+", "CON+"]);
 JobSpecialties.set("Vendor", ["Meat", "Ale", "Cheese", "Bread", "Wine"]);
 JobSpecialties.set("Healer", ["Quick Hands", "Efficient", "Caretaker"]);
-JobSpecialties.set("Arena Manager", ["Fans First", "Entertainer", "", ""]);
+JobSpecialties.set("Arena Manager", ["Fans First", "Entertainer"]);
 JobSpecialties.set("Guild Scout", ["Wizard Specialist", "Barbarian Specialist", "Bard Specialist", "Cleric Specialist", "Druid Specialist", "Fighter Specialist", "Monk Specialist", "Paladin Specialist", "Ranger Specialist", "Rouge Specialist", "Sorcerer Specialist", "Warlock Specialist"]);
