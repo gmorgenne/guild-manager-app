@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createQuestHandler } from "../../controllers/questController";
+import { createQuestHandler, processQuestHandler } from "../../controllers/questController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 
@@ -42,5 +42,8 @@ export const questRouter = router({
           municipality: true
         }
       })
-    })
+    }),
+  processQuest: protectedProcedure
+    .input(z.object({ questId: z.string(), partyId: z.string()}))
+    .mutation(({ input }) => processQuestHandler(input.questId, input.partyId))
 });

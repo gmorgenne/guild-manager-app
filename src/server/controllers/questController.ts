@@ -1,4 +1,4 @@
-import { createQuest, generateQuest } from "../services/questService";
+import { createQuest, generateQuest, processQuest } from "../services/questService";
 
 export const createQuestHandler = async (municipalityId?: string | null) => {
     try {
@@ -16,3 +16,15 @@ export const createQuestHandler = async (municipalityId?: string | null) => {
         throw err;
     }
 };
+export const processQuestHandler = async (questId: string, partyId: string) => {
+    try {
+        const result = await processQuest(questId, partyId);
+        return {
+            data: result.data,
+            status: result.status
+        }
+    }
+    catch (err: any) {
+        throw err;
+    }
+}

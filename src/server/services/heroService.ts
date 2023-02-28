@@ -1,12 +1,12 @@
 import { prisma } from './../db/client';
-import type { Prisma } from '@prisma/client';
+import type { Hero, Prisma } from '@prisma/client';
 import type { AddHeroToGuildInput } from '../../types/hero';
 import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
 import { Races } from '../../types/races';
 import { Classes } from '../../types/classes';
 import { Subclasses } from '../../types/subclasses';
 import { Alignments } from '../../types/alignments';
-
+import type { Combatant } from './../../types/enemies';
 
 export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     const hero = await prisma?.hero.findFirst({
@@ -53,6 +53,18 @@ export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
         guild: updatedGuild
     }
 };
+export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
+    const combatants : Combatant[] = [];
+    heroes.forEach((hero) => {
+        combatants.push(Object.assign(hero, {
+            damageDealt: 0,
+            initiative: getRandomInt(0, 20) + hero.dexterity,
+            group: group,
+            kills: 0
+        }));
+    });
+    return combatants;
+}
 export const CreateHero = async (input: Prisma.HeroCreateInput) => {
     if (!input.guild) {
         input.guild = {
