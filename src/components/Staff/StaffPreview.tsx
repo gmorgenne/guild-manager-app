@@ -27,12 +27,6 @@ const Preview = (staff : Staff): JSX.Element => {
                             <th className="table-cell"><span>{staff.jobClass}</span></th>
                         </tr>
                     </thead>
-                    {/* Add a way to bring in a Job Class Speciality
-                    <tbody>
-                        <tr>
-                            <td className={tableCellClass(staff.speciality)}>{staff.speciality}</td>
-                        </tr>
-                    </tbody> */}
                 </table>
             </div>
         </>
