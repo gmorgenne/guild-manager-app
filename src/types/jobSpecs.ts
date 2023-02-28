@@ -1,3 +1,10 @@
-export const jobSpecs = [
-    "None",
-];
+export const jobSpec = new Map<string, string[]>();
+jobSpec.set("Guild Coach", ["Wizard Specialist", "Barbarian Specialist", "Bard Specialist", "Cleric Specialist", "Druid Specialist", "Fighter Specialist", "Monk Specialist", "Paladin Specialist", "Ranger Specialist", "Rouge Specialist", "Sorcerer Specialist", "Warlock Specialist"]);
+jobSpec.set("Assistant Coach", ["Strength", "Magic", "Defense", "Dexterity", "Resistance", "Constitution"]);
+jobSpec.set("Butler", ["Tidy", "People Person"]);
+jobSpec.set("Grounds Keeper", ["Tidy", "Equipment Specialist"]);
+jobSpec.set("Chef", ["STR+", "MAG+", "DEF+", "DEX+", "RES+", "CON+"]);
+jobSpec.set("Vendor", ["Meat", "Ale", "Cheese", "Bread", "Wine"]);
+jobSpec.set("Healer", ["Quick Hands", "Efficient", "Caretaker"]);
+jobSpec.set("Arena Manager", ["Fans First", "Entertainer", "", ""]);
+jobSpec.set("Guild Scout", ["Wizard Specialist", "Barbarian Specialist", "Bard Specialist", "Cleric Specialist", "Druid Specialist", "Fighter Specialist", "Monk Specialist", "Paladin Specialist", "Ranger Specialist", "Rouge Specialist", "Sorcerer Specialist", "Warlock Specialist"]);

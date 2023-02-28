@@ -7,4 +7,5 @@ export const jobClasses = [
     "Arena Manager",
     "Vendor",
     "Guild Scout",
+    "Assistant Coach"
 ];

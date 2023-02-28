@@ -1,3 +1,13 @@
-export const Subclasses = [
-    "None",
-];
+export const Subclasses = new Map<string, string[]>();
+Subclasses.set("Barbarian", ["Beserker", "Beast", "Battlerager", "Zealot"]);
+Subclasses.set("Bard", ["Valor", "Swords", "Eloquence", "Lore"]);
+Subclasses.set("Cleric", ["Life", "Death", "Armor", "Arcana", "Light", "Nature"]);
+Subclasses.set("Druid", ["Land", "Moon", "Stars", "Spores"]);
+Subclasses.set("Fighter", ["Champion", "Battle Master", "Samurai", "Arcane Archer"]);
+Subclasses.set("Monk", ["Shadow", "Open Hand", "Kensei", "Drunken Master"]);
+Subclasses.set("Paladin", ["Glory", "Devotion", "Conquest", "Vengence", "Oathbreaker", "Redemption"]);
+Subclasses.set("Ranger", ["Hunter", "Monster Slayer", "Swarmkeeper", "Gloom Stalker"]);
+Subclasses.set("Rogue", ["Thief", "Assassin", "Arcane Trickster", "Phantom"]);
+Subclasses.set("Sorcerer", ["Divine", "Shadow", "Pyromancer", "Chrono"]);
+Subclasses.set("Warlock", ["Hexblade", "Celestial", "Undying", "Archfey"]);
+Subclasses.set("Wizard", ["Conjuration", "Enchantment", "Necromancy", "Bladsinging", "Illusion", "Chrono"]);
