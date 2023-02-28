@@ -12,14 +12,24 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
     const quest = trpc.party.getPartyQuest.useQuery({ id: party.questId ?? "0" })?.data;
     const [modalOpen, setModalOpen] = useState(false);
     const cancelTrainingAvailable = party.questId ? party.questId === "0" : false;
+    const [questSuccess, setQuestSuccess] = useState(false);
+    const [questSummary, setQuestSummary] = useState("");
+    const processQuestMutation = trpc.quest.processQuest.useMutation({
+        onSuccess: (data) => {
+            setQuestSuccess(data.status);
+            setQuestSummary(data.data);
+        }
+    });
 
     const cancelTraining = () => {
         console.log('stop training');
     }
 
     const completeQuest = () => {
-        console.log('complete quest');
-        setModalOpen(true);
+        if (quest && quest.id) {
+            processQuestMutation.mutate({ partyId: party.id, questId: quest.id })
+            setModalOpen(true);
+        }
     }
 
     const resetPartyQuest = () => {
@@ -51,6 +61,8 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
                 <p>Once the modal is closed, the party will not have a quest anymore.</p>
                 <div className="my-8">
                     <h4>Quest Summary Details</h4>
+                    <h5>{questSuccess ? "Success!" : "FAIL!!"}</h5>
+                    <div dangerouslySetInnerHTML={{__html: questSummary}}></div>
                 </div>
             </Modal>
         </div>
