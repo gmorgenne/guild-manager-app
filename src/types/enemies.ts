@@ -79,7 +79,36 @@ const walrus: Enemy = {
     movement: 10,
     speed: 8
 };
+const troll: Enemy = {
+    name: "Troll",
+    class: "Fighter",
+    level: 3,
+    healthPoints: 42,
+    strength: 12,
+    dexterity: 6,
+    magic: 2,
+    constitution: 12,
+    resistance: 9,
+    defense: 15,
+    movement: 25,
+    speed: 8
+};
+const acolyte: Enemy = {
+    name: "Acolyte",
+    class: "Wizard",
+    level: 3,
+    healthPoints: 24,
+    strength: 2,
+    dexterity: 2,
+    magic: 14,
+    constitution: 8,
+    resistance: 12,
+    defense: 8,
+    movement: 30,
+    speed: 10
+};
 
 export const Enemies = new Map<number, Enemy[]>();
 Enemies.set(1, [snake, wolf]);
 Enemies.set(2, [bandit, walrus]);
+Enemies.set(3, [troll, acolyte]);
