@@ -15,7 +15,6 @@ const Preview = (staff : Staff): JSX.Element => {
                 <div className="border border-blue-900 rounded-2xl mr-4 bg-gray-300 p-1">
                     <div className="flex justify-between gap-2">Level: <span>{staff.level}</span></div>
                     <div className="flex justify-between gap-2">Race: <span>{staff.race}</span></div>
-                    <div className="flex justify-between gap-2">Job Class: <span>{staff.jobClass}</span></div>
                     <div className="flex justify-between gap-2">Job Speciality: <span>{staff.jobSpec}</span></div>
                 </div>
                 <div className="border border-blue-900 flex"> <Image src="https://via.placeholder.com/100?text=Staff" alt="staff preview thumbnail" height={120} width={100} /> </div>
@@ -25,7 +24,7 @@ const Preview = (staff : Staff): JSX.Element => {
                     <caption className="border border-blue-900 font-bold text-lg">{staff.name}</caption>
                     <thead>
                         <tr>
-                            <th className="table-cell">Job Speciality</th>
+                            <th className="table-cell"><span>{staff.jobClass}</span></th>
                         </tr>
                     </thead>
                     {/* Add a way to bring in a Job Class Speciality
