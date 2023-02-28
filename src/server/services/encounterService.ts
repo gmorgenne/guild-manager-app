@@ -8,8 +8,9 @@ export const createEncounter = async (input: Prisma.EncounterCreateInput) => {
     }));
 }
 export const generateEncounter = async () : Promise<Prisma.EncounterCreateInput> => {
-    const enemies = getRandomInt(1, 15);
     const severity = getRandomInt(1, 6);
+    const maxEnemies = Math.ceil(8 / severity);
+    const enemies = getRandomInt(1, maxEnemies);
     const basePurseGain = getRandomInt(5, 250);
     return {
         enemies: enemies,

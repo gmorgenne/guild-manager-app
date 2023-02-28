@@ -49,7 +49,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                             hits = true;
                         }
                     } else {
-                        battleSummary += `<p>    ${combatant.name} attempts a magic atack and rolled: ${roll} to hit vs resistance: ${enemy.resistance}</p>`;
+                        battleSummary += `<p>    ${combatant.name} attempts a magic attack and rolled: ${roll} to hit vs resistance: ${enemy.resistance}</p>`;
                         if ((roll + attack.modifier) > enemy.resistance) {
                             hits = true;
                         }
