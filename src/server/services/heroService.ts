@@ -71,7 +71,7 @@ export const GenerateHero = async () => {
     const stats = generateStats();
     const heroClass = randomFromArray(Classes, "Fighter");
     const heroSubclass = randomFromArray(Subclasses, "Champion");
-    let str, dex, mag, con, res, def, mov, spd = 8;
+    let str, dex, mag, con, res, def, mov, spd = 4;
 
     switch (heroClass) {
         case "Cleric":
@@ -276,13 +276,13 @@ export const GenerateHero = async () => {
         alignment: randomFromArray(Alignments, "NeutralGood"),
         level: 1,
         experience: 0,
-        healthPoints: 10 + (con ?? 8),
-        strength: str ?? 8,
-        dexterity: dex ?? 8,
-        magic: mag ?? 8,
-        constitution: con ?? 8,
-        resistance: res ?? 8,
-        defense: def ?? 8,
+        healthPoints: 10 + (con ?? 4),
+        strength: str ?? 4,
+        dexterity: dex ?? 4,
+        magic: mag ?? 4,
+        constitution: con ?? 4,
+        resistance: res ?? 4,
+        defense: def ?? 4,
         movement: mov ?? 30,
         speed: spd ?? 10,
         purse: getRandomInt(0, 100),
@@ -304,7 +304,7 @@ export const RemoveHeroFromGuild = async (input: string) => {
 const generateStats = () => {
     const arr: number[] = [];
     while (arr.length < 6) {
-        arr.push(getRandomInt(8, 19));
+        arr.push(getRandomInt(0, 10));
     }
     arr.sort((a, b) => { return b - a });
     return arr;

@@ -10,10 +10,10 @@ export type HeroPreviewProps = {
 const Preview = (hero : Hero): JSX.Element => {
     const tableCellClass = (stat: number) => {
         let className = "table-cell";
-        if (stat > 17) {
+        if (stat > 8) {
             className += " font-bold";
         }
-        if (stat < 11) {
+        if (stat < 4) {
             className += " text-red-700";
         }
         return className;
