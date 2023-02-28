@@ -70,7 +70,8 @@ export const GenerateHero = async () => {
     const race = randomFromArray(Races, "Human");
     const stats = generateStats();
     const heroClass = randomFromArray(Classes, "Fighter");
-    const heroSubclass = randomFromArray(Subclasses, "Champion");
+    const availableSubClasses = Subclasses.get(heroClass) || [];
+    const heroSubclass = randomFromArray(availableSubClasses, "Champion");
     let str, dex, mag, con, res, def, mov, spd = 4;
 
     switch (heroClass) {
