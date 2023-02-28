@@ -4,7 +4,7 @@ import type { Prisma } from '@prisma/client';
 import { getRandomBool, randomFromArray, randomName } from './commonService';
 import { Races } from "../../types/races";
 import { jobClasses } from "../../types/jobClasses";
-import { jobSpecs } from "../../types/jobSpecs";
+import { JobSpecialties } from "../../types/jobSpecialties";
 
 
 export const AddStaffToGuild = async (input: AddStaffToGuildInput) => {
@@ -68,7 +68,8 @@ export const GenerateStaff = async () => {
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
     const jobClass = randomFromArray(jobClasses, "Guild Coach");
-    const jobSpec = randomFromArray(jobSpecs, "Wizard Coach")
+    const availableJobSpecs = JobSpecialties.get(jobClass) || [];
+    const jobSpec = randomFromArray(availableJobSpecs, "Wizard Coach")
 
     return {
         name: randomName(race, sex),
