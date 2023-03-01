@@ -3,15 +3,16 @@ import { getRandomInt } from "./commonService";
 
 
 export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
-    let battleSummary = "<h3>Battle Begins!</h3>";
-    battleSummary += "<p>Group 1</p>";
+    let battleSummary = `<h3 class="battle-begins">Battle Begins!</h3>`;
+    battleSummary += `<div class="battle-groups"><div class="battle-group"><h4>Group 1</h4><div class="battle-group__combatants">`;
     group1.forEach((combatant) => {
-        battleSummary += `<p>${combatant.name}</p>`;
+        battleSummary += `<p>${combatant.name}(${combatant.class})</p>`;
     });
-    battleSummary += "<p>Group 2</p>";
+    battleSummary += `</div></div><div class="battle-group"><h4>Group 2</h4><div class="battle-group__combatants">`;
     group2.forEach((combatant) => {
-        battleSummary += `<p>${combatant.name}</p>`;
+        battleSummary += `<p>${combatant.name}(${combatant.class})</p>`;
     });
+    battleSummary += "</div></div></div>";
     // check initiative and make turn order
     let activeCombatants: Combatant[] = [...group1, ...group2];
     activeCombatants.sort((a, b) => b.initiative - a.initiative);
@@ -22,7 +23,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
             if (battleCompleted || combatant.healthPoints < 1) {
                 return;
             }
-            battleSummary += `<p>Start of turn: ${combatant.name}</p>`;
+            battleSummary += `<p class="start-turn turn-marker">Start of turn: ${combatant.name}</p>`;
             const action = determineAction(combatant);
             let potentialVictory = false;
             switch (action) {
@@ -44,12 +45,12 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                     const roll = attack.chance1;
                     let hits = false;
                     if (attack.type == "physical") {
-                        battleSummary += `<p>    ${combatant.name} attempts a physical attack and rolled: ${roll} to hit vs defense: ${enemy.defense}</p>`;
+                        battleSummary += `<p class="attack">${combatant.name} attempts a physical attack and rolled: ${roll + attack.modifier} to hit vs defense: ${enemy.defense}</p>`;
                         if ((roll + attack.modifier) > enemy.defense) {
                             hits = true;
                         }
                     } else {
-                        battleSummary += `<p>    ${combatant.name} attempts a magic attack and rolled: ${roll} to hit vs resistance: ${enemy.resistance}</p>`;
+                        battleSummary += `<p class="attack">${combatant.name} attempts a magic attack and rolled: ${roll + attack.modifier} to hit vs resistance: ${enemy.resistance}</p>`;
                         if ((roll + attack.modifier) > enemy.resistance) {
                             hits = true;
                         }
@@ -100,7 +101,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                     battleCompleted = true;
                 }
             }
-            battleSummary += `<p>End of turn: ${combatant.name}</p>`;
+            battleSummary += `<p class="end-turn turn-marker">End of turn: ${combatant.name}</p>`;
         });
     }
     battleSummary += "<h5>End of Battle!!!!</h5>";

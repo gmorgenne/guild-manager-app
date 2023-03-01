@@ -56,13 +56,11 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <p>Ok, so this could probably be a way to quickly test the quest system.</p>
-                <p>On click of the Quest Result button we simulate the quest.</p>
-                <p>Once the modal is closed, the party will not have a quest anymore.</p>
+                <h4 className="text-xl">Quest Summary Details</h4>
                 <div className="my-8">
-                    <h4>Quest Summary Details</h4>
-                    <h5>{questSuccess ? "Success!" : "FAIL!!"}</h5>
-                    <div dangerouslySetInnerHTML={{__html: questSummary}}></div>
+                    <h5 className="text-lg mb-4">{questSuccess ? "Success!" : "FAIL!!"}</h5>
+                    <p>Here is what happened:</p>
+                    <div className="quest-summary" dangerouslySetInnerHTML={{__html: questSummary}}></div>
                 </div>
             </Modal>
         </div>

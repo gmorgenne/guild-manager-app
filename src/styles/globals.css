@@ -64,3 +64,31 @@
 .badge.selected {
     @apply border-2 border-slate-900 hover:border-black hover:border-4;
 }
+
+
+
+/* Quest Summary */
+.battle-begins {
+    @apply text-2xl bg-red-600 text-center text-white;
+}
+.battle-groups {
+    @apply flex justify-around;
+}
+.battle-group__combatants {
+    @apply flex gap-4;
+}
+.battle-group h4 {
+    @apply text-xl;
+}
+.start-turn {
+    @apply pt-4;
+}
+.end-turn {
+    @apply pb-4;
+}
+.turn-marker {
+    @apply border-2 border-gray-400 border-dashed;
+}
+.quest-summary .attack {
+    @apply text-red-500;
+}
