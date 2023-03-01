@@ -158,8 +158,11 @@ const determineAction = (combatant: Combatant) => {
     return "attack";
 };
 const determineTarget = (combatant: Combatant, targets: Combatant[]) => {
-    if (combatant.class == "Barbarian") {
+    if (combatant.class == "Barbarian") { // barbarian targets highest health
         targets.sort((a, b) => b.healthPoints - a.healthPoints);
+    }
+    if (combatant.class == "Cleric") { // cleric target lowest health
+        targets.sort((a, b) => a.healthPoints - b.healthPoints);
     }
     return targets[0]; // pick first available target for now...
 };
