@@ -8,22 +8,16 @@ export type QuestDetailProps = {
 
 const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : JSX.Element => {
 
-    return (
-        <>
-            Quest Detail
-            <br /><br />
-            name: {/* [ name of quest, generated as summary of encounters? ] */} {quest.name}
-            <br /><br />
-            giver: {/* [ random name of municipality resident ] */} {quest.giver}
-            <br /><br />
-            municipality: {/* [ base?, city, town, or village name ] */} {municipality.name}
-            <br /><br />
-            location: {/* [ location of quest encounters ] {quest.location} */} {quest.location}
-            <br /><br />
-            reward gold: {/* [ gold received if quest is completed ] */} {quest.rewardGold}
-            <br /><br />
-            reward items: {/* [ items received if quest is completed ] */}
-            <br /><br />
+    return   (
+        <section>
+        <h1 className="text-2xl font-bold flex underline">Quest Preview</h1>
+        <div className="text-l font-bold flex">Description:</div> {/* [ name of quest, generated as summary of encounters at location? ] */} {quest.name}
+        <div className="text-l font-bold flex">Municipality:</div> {/* [ base?, city, town, or village name ] */} {municipality.name}
+        <div className="text-l font-bold flex">Location:</div> {/* [ location of quest encounters ] */} {quest.location}
+        <div className="text-l font-bold flex">Reward:</div> {/* gold & items (items represented as icons?) */} <div className="flex"> Gold: {quest.rewardGold}</div>
+        <div className="text-l font-bold flex">Reward items:</div> {/* [ items received if quest is completed ] */}
+        </section>
+            );
             {/* encounters: (not displayed on the page directly, but are the different challenges to complete the quest) */}
             {encounters && encounters.map((encounter, i) => {
                 return (
@@ -35,7 +29,6 @@ const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : J
             })}
 
             {/* examples: */}
-            <>
             {/* 
             Quest Name: Defeat goblins that have taken over local brewery
             Giver: Brewmanchu
@@ -49,7 +42,6 @@ const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : J
                 - defeat goblins
                 - return to giver
             */}
-            </>
             <>
             {/*
             Quest Name: Return a stolen item
@@ -85,7 +77,6 @@ const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : J
             </>
 
             {/* more notes: */}
-            <>
             {/* 
             to determine success of quest by party, roll for each of these
             (any fail will result in quest fail):
@@ -96,9 +87,6 @@ const QuestDetail = ({ quest, encounters, municipality } : QuestDetailProps) : J
 
             if fail, roll to return based on party skill/compatibility/level vs quest severity 
             */}
-            </>
-        </>
-    );
 }
 
 export default QuestDetail;

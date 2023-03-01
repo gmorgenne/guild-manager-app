@@ -16,7 +16,7 @@ const StaffDetail = (props: Staff): JSX.Element => {
 
     return (
         <div className="staff-detail">
-            <h1 className="text-2xl">Staff Info</h1>
+            <h1 className="text-2xl font-bold flex underline">Staff Info</h1>
             <div>Name: {props.name}</div>
             <div>Sex: {props.sex ? "Male" : "Female"}</div>
             <div>Race: {props.race}</div>

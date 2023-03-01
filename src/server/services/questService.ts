@@ -45,7 +45,7 @@ export const generateQuest = async (municipalityId?: string | null): Promise<Pri
         }
     });
     const location = municipality?.locations ? randomFromArray(municipality?.locations, "farm") : "farm";
-    const name = `help ${giverName} solve problem at ${location} in ${municipality?.name}`;
+    const name = `Help ${giverName} solve problem at ${location} in ${municipality?.name}`;
 
     return {
         name: name,

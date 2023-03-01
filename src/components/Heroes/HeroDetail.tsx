@@ -16,7 +16,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
 
     return (
         <div className="hero-detail">
-            <h1 className="text-2xl">Hero Info</h1>
+            <h1 className="text-2xl font-bold flex underline">Hero Info</h1>
             <div>Name: {props.name}</div>
             <div>Sex: {props.sex ? "Male" : "Female"}</div>
             <div>Race: {props.race}</div>
