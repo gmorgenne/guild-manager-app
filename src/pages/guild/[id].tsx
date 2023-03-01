@@ -37,7 +37,7 @@ const GuildPage: NextPage = () => {
                                 <Link href={`/guild/facilities/${guild.id}`} className="btn--full">Guild Facilities</Link>
                             </div>
                             <div className="flex gap-4 mb-4">
-                                <Link href={`/guild/staff/${guild.id}`} className="btn--full">Visit the Shop</Link>
+                                <Link href={`/guild/facilities/shop/${id}`} className="btn--full">Visit the Shop</Link>
                             </div>
                         </div>
                         <div className="rounded-3xl border-2 border-gray-500 bg-gray-300 p-4">
