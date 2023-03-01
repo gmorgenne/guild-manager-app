@@ -212,7 +212,8 @@ const generateEnemyCombatants = (severity: number, count: number) => {
                 group: 1,
                 initiative: getRandomInt(1, 20),
                 kills: 0,
-                purse: 0
+                purse: 0,
+                type: enemy.enemyType || ""
             }));
         }
     }

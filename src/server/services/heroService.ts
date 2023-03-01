@@ -60,7 +60,8 @@ export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
             damageDealt: 0,
             initiative: getRandomInt(0, 20) + hero.dexterity,
             group: group,
-            kills: 0
+            kills: 0,
+            type: hero.subclass
         }));
     });
     return combatants;

@@ -1,7 +1,7 @@
 export type Enemy = {
     name: string;
     class: string;
-    enemyType: string;
+    enemyType?: string;
     level: number;
     healthPoints: number;
     strength: number;
@@ -21,6 +21,7 @@ export type Combatant = Enemy & {
     group: number;
     kills: number;
     purse: number;
+    type: string;
 };
 
 /* Enemy Types */
