@@ -160,11 +160,14 @@ const determineAction = (combatant: Combatant) => {
 const determineTarget = (combatant: Combatant, targets: Combatant[]) => {
     if (combatant.class == "Barbarian") { // barbarian targets highest health
         targets.sort((a, b) => b.healthPoints - a.healthPoints);
+        return targets[0];
     }
     if (combatant.class == "Cleric") { // cleric target lowest health
         targets.sort((a, b) => a.healthPoints - b.healthPoints);
+        return targets[0];
     }
-    return targets[0]; // pick first available target for now...
+    const i = getRandomInt(0, targets.length);
+    return targets[i]; // pick random target for now...
 };
 // combatService.FIGHT(party1, party2) 
 // ^ should return object with summary: success, etc...
