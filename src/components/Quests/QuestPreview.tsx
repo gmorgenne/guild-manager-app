@@ -15,7 +15,7 @@ const Preview = ({quest, municipality}: QuestPreviewProps): JSX.Element => {
             <caption className="border border-slate-900 bg-slate-400 rounded-t-3xl font-bold text-lg">Quest Preview</caption>
         </table>
         <div className="border border-slate-900 flex text-center p-2 bg-slate-200 gap-2">
-            <div className="font-bold flex">Description:</div> {/* [ name of quest, generated as summary of encounters at location? ] */} {quest.name}
+            <div className="flex font-bold h-20">Description:</div> {/* [ name of quest, generated as summary of encounters at location? ] */} {quest.name}
         </div>
                     <div className="bg-indigo-300 rounded-b-3xl border border-slate-900 border-separate p-2">
                     <table className="text-center w-full rounded-b-3xl">
