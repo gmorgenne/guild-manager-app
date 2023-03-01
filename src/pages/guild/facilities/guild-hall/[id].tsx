@@ -31,7 +31,7 @@ const FacilitiesPage: NextPage = () => {
              )}
                         {/* Add Button to upgade Facility for a cost (Lvl 2 = 1000 gold?, Lvl 3 = 5000 gold?) */}
                         <section className="flex">
-                            <Link href={`/guild/staff/${id}`} className="btn">Guild Staff</Link>
+                            <Link href={`/staff/available`} className="btn">Hire Staff</Link>
                         </section>
                 <section>
                     {`/guild/${id}` && (

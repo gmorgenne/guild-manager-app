@@ -22,7 +22,7 @@ const FacilitiesPage: NextPage = () => {
                                 <Link href={`/guild/facilities/guild-arena/${id}`} className="btn--full">Guild Arena</Link>
                                 </div>
                                 <div className="flex gap-4 mb-4">
-                                    <Link href={`/guild/staff/${guild.id}`} className="btn--full">Guild Staff</Link>
+                                    <Link href={`/staff/available`} className="btn--full">Hire Staff</Link>
                                 </div>
                             </div>
                             <div className="rounded-3xl border-2 border-gray-500 bg-gray-300 p-4">
