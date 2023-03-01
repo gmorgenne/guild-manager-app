@@ -36,7 +36,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                         potentialVictory = true;
                         break;
                     }
-                    battleSummary += `<p>    ${combatant.name} is targeting ${enemy.name}</p>`
+                    battleSummary += `<p>${combatant.name} is targeting ${enemy.name}</p>`
                     const attack = rollAttack(combatant);
                     // TODO: determine if advantage or disadvantage is taken
                     /* const chances = [attack.chance1, attack.chance2].sort((a, b) => b - a);
@@ -45,26 +45,26 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                     const roll = attack.chance1;
                     let hits = false;
                     if (attack.type == "physical") {
-                        battleSummary += `<p class="attack">${combatant.name} attempts a physical attack and rolled: ${roll + attack.modifier} to hit vs defense: ${enemy.defense}</p>`;
+                        battleSummary += `<p class="physical-attack">${combatant.name} attempts a physical attack and rolled: ${roll + attack.modifier} to hit vs defense: ${enemy.defense}</p>`;
                         if ((roll + attack.modifier) > enemy.defense) {
                             hits = true;
                         }
                     } else {
-                        battleSummary += `<p class="attack">${combatant.name} attempts a magic attack and rolled: ${roll + attack.modifier} to hit vs resistance: ${enemy.resistance}</p>`;
+                        battleSummary += `<p class="magic-attack">${combatant.name} attempts a magic attack and rolled: ${roll + attack.modifier} to hit vs resistance: ${enemy.resistance}</p>`;
                         if ((roll + attack.modifier) > enemy.resistance) {
                             hits = true;
                         }
                     }
                     if (attack.isCrit) {
                         attack.damage *= 2;
-                        battleSummary += `<p>    CRITICAL HIT!!!!</p>`;
+                        battleSummary += `<p class="crit">CRITICAL HIT!!!!</p>`;
                     }
                     if (hits) {
                         enemy.healthPoints -= attack.damage;
                         combatant.damageDealt += attack.damage;
-                        battleSummary += `<p>    ${attack.damage} dealt to ${enemy.name}, which puts them down to ${enemy.healthPoints} hp.</p>`;
+                        battleSummary += `<p class="damage">${attack.damage} dealt to ${enemy.name}, which puts them down to ${enemy.healthPoints} hp.</p>`;
                         if (enemy.healthPoints <= 0) {
-                            battleSummary += `<p>    combatant has perished: ${enemy.name}</p>`
+                            battleSummary += `<p class="death">combatant has perished: ${enemy.name}</p>`
                             activeCombatants = activeCombatants.filter((a) => { return a.healthPoints > 0 });
                             potentialVictory = true;
                             combatant.kills += 1;
@@ -73,11 +73,11 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                         if (roll === 1) {
                             const failDamage = getRandomInt(1, 12);
                             combatant.healthPoints -= failDamage
-                            battleSummary += `<p>    CRITICAL FAIL!!!! ${combatant.name} takes ${failDamage} points of damage</p>`;
+                            battleSummary += `<p class="crit">CRITICAL FAIL!!!! ${combatant.name} takes ${failDamage} points of damage</p>`;
                         } else if (roll < 6) {
-                            battleSummary += `<p>    attack missed!</p>`;
+                            battleSummary += `<p>attack missed!</p>`;
                         } else {
-                            battleSummary += `<p>    attack blocked.</p>`;
+                            battleSummary += `<p>attack blocked.</p>`;
                         }
                     }
                     break;
@@ -89,10 +89,10 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                     }
                     const hp = getRandomInt(1, 6) + combatant.level;
                     ally.healthPoints += hp;
-                    battleSummary += `<p>    ${combatant.name} healed ${ally.name} for ${hp} points.</p>`;
+                    battleSummary += `<p class="heal">${combatant.name} healed ${ally.name} for ${hp} points.</p>`;
                     break;
                 case "hide":
-                    battleSummary += `<p>    ${combatant.name} hides.</p>`;
+                    battleSummary += `<p>${combatant.name} hides.</p>`;
                     break;
             }
             if (potentialVictory) {
