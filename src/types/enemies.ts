@@ -81,7 +81,7 @@ const walrus: Enemy = {
 };
 const troll: Enemy = {
     name: "Troll",
-    class: "Fighter",
+    enemyType: "Giant",
     level: 3,
     healthPoints: 42,
     strength: 12,
@@ -95,7 +95,7 @@ const troll: Enemy = {
 };
 const acolyte: Enemy = {
     name: "Acolyte",
-    class: "Wizard",
+    enemyType: "Humanoid",
     level: 3,
     healthPoints: 24,
     strength: 2,
