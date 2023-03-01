@@ -1,6 +1,6 @@
 export type Enemy = {
     name: string;
-    class: string;
+    enemyType: string;
     level: number;
     healthPoints: number;
     strength: number;
@@ -25,7 +25,7 @@ export type Combatant = Enemy & {
 /* Enemy Types */
 const snake: Enemy = {
     name: "Snake",
-    class: "Rogue",
+    enemyType: "Beast",
     level: 1,
     healthPoints: 12,
     strength: 4,
@@ -39,7 +39,7 @@ const snake: Enemy = {
 };
 const wolf: Enemy = {
     name: "Wolf",
-    class: "Monk",
+    enemyType: "Beast",
     level: 1,
     healthPoints: 16,
     strength: 6,
@@ -53,7 +53,7 @@ const wolf: Enemy = {
 };
 const bandit: Enemy = {
     name: "Bandit",
-    class: "Fighter",
+    enemyType: "Humanoid",
     level: 2,
     healthPoints: 20,
     strength: 5,
@@ -67,7 +67,7 @@ const bandit: Enemy = {
 };
 const walrus: Enemy = {
     name: "Walrus",
-    class: "Paladin",
+    enemyType: "Beast",
     level: 2,
     healthPoints: 20,
     strength: 8,
