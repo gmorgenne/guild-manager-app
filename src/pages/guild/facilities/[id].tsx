@@ -1,12 +1,14 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import StaffPreview from "../../../components/Staff/StaffPreview";
 import { trpc } from "../../../utils/trpc";
 
 const FacilitiesPage: NextPage = () => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop() ?? "";
     const guild = trpc.guild.getGuildById.useQuery({ id: id })?.data;
+        const staff = trpc.staff.getStaffByGuild.useQuery({ id: id })?.data;
 
     return (
         <div>
@@ -50,6 +52,17 @@ const FacilitiesPage: NextPage = () => {
                         </div>
                 </section>
              )}
+            <h1 className="text-2xl my-8">Guild Staff</h1>
+            <div className="cards">
+                {staff && staff.map((staff, i) => {
+                    return (
+                        <div className="card" key={i}>
+                            <StaffPreview staff={staff} link={true} />
+                        </div>
+                    )
+                })}
+            </div>
+
                     <section>
                         {`/guild/${id}` && (
                         <div className="mt-8">
@@ -60,5 +73,4 @@ const FacilitiesPage: NextPage = () => {
         </div>
     )
 }
-
 export default FacilitiesPage;
