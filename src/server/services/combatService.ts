@@ -1,7 +1,6 @@
 import type { Combatant } from "../../types/enemies";
 import { getRandomInt } from "./commonService";
 
-
 export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
     let battleSummary = `<h3 class="battle-begins">Battle Begins!</h3>`;
     battleSummary += `<div class="battle-groups"><div class="battle-group"><h4>Group 1</h4><div class="battle-group__combatants">`;
@@ -111,6 +110,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
     };
 };
 
+// privates :p lolz
 const rollAttack = (combatant: Combatant) => {
     const chance1 = getRandomInt(1, 20);
     const chance2 = getRandomInt(1, 20);
@@ -169,10 +169,3 @@ const determineTarget = (combatant: Combatant, targets: Combatant[]) => {
     const i = getRandomInt(0, targets.length);
     return targets[i]; // pick random target for now...
 };
-// combatService.FIGHT(party1, party2) 
-// ^ should return object with summary: success, etc...
-// if success:
-//      update guild purse
-//      hero experience 
-//      foreach combatant, update associated hero
-
