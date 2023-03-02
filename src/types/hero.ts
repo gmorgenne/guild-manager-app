@@ -8,6 +8,7 @@ export type CreateHeroInput = {
     race: string;
     class: string;
     subclass: string;
+    guild: string;
     alignment: string;
     healthPoints: number;
     strength: number;
