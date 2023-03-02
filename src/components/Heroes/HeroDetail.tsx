@@ -22,22 +22,22 @@ const HeroDetail = (props: Hero): JSX.Element => {
                 <table>
                     <thead>
                         <tr className="flex underline">
-                            <th> Class:</th>
-                            <th> Subclass:</th>
-                            <th> Guild:</th>
-                            <th> Guild Manager:</th>
-                            <th> Sex:</th>
-                            <th> Race:</th>
-                            <th> Alignment:</th>
-                            <th> Experience:</th>
-                            <th> Happiness:</th>
+                            <th>Class:</th>
+                            <th>Subclass:</th>
+                            <th>Guild:</th>
+                            <th>Guild Manager:</th>
+                            <th>Sex:</th>
+                            <th>Race:</th>
+                            <th>Alignment:</th>
+                            <th>Experience:</th>
+                            <th>Happiness:</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>{props.class} Lvl {props.level}</td>
                             <td>{props.subclass}</td>
-                            <td>{props.guild}</td>
+                            <td>{/* {props.guild} */}</td>
                             <td>{props.sex ? "Male" : "Female"}</td>
                             <td>{props.race}</td>
                             <td>{props.alignment}</td>
