@@ -6,19 +6,18 @@ import { trpc } from "../../utils/trpc";
 
 const QuestPage: NextPage = () => {
     const [guildId, setGuildId] = useState("");
-    const { asPath } = useRouter();
-    const id = asPath.split('/').pop() ?? "";
+    const router = useRouter();
+    const id = router.asPath.split('/').pop() ?? "";
     const quest = trpc.quest.getQuest.useQuery({ id: id })?.data;
     const parties = trpc.party.getAvailablePartiesByGuildId.useQuery({ id: guildId })?.data;
     const assignPartyMutation = trpc.party.assignPartyToQuest.useMutation()
 
     const assignPartyToQuest = (partyId: string) => {
-        console.log("assign party to quest", partyId);
         assignPartyMutation.mutate({
             questId: id,
             partyId: partyId
         });
-        window.location.assign(`/guild/${guildId}`);
+        router.push(`/guild/${guildId}`);
     };
 
     useEffect(() => {

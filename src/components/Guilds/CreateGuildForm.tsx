@@ -5,6 +5,7 @@ import { trpc } from "../../utils/trpc";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import BadgeSelector from "../Badges/BadgeSelector";
+import { useRouter } from "next/router";
 
 interface IFormValues {
     name: string;
@@ -12,6 +13,7 @@ interface IFormValues {
 }
 
 const CreateGuildForm = (): JSX.Element => {
+    const router = useRouter();
     const [primaryColor, setPrimaryColor] = useState<Color>();
     const [secondaryColor, setSecondaryColor] = useState<Color>();
     const [selectedBadge, setSelectedBadge] = useState<number>(0);
@@ -20,7 +22,7 @@ const CreateGuildForm = (): JSX.Element => {
         onSuccess: (data) => {
             const id = data.data.guild?.id;
             sessionStorage.setItem("guild", id);
-            window.location.assign(`/guild/${id}`);
+            router.push(`/guild/${id}`);
         }
     });
 

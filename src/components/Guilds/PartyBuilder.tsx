@@ -8,8 +8,8 @@ import HeroPreview from "../../components/Heroes/HeroPreview";
 import { trpc } from "../../utils/trpc";
 
 const PartyBuilder = (): JSX.Element => {
-    const { asPath } = useRouter();
-    const id = asPath.split('/').pop();
+    const router = useRouter();
+    const id = router.asPath.split('/').pop();
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: id })?.data;
     const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(heroes ?? []);
     const [partyHeroes, setPartyHeroes] = useState<Hero[]>();
@@ -85,9 +85,7 @@ const PartyBuilder = (): JSX.Element => {
             name: party.name
         });
         clearParty();
-        // TODO: 
-        // set session data for use on quest selection page
-        window.location.assign('/quests');
+        router.push('/quests');
     };
     const assignPartyToTraining = () => {
         createPartyMutation.mutate({
@@ -98,6 +96,7 @@ const PartyBuilder = (): JSX.Element => {
             quest: "0"
         });
         clearParty();
+        router.push(`/guild/facilities/training-grounds/${id}`);
     };
     const addHeroToParty = (e: MouseEventHandler<HTMLButtonElement>, hero: Hero) => {
         setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
