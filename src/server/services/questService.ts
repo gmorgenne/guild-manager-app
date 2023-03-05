@@ -204,9 +204,12 @@ const generateEnemyCombatants = (severity: number, count: number) => {
     if (!availableEnemies || availableEnemies.some((enemy) => enemy == undefined)) return [];
     const z = availableEnemies?.length || 0;
     for(let i = 0; i <= count; i++) {
-        const enemy = availableEnemies[getRandomInt(0, z)];
-        if (enemy) {
-            enemies.push(Object.assign(enemy, {
+        const pickEnemy = availableEnemies[getRandomInt(0, z)];
+        if (pickEnemy) {
+            const enemy = Object.assign({}, {...pickEnemy});
+            enemies.push(Object.assign({}, {
+                ...enemy,
+                healthPoints: getRandomInt(enemy.healthPoints - 4, enemy.healthPoints + 4),
                 alignment: "",
                 damageDealt: 0,
                 group: 1,
