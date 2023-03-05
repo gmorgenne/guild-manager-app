@@ -5,11 +5,11 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
     let battleSummary = `<h3 class="battle-begins">Battle Begins!</h3>`;
     battleSummary += `<div class="battle-groups"><div class="battle-group"><h4>Group 1</h4><div class="battle-group__combatants">`;
     group1.forEach((combatant) => {
-        battleSummary += `<p>${combatant.name}(${combatant.class})</p>`;
+        battleSummary += `<p>${combatant.name}(${combatant.type}) hp: ${combatant.healthPoints}</p>`;
     });
     battleSummary += `</div></div><div class="battle-group"><h4>Group 2</h4><div class="battle-group__combatants">`;
     group2.forEach((combatant) => {
-        battleSummary += `<p>${combatant.name}(${combatant.class})</p>`;
+        battleSummary += `<p>${combatant.name}(${combatant.type}) hp: ${combatant.healthPoints}</p>`;
     });
     battleSummary += "</div></div></div>";
     // check initiative and make turn order
