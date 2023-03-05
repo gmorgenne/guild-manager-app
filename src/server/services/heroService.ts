@@ -61,7 +61,7 @@ export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
             initiative: getRandomInt(0, 20) + hero.dexterity,
             group: group,
             kills: 0,
-            type: hero.subclass
+            type: `${hero.class}-${hero.subclass}`
         }));
     });
     return combatants;
