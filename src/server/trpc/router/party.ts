@@ -1,4 +1,4 @@
-import { assignPartyToQuestHandler, createPartyHandler, renamePartyHandler } from "../../controllers/partyController";
+import { createPartyHandler } from "../../controllers/partyController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
@@ -6,9 +6,35 @@ export const partyRouter = router({
     assignPartyToQuest: protectedProcedure
         .input(z.object({
             partyId: z.string(),
-            questId: z.string()
+            questId: z.string().optional()
         }))
-        .mutation(({ input, ctx }) => assignPartyToQuestHandler({ input, ctx })),
+        .mutation(({ input, ctx }) => {
+            if (input.questId) {
+                return ctx.prisma.party.update({
+                    where: {
+                        id: input.partyId
+                    },
+                    data: {
+                        quest: {
+                            connect: {
+                                id: input.questId || undefined
+                            }
+                        }
+                    }
+                });
+            } else {
+                return ctx.prisma.party.update({
+                    where: {
+                        id: input.partyId
+                    },
+                    data: {
+                        quest: {
+                            disconnect: true
+                        }
+                    }
+                });
+            }
+        }),
     createParty: protectedProcedure
         .input(z.object({
             compatibility: z.number(),
@@ -68,5 +94,15 @@ export const partyRouter = router({
             id: z.string(),
             name: z.string()
         }))
-        .mutation(({ input, ctx }) => renamePartyHandler({ input, ctx }))
+        .mutation(({ input, ctx }) => {
+            const updated = ctx.prisma.party.update({
+                where: {
+                    id: input.id
+                },
+                data: {
+                    name: input.name
+                }
+            });
+            updated.then((data) => { return { data: data}});
+        })
 });
