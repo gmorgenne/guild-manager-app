@@ -5,7 +5,6 @@ import type { Hero, Prisma } from '@prisma/client';
 import { getRandomBool, getRandomInt, randomFromArray, randomName } from './commonService';
 import { Races } from "../../types/races";
 import { createEncounterHandler } from '../controllers/encounterController';
-import { randomInt } from 'crypto';
 import { Enemies } from '../../types/enemies';
 import type { Combatant } from './../../types/enemies';
 
@@ -18,7 +17,7 @@ export const generateQuest = async (municipalityId?: string | null): Promise<Pri
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
     const giverName = randomName(race, sex);
-    municipalityId = municipalityId || randomInt(0, 3).toString();
+    municipalityId = municipalityId || getRandomInt(0, 3).toString();
     let purseGain = 0;
 
     const encounterIds: string[] = [];
@@ -26,7 +25,7 @@ export const generateQuest = async (municipalityId?: string | null): Promise<Pri
     const encountersToCreate = getRandomInt(1, 4);
     // compute a severity level to use for item drop?
     for (let i = 1; i < encountersToCreate; i++) {
-        const encounter = await createEncounterHandler().then((response) => { return response?.data?.encounter });
+        const encounter = await createEncounterHandler(municipalityId).then((response) => { return response?.data?.encounter });
         if (encounter?.id)
             encounterIds.push(encounter?.id);
         if (encounter?.purseGain)
@@ -154,7 +153,7 @@ export const processQuest = async (questId: string, partyId: string) => {
                 return;
             }
             questSummary += "<p>Enemies approach! FIGHT!</p>";
-            const results = FIGHT(enemies, heroCombatants);
+            const results = FIGHT(enemies, availableHeroes);
             questSummary += results.summary;
             if (results.victors[0]?.group !== 2) { // enemy combatant is group 1, heroes is group 2
                 encounterFailureMessage = "defeated by enemies!";
@@ -228,7 +227,7 @@ const findGiver = (sameMunicipality: boolean, heroes: Hero[]) => {
     if (heroes?.some((hero) => hero.class == "Ranger" || hero.class == "Bard")) {
         success = true;
     }
-    const findChance = randomInt(0, 100);
+    const findChance = getRandomInt(0, 100);
     if (findChance > 5) {
         success = true;
     }
@@ -239,7 +238,7 @@ const findLocation = (sameMunicipality: boolean, heroes: Hero[]) => {
     if (heroes?.some((hero) => hero.class == "Ranger")) {
         success = true;
     }
-    const locationChance = randomInt(0, 100);
+    const locationChance = getRandomInt(0, 100);
     if (locationChance > 3) {
         success = true;
     }
@@ -250,7 +249,7 @@ const returnToGiver = (sameMunicipality: boolean, heroes: Hero[]) => {
     if (heroes?.some((hero) => hero.class == "Ranger" || hero.class == "Bard")) {
         success = true;
     }
-    const returnChance = randomInt(0, 100);
+    const returnChance = getRandomInt(0, 100);
     if (returnChance > 5) {
         success = true;
     }
