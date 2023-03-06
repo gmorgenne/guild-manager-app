@@ -21,11 +21,11 @@ const HeroDetail = (props: Hero): JSX.Element => {
             <div className="border border-black flex p-2 justify-around bg-blue-100 rounded-tl-3xl rounded-bl-xl w-1/3"><div className="font-bold">Name: </div> <div className="text-2xl">{props.name}</div></div>
                 <table>
                     <thead>
-                        <tr className="flex underline">
+                        <tr className="underline">
                             <th>Class:</th>
                             <th>Subclass:</th>
                             <th>Guild:</th>
-                            <th>Guild Manager:</th>
+                            {/* <th>Guild Manager:</th> */}
                             <th>Sex:</th>
                             <th>Race:</th>
                             <th>Alignment:</th>

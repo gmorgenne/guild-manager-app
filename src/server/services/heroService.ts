@@ -83,110 +83,13 @@ export const CreateHero = async (input: Prisma.HeroCreateInput) => {
 export const GenerateHero = async () => {
     const sex = getRandomBool();
     const race = randomFromArray(Races, "Human");
-    const stats = generateStats();
+    const stats = generateStats(0, 10);
     const heroClass = randomFromArray(Classes, "Fighter");
     const availableSubClasses = Subclasses.get(heroClass) || [];
     const heroSubclass = randomFromArray(availableSubClasses, "Champion");
-    let str, dex, mag, con, res, def, mov, spd = 4;
-
-    switch (heroClass) {
-        case "Cleric":
-            res = stats[0];
-            def = stats[1];
-            mag = stats[2];
-            con = stats[3];
-            str = stats[4];
-            dex = stats[5];
-            break;
-        case "Fighter":
-            str = stats[0];
-            def = stats[1];
-            con = stats[2];
-            dex = stats[3];
-            res = stats[4];
-            mag = stats[5];
-            break;
-        case "Ranger":
-            dex = stats[0];
-            str = stats[1];
-            def = stats[2];
-            con = stats[3];
-            res = stats[4];
-            mag = stats[5];
-            break;
-        case "Wizard":
-            mag = stats[0];
-            res = stats[1];
-            con = stats[2];
-            dex = stats[3];
-            str = stats[4];
-            def = stats[5];
-            break;
-        case "Monk":
-            dex = stats[0];
-            con = stats[1];
-            mag = stats[2];
-            res = stats[3];
-            def = stats[4];
-            str = stats[5];
-            break;
-        case "Bard":
-            mag = stats[0];
-            dex = stats[1];
-            con = stats[2];
-            res = stats[3];
-            str = stats[4];
-            def = stats[5];
-            break;
-        case "Druid":
-            res = stats[0];
-            mag = stats[1];
-            con = stats[2];
-            dex = stats[3];
-            def = stats[4];
-            str = stats[5];
-            break;
-        case "Rogue":
-            dex = stats[0];
-            con = stats[1];
-            mag = stats[2];
-            def = stats[3];
-            res = stats[4];
-            str = stats[5];
-            break;
-        case "Sorcerer":
-            mag = stats[0];
-            res = stats[1];
-            dex = stats[2];
-            con = stats[3];
-            def = stats[4];
-            str = stats[5];
-            break;
-        case "Warlock":
-            res = stats[0];
-            mag = stats[1];
-            def = stats[2];
-            con = stats[3];
-            str = stats[4];
-            dex = stats[5];
-            break;
-        case "Paladin":
-            def = stats[0];
-            str = stats[1];
-            con = stats[2];
-            res = stats[3];
-            mag = stats[4];
-            dex = stats[5];
-            break;
-        case "Barbarian":
-            str = stats[0];
-            con = stats[1];
-            dex = stats[2];
-            def = stats[3];
-            res = stats[4];
-            mag = stats[5];
-            break;
-    }
+    const { con, def, dex, mag, res, str } = allocateStatsByClass(heroClass, stats);
+    let mov = 0;
+    let spd = 0;
 
     switch (race) {
         case "Dwarf":
@@ -292,16 +195,16 @@ export const GenerateHero = async () => {
         alignment: randomFromArray(Alignments, "NeutralGood"),
         level: 1,
         experience: 0,
-        healthPoints: 10 + (con ?? 4),
-        maxHealthPoints: 10 + (con ?? 4),
-        strength: str ?? 4,
-        dexterity: dex ?? 4,
-        magic: mag ?? 4,
-        constitution: con ?? 4,
-        resistance: res ?? 4,
-        defense: def ?? 4,
-        movement: mov ?? 30,
-        speed: spd ?? 10,
+        healthPoints: 10 + con,
+        maxHealthPoints: 10 + con,
+        strength: str,
+        dexterity: dex,
+        magic: mag,
+        constitution: con,
+        resistance: res,
+        defense: def,
+        movement: mov,
+        speed: spd,
         purse: getRandomInt(0, 100),
         contractExpiration: "9999-01-01T00:00:00Z"
     };
@@ -321,9 +224,18 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
     const newXP = hero.experience + combatant.experienceGained;
     const lvl = LevelUpMap.get(hero.level) || 5000;
     let levelUp = false;
+    let newMaxHp = hero.maxHealthPoints;
+    let newHp = combatant.healthPoints > 0 ? combatant.healthPoints : 0;
+    let hpBoost = 0;
     if (newXP > lvl) {
         levelUp = true;
+        hpBoost = getRandomInt(hero.constitution, (hero.constitution + 6));
+        newMaxHp += hpBoost;
+        newHp = newMaxHp;
     }
+    const maxStatBoost = levelUp ? 3 : 0; // TODO: is this exponential? Does it scale by level?
+    const stats = generateStats(0, maxStatBoost);
+    const updatedStats = levelUp ? allocateStatsByClass(hero.class, stats) : { con: 0, def: 0, dex: 0, mag: 0, res: 0, str: 0 };
     
     const updatedHero = await prisma?.hero.update({
         where: {
@@ -334,7 +246,7 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
                 increment: combatant.kills
             },
             experience: {
-                increment: combatant.experienceGained
+                set: newXP
             },
             purse: {
                 increment: combatant.purse
@@ -349,41 +261,164 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
                 increment: success ? 5 : -5
             },
             healthPoints: {
-                set: combatant.healthPoints > 0 ? combatant.healthPoints : 0
+                set: newHp
+            },
+            maxHealthPoints: {
+                set: newMaxHp
             },
             level: {
                 increment: levelUp ? 1 : 0
-            },// TODO: tweak these based on class
+            },
             strength: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
+                increment: levelUp ? updatedStats.str : 0
             },
             dexterity: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
+                increment: levelUp ? updatedStats.dex : 0
             },
             magic: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
+                increment: levelUp ? updatedStats.mag : 0
             },
             constitution: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
+                increment: levelUp ? updatedStats.con : 0
             },
             resistance: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
+                increment: levelUp ? updatedStats.res : 0
             },
             defense: {
-                increment: levelUp ? getRandomInt(0, 3) : 0
-            }
+                increment: levelUp ? updatedStats.def : 0
+            }            
             // TODO: add attempted quests and increment
         }
     });
     return {
-        hero: updatedHero
+        hero: updatedHero,
+        leveldUp: levelUp,
+        updatedHealth: hpBoost,
+        updatedStats: updatedStats
     }
 };
 
-const generateStats = () => {
+// privates :p lolz
+const allocateStatsByClass = (heroClass: string, stats: number[])  => {
+    stats = stats || [1, 1, 1, 0, 0, 0];
+    let str = 0;
+    let dex = 0;
+    let mag = 0;
+    let con = 0;
+    let def = 0;
+    let res = 0;
+    switch (heroClass) {
+        case "Cleric":
+            res = stats[0] || 1;
+            def = stats[1] || 1;
+            mag = stats[2] || 1;
+            con = stats[3] || 0;
+            str = stats[4] || 0;
+            dex = stats[5] || 0;
+            break;
+        case "Fighter":
+            str = stats[0] || 1;
+            def = stats[1] || 1;
+            con = stats[2] || 1;
+            dex = stats[3] || 0;
+            res = stats[4] || 0;
+            mag = stats[5] || 0;
+            break;
+        case "Ranger":
+            dex = stats[0] || 1;
+            str = stats[1] || 1;
+            def = stats[2] || 1;
+            con = stats[3] || 0;
+            res = stats[4] || 0;
+            mag = stats[5] || 0;
+            break;
+        case "Wizard":
+            mag = stats[0] || 1;
+            res = stats[1] || 1;
+            con = stats[2] || 1;
+            dex = stats[3] || 0;
+            str = stats[4] || 0;
+            def = stats[5] || 0;
+            break;
+        case "Monk":
+            dex = stats[0] || 1;
+            con = stats[1] || 1;
+            mag = stats[2] || 1;
+            res = stats[3] || 0;
+            def = stats[4] || 0;
+            str = stats[5] || 0;
+            break;
+        case "Bard":
+            mag = stats[0] || 1;
+            dex = stats[1] || 1;
+            con = stats[2] || 1;
+            res = stats[3] || 0;
+            str = stats[4] || 0;
+            def = stats[5] || 0;
+            break;
+        case "Druid":
+            res = stats[0] || 1;
+            mag = stats[1] || 1;
+            con = stats[2] || 1;
+            dex = stats[3] || 0;
+            def = stats[4] || 0;
+            str = stats[5] || 0;
+            break;
+        case "Rogue":
+            dex = stats[0] || 1;
+            con = stats[1] || 1;
+            mag = stats[2] || 1;
+            def = stats[3] || 0;
+            res = stats[4] || 0;
+            str = stats[5] || 0;
+            break;
+        case "Sorcerer":
+            mag = stats[0] || 1;
+            res = stats[1] || 1;
+            dex = stats[2] || 1;
+            con = stats[3] || 0;
+            def = stats[4] || 0;
+            str = stats[5] || 0;
+            break;
+        case "Warlock":
+            res = stats[0] || 1;
+            mag = stats[1] || 1;
+            def = stats[2] || 1;
+            con = stats[3] || 0;
+            str = stats[4] || 0;
+            dex = stats[5] || 0;
+            break;
+        case "Paladin":
+            def = stats[0] || 1;
+            str = stats[1] || 1;
+            con = stats[2] || 1;
+            res = stats[3] || 0;
+            mag = stats[4] || 0;
+            dex = stats[5] || 0;
+            break;
+        case "Barbarian":
+            str = stats[0] || 1;
+            con = stats[1] || 1;
+            dex = stats[2] || 1;
+            def = stats[3] || 0;
+            res = stats[4] || 0;
+            mag = stats[5] || 0;
+            break;
+    }
+
+    return {
+        str: str,
+        dex: dex,
+        mag: mag,
+        con: con,
+        res: res,
+        def: def
+    };
+};
+const generateStats = (min: number, max: number) => {
     const arr: number[] = [];
     while (arr.length < 6) {
-        arr.push(getRandomInt(0, 10));
+        arr.push(getRandomInt(min, max));
     }
     arr.sort((a, b) => { return b - a });
     return arr;

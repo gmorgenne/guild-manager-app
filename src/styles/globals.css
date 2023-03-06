@@ -68,7 +68,7 @@
 
 
 /* Quest Summary */
-.battle-begins {
+.battle-banner {
     @apply text-2xl bg-red-600 text-center text-white;
 }
 .battle-groups {

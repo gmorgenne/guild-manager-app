@@ -178,14 +178,31 @@ export const processQuest = async (questId: string, partyId: string) => {
         });
     });
 
-    // TODO: no matter the result of the encounter, update heroes stats (kills, exp, etc...)
     heroCombatants.forEach((heroCombatant) => {
         const hero = heroes.filter((h) => h.id == heroCombatant.id)[0];
         if (hero) {
-            UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess);
+            questSummary += `<p class="start-turn">${heroCombatant.name} gained ${heroCombatant.experienceGained} xp!</p>`;
+            
+            if (heroCombatant.kills > 0) {
+                questSummary += `<p>${heroCombatant.name} got ${heroCombatant.kills} kills!</p>`;
+            }
+
+            UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess).then((updatedMessage) => {
+                if (updatedMessage.leveldUp) {
+                    questSummary += `<h5 class="text-lg">${heroCombatant.name} has leveled up!</h5>`;
+                    questSummary += `<div class="flex justify-evenly"><p>new hp: ${heroCombatant.maxHealthPoints} -> +${updatedMessage.updatedHealth}</p>`;
+                    questSummary += `<p>strength: ${heroCombatant.strength} -> +${updatedMessage.updatedStats.str}</p>`;
+                    questSummary += `<p>dexterity: ${heroCombatant.dexterity} -> +${updatedMessage.updatedStats.dex}</p>`;
+                    questSummary += `<p>magic: ${heroCombatant.magic} -> +${updatedMessage.updatedStats.mag}</p>`;
+                    questSummary += `<p>constitution: ${heroCombatant.constitution} -> +${updatedMessage.updatedStats.con}</p>`;
+                    questSummary += `<p>resistance: ${heroCombatant.resistance} -> +${updatedMessage.updatedStats.res}</p>`;
+                    questSummary += `<p>defense: ${heroCombatant.defense} -> +${updatedMessage.updatedStats.def}</p></div>`;
+                }
+            });
+            questSummary += `<p class="end-turn"></p>`;          
         }
-    })
-    // TODO: figure out way to ensure that if a hero falls in an encounter their stats from the encounter are preserved...
+    });
+
     if (!encounterSuccess) {
         questSummary += `<p>found giver, travelled to location, failed encounter: ${encounterFailureMessage}</p>`
         return {
@@ -193,7 +210,7 @@ export const processQuest = async (questId: string, partyId: string) => {
             status: false
         };
     }
-    questSummary += "<p>Party has completed all encounters successfully!</p>"
+    questSummary += "<p>Party has completed all encounters successfully!</p>";
 
     const returnGiverSuccess = returnToGiver(sameMunicipality, heroes);
     if (!returnGiverSuccess) {

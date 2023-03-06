@@ -2,7 +2,7 @@ import type { Combatant } from "../../types/enemies";
 import { getRandomInt } from "./commonService";
 
 export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
-    let battleSummary = `<h3 class="battle-begins">Battle Begins!</h3>`;
+    let battleSummary = `<h3 class="battle-banner">Battle Begins!</h3>`;
     battleSummary += `<div class="battle-groups"><div class="battle-group"><h4>Group 1</h4><div class="battle-group__combatants">`;
     group1.forEach((combatant) => {
         battleSummary += `<p>${combatant.name}(${combatant.type}) hp: ${combatant.healthPoints}</p>`;
@@ -107,7 +107,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
             battleSummary += `<p class="end-turn turn-marker">End of turn: ${combatant.name}</p>`;
         });
     }
-    battleSummary += "<h5>End of Battle!!!!</h5>";
+    battleSummary += `<h5 class="battle-banner">End of Battle!!!!</h5>`;
     return {
         summary: battleSummary,
         victors: activeCombatants.filter((c) => c.healthPoints > 0)
