@@ -87,7 +87,10 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                         break;
                     }
                     const hp = getRandomInt(1, 6) + combatant.level;
-                    ally.healthPoints += hp;
+                    const newHP = ally.healthPoints + hp;
+                    // prevent hp from going over max
+                    const updatedHP = Math.min(newHP, ally.maxHealthPoints);
+                    ally.healthPoints = updatedHP;
                     battleSummary += `<p class="heal">${combatant.name} healed ${ally.name} for ${hp} points.</p>`;
                     break;
                 case "hide":
@@ -150,8 +153,9 @@ const rollAttack = (combatant: Combatant) => {
     };
 }
 const determineAction = (combatant: Combatant) => {
-    if (combatant.class == "Cleric")
+    if (combatant.class == "Cleric") {
         return "heal";
+    }
     if (combatant.class == "Rogue" && getRandomInt(0, 10) < 3) {
         return "hide"; // lolz
     }

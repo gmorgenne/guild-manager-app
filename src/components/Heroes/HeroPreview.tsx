@@ -20,8 +20,8 @@ const Preview = (hero : Hero): JSX.Element => {
     }
     
     return (
-        <>
-            <div className="border border-indigo-900 flex justify-between p-4 bg-blue-100 rounded-t-3xl">
+        <div className="border border-indigo-900 rounded-3xl">
+            <div className="flex justify-between p-4 bg-blue-100 rounded-t-3xl">
                 <div className="border border-indigo-900 rounded-2xl mr-4 bg-gray-300 p-1">
                     <div className="flex justify-between gap-2">Level: <span>{hero.level}</span></div>
                     <div className="flex justify-between gap-2">Race: <span>{hero.race}</span></div>
@@ -30,6 +30,10 @@ const Preview = (hero : Hero): JSX.Element => {
                     <div className="flex justify-between gap-2">Alignment: <span className="ml-1">{hero.alignment}</span></div>
                 </div>
                 <div className="border border-indigo-900 flex"> <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" height={120} width={100} /> </div> 
+            </div>
+            <div className="bg-red-500">
+                <div className="bg-green-500 text-right px-2" style={{ width: `${ (hero.healthPoints / hero.maxHealthPoints) * 100 }%`}}>&nbsp;</div>
+                <div className="float-right -mt-6 text-center w-full">{hero.healthPoints} / {hero.maxHealthPoints}</div>
             </div>
             <div className="bg-indigo-400 rounded-b-3xl">
                 <table className="text-center mx-auto w-full border border-indigo-900 border-separate rounded-b-3xl">
@@ -56,7 +60,7 @@ const Preview = (hero : Hero): JSX.Element => {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     )
 }
 

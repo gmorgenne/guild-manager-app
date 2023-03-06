@@ -4,6 +4,7 @@ export type Enemy = {
     enemyType?: string;
     level: number;
     healthPoints: number;
+    maxHealthPoints: number;
     strength: number;
     dexterity: number;
     magic: number;
@@ -31,6 +32,7 @@ const snake: Enemy = {
     enemyType: "Beast",
     level: 1,
     healthPoints: 12,
+    maxHealthPoints: 12,
     strength: 4,
     dexterity: 4,
     magic: 2,
@@ -46,6 +48,7 @@ const wolf: Enemy = {
     enemyType: "Beast",
     level: 1,
     healthPoints: 16,
+    maxHealthPoints: 16,
     strength: 6,
     dexterity: 4,
     magic: 3,
@@ -61,6 +64,7 @@ const bandit: Enemy = {
     enemyType: "Humanoid",
     level: 2,
     healthPoints: 20,
+    maxHealthPoints: 20,
     strength: 5,
     dexterity: 4,
     magic: 1,
@@ -76,6 +80,7 @@ const walrus: Enemy = {
     enemyType: "Beast",
     level: 2,
     healthPoints: 20,
+    maxHealthPoints: 20,
     strength: 8,
     dexterity: 2,
     magic: 8,
@@ -91,6 +96,7 @@ const troll: Enemy = {
     enemyType: "Giant",
     level: 3,
     healthPoints: 42,
+    maxHealthPoints: 42,
     strength: 12,
     dexterity: 6,
     magic: 2,
@@ -106,6 +112,7 @@ const acolyte: Enemy = {
     enemyType: "Humanoid",
     level: 3,
     healthPoints: 24,
+    maxHealthPoints: 24,
     strength: 2,
     dexterity: 2,
     magic: 14,

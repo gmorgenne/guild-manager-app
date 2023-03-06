@@ -291,6 +291,7 @@ export const GenerateHero = async () => {
         level: 1,
         experience: 0,
         healthPoints: 10 + (con ?? 4),
+        maxHealthPoints: 10 + (con ?? 4),
         strength: str ?? 4,
         dexterity: dex ?? 4,
         magic: mag ?? 4,
