@@ -135,6 +135,13 @@ export const processQuest = async (questId: string, partyId: string) => {
     let availableHeroes = heroCombatants;
     let encounterSuccess = false;
     let encounterFailureMessage = "";
+    if (encounters?.length === 0) {
+        encounterSuccess = true;
+        questSummary += "<p>No encounters!</p>";
+        heroCombatants.forEach((heroCombatant) => {
+            heroCombatant.experienceGained += 25;
+        });
+    }
     encounters?.forEach((encounter) => {
         questSummary += "<p>Encounter Begins!</p>";
         // TODO: if heroes defeated in previous encounter, return
