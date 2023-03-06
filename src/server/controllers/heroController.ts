@@ -29,6 +29,7 @@ export const createHeroHandler = async ({ input }: { input: CreateHeroInput; ctx
             subclass: input.subclass,
             alignment: input.alignment,
             healthPoints: input.healthPoints,
+            maxHealthPoints: input.healthPoints,
             strength: input.strength,
             dexterity: input.dexterity,
             magic: input.magic,
