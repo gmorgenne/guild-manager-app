@@ -58,6 +58,7 @@ export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
     heroes.forEach((hero) => {
         combatants.push(Object.assign(hero, {
             damageDealt: 0,
+            experienceGained: group == 2 ? 20 : 0, // if group 2 they are in a quest, have found the giver and travelled to the encounter so they should get 20 xp base
             initiative: getRandomInt(0, 20) + hero.dexterity,
             group: group,
             kills: 0,
@@ -314,6 +315,42 @@ export const RemoveHeroFromGuild = async (input: string) => {
         }
     });
     return hero;
+};
+export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, success: boolean) => {
+    
+    
+    const updatedHero = await prisma?.hero.update({
+        where: {
+            id: hero.id
+        },
+        data: {
+            kills: {
+                increment: combatant.kills
+            },
+            experience: {
+                increment: combatant.experienceGained
+            },
+            purse: {
+                increment: combatant.purse
+            },
+            purseAcquired: {
+                increment: combatant.purse
+            },
+            successfulQuests: {
+                increment: success ? 1 : 0
+            },
+            happiness: {
+                increment: success ? 5 : -5
+            },
+            healthPoints: {
+                set: combatant.healthPoints > 0 ? combatant.healthPoints : 0
+            }
+            // TODO: add attempted quests and increment
+        }
+    });
+    return {
+        hero: updatedHero
+    }
 };
 
 const generateStats = () => {

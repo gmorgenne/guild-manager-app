@@ -63,10 +63,11 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                         combatant.damageDealt += attack.damage;
                         battleSummary += `<p class="damage">${attack.damage} dealt to ${enemy.name}, which puts them down to ${enemy.healthPoints} hp.</p>`;
                         if (enemy.healthPoints <= 0) {
-                            battleSummary += `<p class="death">combatant has perished: ${enemy.name}</p>`
+                            battleSummary += `<p class="death">combatant has perished: ${enemy.name}</p>`;
                             activeCombatants = activeCombatants.filter((a) => { return a.healthPoints > 0 });
                             potentialVictory = true;
                             combatant.kills += 1;
+                            combatant.experienceGained += enemy.maxHealthPoints; // TODO: how to calculate?
                         }
                     } else {
                         if (roll === 1) {
@@ -91,7 +92,7 @@ export const FIGHT = (group1: Combatant[], group2: Combatant[]) => {
                     // prevent hp from going over max
                     const updatedHP = Math.min(newHP, ally.maxHealthPoints);
                     ally.healthPoints = updatedHP;
-                    battleSummary += `<p class="heal">${combatant.name} healed ${ally.name} for ${hp} points.</p>`;
+                    battleSummary += `<p class="heal">${combatant.name} healed ${ally.name} for ${hp} points. They are now at ${ally.healthPoints} of ${ally.maxHealthPoints}</p>`;
                     break;
                 case "hide":
                     battleSummary += `<p>${combatant.name} hides.</p>`;

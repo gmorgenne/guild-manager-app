@@ -1,4 +1,4 @@
-import { ConvertHeroesToCombatants } from './heroService';
+import { ConvertHeroesToCombatants, UpdateHeroWithCombatant } from './heroService';
 import { FIGHT } from './combatService';
 import { prisma } from './../db/client';
 import type { Hero, Prisma } from '@prisma/client';
@@ -169,6 +169,12 @@ export const processQuest = async (questId: string, partyId: string) => {
     });
 
     // TODO: no matter the result of the encounter, update heroes stats (kills, exp, etc...)
+    heroCombatants.forEach((heroCombatant) => {
+        const hero = heroes.filter((h) => h.id == heroCombatant.id)[0];
+        if (hero) {
+            UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess);
+        }
+    })
     // TODO: figure out way to ensure that if a hero falls in an encounter their stats from the encounter are preserved...
     if (!encounterSuccess) {
         questSummary += `<p>found giver, travelled to location, failed encounter: ${encounterFailureMessage}</p>`
@@ -211,6 +217,7 @@ const generateEnemyCombatants = (severity: number, count: number) => {
                 healthPoints: getRandomInt(enemy.healthPoints - 4, enemy.healthPoints + 4),
                 alignment: "",
                 damageDealt: 0,
+                experienceGained: 0,
                 group: 1,
                 initiative: getRandomInt(1, 20),
                 kills: 0,

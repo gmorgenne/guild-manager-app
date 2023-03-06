@@ -17,6 +17,7 @@ export type Enemy = {
 export type Combatant = Enemy & {
     alignment: string;
     damageDealt: number;
+    experienceGained: number;
     id?: string | undefined;
     initiative: number;
     group: number;
