@@ -21,3 +21,9 @@ export type CreateHeroInput = {
     speed: number;
     purse: number;
 };
+export const LevelUpMap = new Map<number, number>();
+LevelUpMap.set(1, 100);
+LevelUpMap.set(2, 225);
+LevelUpMap.set(3, 400);
+LevelUpMap.set(4, 900);
+LevelUpMap.set(5, 1500);

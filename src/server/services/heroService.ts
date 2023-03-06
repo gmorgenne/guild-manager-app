@@ -1,3 +1,4 @@
+import { LevelUpMap } from './../../types/hero';
 import { prisma } from './../db/client';
 import type { Hero, Prisma } from '@prisma/client';
 import type { AddHeroToGuildInput } from '../../types/hero';
@@ -317,7 +318,12 @@ export const RemoveHeroFromGuild = async (input: string) => {
     return hero;
 };
 export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, success: boolean) => {
-    
+    const newXP = hero.experience + combatant.experienceGained;
+    const lvl = LevelUpMap.get(hero.level) || 5000;
+    let levelUp = false;
+    if (newXP > lvl) {
+        levelUp = true;
+    }
     
     const updatedHero = await prisma?.hero.update({
         where: {
@@ -344,6 +350,27 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
             },
             healthPoints: {
                 set: combatant.healthPoints > 0 ? combatant.healthPoints : 0
+            },
+            level: {
+                increment: levelUp ? 1 : 0
+            },// TODO: tweak these based on class
+            strength: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
+            },
+            dexterity: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
+            },
+            magic: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
+            },
+            constitution: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
+            },
+            resistance: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
+            },
+            defense: {
+                increment: levelUp ? getRandomInt(0, 3) : 0
             }
             // TODO: add attempted quests and increment
         }

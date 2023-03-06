@@ -166,6 +166,9 @@ export const processQuest = async (questId: string, partyId: string) => {
         }
         questSummary += "<p>Encounter Completed!</p>";
         encounterSuccess = true;
+        heroCombatants.forEach((heroCombatant) => {
+            heroCombatant.experienceGained += encounter.experienceGain;
+        });
     });
 
     // TODO: no matter the result of the encounter, update heroes stats (kills, exp, etc...)
