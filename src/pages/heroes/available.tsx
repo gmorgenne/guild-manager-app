@@ -1,29 +1,51 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import HeroPreview from "../../components/Heroes/HeroPreview";
+import BasicFacet from "../../components/Navigation/BasicFacet";
+import { Alignments } from "../../types/alignments";
+import { Classes } from "../../types/classes";
 import { trpc } from "../../utils/trpc";
 
 const HeroesPage: NextPage = () => {
-    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0" })?.data;
+    const router = useRouter();
+    const [classes, setClasses] = useState<string[]>();
+    const [alignments, setAlignments] = useState<string[]>();
+    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0", classes: classes, alignments: alignments })?.data;
     const [guildId, setGuildId] = useState("");
 
     useEffect(() => {
-        if (typeof window === 'undefined') 
+        if (typeof window === 'undefined')
             return;
         const guild = sessionStorage.getItem("guild") ?? "";
         if (guild)
             setGuildId(guild);
     }, []);
 
+    useEffect(() => {
+        const classValues = router.query.Class || [];
+        const alignmentValues = router.query.Alignment || [];
+        let selectedClasses: string[] = [];
+        let selectedAlignments: string[] = [];
+        selectedClasses = selectedClasses.concat(classValues);
+        selectedAlignments = selectedAlignments.concat(alignmentValues);
+        setClasses(selectedClasses);
+        setAlignments(selectedAlignments);
+    }, [router.query.Class, router.query.Alignment]);
+
     return (
         <div>
-            <h1 className="text-2xl my-8">Available Heroes</h1>
-            <div className="tabs-container">
-                <ul className="tabs">
-                    <li className="tab"><Link href="/heroes">All</Link></li>
-                    <li className="tab active"><Link href="#">Available</Link></li>
-                </ul>
+            <h1 className="text-5xl text-center my-8">Available Heroes</h1>
+            <div className="flex mb-8 justify-between border-b border-gray-200 dark:border-gray-700">
+                <div className="tabs-container">
+                    <ul className="tabs">
+                        <li className="tab"><Link href="/heroes">All</Link></li>
+                        <li className="tab active"><Link href="#">Available</Link></li>
+                    </ul>
+                </div>
+                <BasicFacet FacetName="Class" FacetValues={Classes} />
+                <BasicFacet FacetName="Alignment" FacetValues={Alignments} />
             </div>
             {!heroes && <p>Loading...</p>}
             <div className="cards">
