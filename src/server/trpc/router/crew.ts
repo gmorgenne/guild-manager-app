@@ -3,38 +3,6 @@ import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
 export const crewRouter = router({
-    assignCrewToQuest: protectedProcedure
-        .input(z.object({
-            crewId: z.string(),
-            questId: z.string().optional()
-        }))
-        .mutation(({ input, ctx }) => {
-            if (input.questId) {
-                return ctx.prisma.crew.update({
-                    where: {
-                        id: input.crewId
-                    },
-                    data: {
-                        quest: {
-                            connect: {
-                                id: input.questId || undefined
-                            }
-                        }
-                    }
-                });
-            } else {
-                return ctx.prisma.crew.update({
-                    where: {
-                        id: input.crewId
-                    },
-                    data: {
-                        quest: {
-                            disconnect: true
-                        }
-                    }
-                });
-            }
-        }),
     createCrew: protectedProcedure
         .input(z.object({
             compatibility: z.number(),
