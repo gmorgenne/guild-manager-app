@@ -9,7 +9,7 @@ import { trpc } from "../../utils/trpc";
 
 const PartyBuilder = (): JSX.Element => {
     const router = useRouter();
-    const id = router.asPath.split('/').pop();
+    const id = router.asPath.split('/').pop() || "";
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: id })?.data;
     const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(heroes ?? []);
     const [partyHeroes, setPartyHeroes] = useState<Hero[]>();
