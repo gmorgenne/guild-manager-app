@@ -1,3 +1,4 @@
+import { crewRouter } from './crew';
 import { authRouter } from "./auth";
 import { encounterRouter } from './encounter';
 import { exampleRouter } from "./example";
@@ -11,6 +12,7 @@ import { staffRouter } from "./staff";
 
 export const appRouter = router({
   auth: authRouter,
+  crew: crewRouter,
   encounter: encounterRouter,
   example: exampleRouter,
   guild: guildRouter,

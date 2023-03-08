@@ -9,9 +9,9 @@ import { trpc } from "../../utils/trpc";
 
 const CrewBuilder = (): JSX.Element => {
     const router = useRouter();
-    const id = router.asPath.split('/').pop();
-    const staff = trpc.staff.getStaffByGuild.useQuery({ id: id })?.data;
-    const [availableStaff, setAvailableStaff] = useState<Staff[]>(staff ?? []);
+    const id = router.asPath.split('/').pop() || "";
+    const staffs = trpc.staff.getStaffByGuild.useQuery({ id: id })?.data;
+    const [availableStaff, setAvailableStaff] = useState<Staff[]>(staffs ?? []);
     const [crewStaff, setCrewStaff] = useState<Staff[]>();
     const [crewName, setCrewName] = useState("Crew 1");
     const crew = useMemo(() => {
@@ -23,23 +23,23 @@ const CrewBuilder = (): JSX.Element => {
     }, [crewStaff, crewName]);
     
     useEffect(() => {
-        if (staff) {
-            setAvailableStaff(staff.filter((staff) => { return staff.crewId == null }));
+        if (staffs) {
+            setAvailableStaff(staffs.filter((staff) => { return staff.crewId == null }));
         }
-    }, [staff]);
+    }, [staffs]);
 
     const addStaffToCrew = (e: MouseEventHandler<HTMLButtonElement>, staff: Staff) => {
         setCrewStaff(crewStaff?.concat({ ...staff }) ?? [staff]);
-        const staff = availableStaff?.filter((h) => { return staff != h });
-        setAvailableStaff(staff ?? []);
+        const newStaff = availableStaff?.filter((h) => { return staff != h });
+        setAvailableStaff(newStaff ?? []);
     }
 
     const removeStaffFromCrew = (e: MouseEventHandler<HTMLButtonElement>, staff: Staff) => {
         setAvailableStaff(availableStaff?.concat({ ...staff }) ?? [staff]);
         const index = crewStaff?.indexOf(staff) ?? -1;
         if (index > -1) {
-            const staff = crewStaff?.filter((h) => { return staff != h });
-            setCrewStaff(staff);
+            const newStaff = crewStaff?.filter((h) => { return staff != h });
+            setCrewStaff(newStaff);
         }
     };
     const renameCrew = (e: ChangeEvent<HTMLInputElement>) => {

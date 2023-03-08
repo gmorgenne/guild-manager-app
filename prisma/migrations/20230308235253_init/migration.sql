@@ -63,10 +63,10 @@ CREATE TABLE "Guild" (
     "badge" INTEGER NOT NULL,
     "purse" INTEGER NOT NULL DEFAULT 500,
     "createdDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "messHallLevel" INTEGER NOT NULL DEFAULT 0,
+    "guildHallLevel" INTEGER NOT NULL DEFAULT 0,
     "workshopLevel" INTEGER NOT NULL DEFAULT 0,
     "trainingGroundLevel" INTEGER NOT NULL DEFAULT 0,
-    "barracksLevel" INTEGER NOT NULL DEFAULT 0,
+    "guildArenaLevel" INTEGER NOT NULL DEFAULT 0,
     "infirmaryLevel" INTEGER NOT NULL DEFAULT 0,
     "municipalityId" TEXT,
 
@@ -82,9 +82,10 @@ CREATE TABLE "Hero" (
     "experience" INTEGER NOT NULL DEFAULT 0,
     "race" TEXT NOT NULL,
     "class" TEXT NOT NULL,
-    "subClass" TEXT NOT NULL,
+    "subclass" TEXT NOT NULL,
     "alignment" TEXT NOT NULL,
     "healthPoints" INTEGER NOT NULL,
+    "maxHealthPoints" INTEGER NOT NULL,
     "strength" INTEGER NOT NULL,
     "dexterity" INTEGER NOT NULL,
     "magic" INTEGER NOT NULL,
@@ -105,26 +106,6 @@ CREATE TABLE "Hero" (
     "happiness" INTEGER NOT NULL DEFAULT 100,
 
     CONSTRAINT "Hero_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Staff" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "sex" BOOLEAN NOT NULL,
-    "level" INTEGER NOT NULL DEFAULT 1,
-    "experience" INTEGER NOT NULL DEFAULT 0,
-    "race" TEXT NOT NULL,
-    "jobClass" TEXT NOT NULL,
-    "jobSpec" TEXT NOT NULL,
-    "guildId" TEXT NOT NULL,
-    "crewId" TEXT,
-    "contractCost" INTEGER NOT NULL DEFAULT 20,
-    "contractDemand" INTEGER NOT NULL DEFAULT 20,
-    "contractExpiration" TIMESTAMP(3) NOT NULL,
-    "happiness" INTEGER NOT NULL DEFAULT 100,
-
-    CONSTRAINT "Staff_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -204,6 +185,26 @@ CREATE TABLE "Region" (
     CONSTRAINT "Region_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Staff" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "sex" BOOLEAN NOT NULL,
+    "level" INTEGER NOT NULL DEFAULT 1,
+    "experience" INTEGER NOT NULL DEFAULT 0,
+    "race" TEXT NOT NULL,
+    "jobClass" TEXT NOT NULL,
+    "jobSpec" TEXT NOT NULL,
+    "guildId" TEXT NOT NULL,
+    "crewId" TEXT,
+    "contractCost" INTEGER NOT NULL DEFAULT 20,
+    "contractDemand" INTEGER NOT NULL DEFAULT 20,
+    "contractExpiration" TIMESTAMP(3) NOT NULL,
+    "happiness" INTEGER NOT NULL DEFAULT 100,
+
+    CONSTRAINT "Staff_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
@@ -238,9 +239,6 @@ ALTER TABLE "Hero" ADD CONSTRAINT "Hero_guildId_fkey" FOREIGN KEY ("guildId") RE
 ALTER TABLE "Hero" ADD CONSTRAINT "Hero_partyId_fkey" FOREIGN KEY ("partyId") REFERENCES "Party"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Staff" ADD CONSTRAINT "Hero_crewId_fkey" FOREIGN KEY ("crewId") REFERENCES "Crew"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Party" ADD CONSTRAINT "Party_questId_fkey" FOREIGN KEY ("questId") REFERENCES "Quest"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -263,3 +261,9 @@ ALTER TABLE "QuestResult" ADD CONSTRAINT "QuestResult_partyId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "Municipality" ADD CONSTRAINT "Municipality_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES "Region"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Staff" ADD CONSTRAINT "Staff_guildId_fkey" FOREIGN KEY ("guildId") REFERENCES "Guild"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Staff" ADD CONSTRAINT "Staff_crewId_fkey" FOREIGN KEY ("crewId") REFERENCES "Crew"("id") ON DELETE CASCADE ON UPDATE CASCADE;
