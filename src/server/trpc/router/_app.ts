@@ -1,4 +1,3 @@
-import { crewRouter } from './crew';
 import { authRouter } from "./auth";
 import { encounterRouter } from './encounter';
 import { exampleRouter } from "./example";
@@ -8,18 +7,19 @@ import { partyRouter } from './party';
 import { questRouter } from "./quest";
 import { router } from "../trpc";
 import { staffRouter } from "./staff";
+import { crewRouter } from "./crew";
 
 
 export const appRouter = router({
   auth: authRouter,
-  crew: crewRouter,
   encounter: encounterRouter,
   example: exampleRouter,
   guild: guildRouter,
   hero: heroRouter,
   party: partyRouter,
   quest: questRouter,
-  staff: staffRouter
+  staff: staffRouter,
+  crew: crewRouter
 });
 
 // export type definition of API
