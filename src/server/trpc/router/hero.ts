@@ -1,4 +1,6 @@
+import { Alignments } from './../../../types/alignments';
 import { z } from "zod";
+import { Classes } from "../../../types/classes";
 import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler, removeHeroFromGuildHandler } from "../../controllers/heroController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 
@@ -47,12 +49,22 @@ export const heroRouter = router({
       })
     }),
   getHeroesByGuild: protectedProcedure
-    .input(z.object({ id: z.string().nullish() }).nullish())
+    .input(z.object({ 
+      id: z.string(),
+      classes: z.array(z.string()).nullish(),
+      alignments: z.array(z.string()).nullish()
+    }))
     .query(({ input, ctx }) => {
       return ctx.prisma.hero.findMany({
         where: {
           guildId: {
             equals: input?.id ?? "0"
+          },
+          class: {
+            in: input?.classes && input?.classes?.length > 0 ? input?.classes : Classes
+          },
+          alignment: {
+            in: input?.alignments && input?.alignments?.length > 0 ? input?.alignments : Alignments
           }
         }
       })
