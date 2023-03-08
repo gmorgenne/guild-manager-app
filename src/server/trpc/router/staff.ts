@@ -46,6 +46,17 @@ export const staffRouter = router({
                 }
             })
         }),
+    getStaffByCrewId: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .query(({ input, ctx }) => {
+            return ctx.prisma.staff.findMany({
+                where: {
+                    crewId: {
+                        equals: input?.id
+                    }
+                }
+            })
+        }),
     removeStaffFromGuild: protectedProcedure
         .input(z.string())
         .mutation(({ input, ctx }) => removeStaffFromGuildHandler({ input, ctx })),

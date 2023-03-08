@@ -78,6 +78,7 @@ model Guild {
   heroes              Hero[]
   parties             Party[]
   staff               Staff[]
+  crew                Crew[]
   purse               Int           @default(500)
   createdDate         DateTime      @default(now())
   guildHallLevel      Int           @default(0)
@@ -131,6 +132,14 @@ model Party {
   questId       String?
   quest         Quest?        @relation(fields: [questId], references: [id], onDelete: Cascade)
   QuestResult   QuestResult[]
+  guildId       String
+  guild         Guild         @relation(fields: [guildId], references: [id], onDelete: Cascade)
+}
+
+model Crew {
+  id            String        @id @default(cuid())
+  name          String
+  staff         Staff[]
   guildId       String
   guild         Guild         @relation(fields: [guildId], references: [id], onDelete: Cascade)
 }
@@ -199,6 +208,8 @@ model Staff {
   jobSpec            String
   guildId            String
   guild              Guild?   @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  crewId             String?
+  crew               Crew?    @relation(fields: [crewId], references: [id], onDelete: Cascade)
   contractCost       Int      @default(20)
   contractDemand     Int      @default(20)
   contractExpiration DateTime
