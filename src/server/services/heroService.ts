@@ -254,6 +254,9 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
             purseAcquired: {
                 increment: combatant.purse
             },
+            attemptedQuests: {
+                increment: 1
+            },
             successfulQuests: {
                 increment: success ? 1 : 0
             },
@@ -286,8 +289,7 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
             },
             defense: {
                 increment: levelUp ? updatedStats.def : 0
-            }            
-            // TODO: add attempted quests and increment
+            }
         }
     });
     return {

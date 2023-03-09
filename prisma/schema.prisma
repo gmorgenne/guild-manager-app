@@ -117,6 +117,7 @@ model Hero {
   party              Party?   @relation(fields: [partyId], references: [id], onDelete: Cascade)
   kills              Int      @default(0)
   purseAcquired      Int      @default(0)
+  attemptedQuests    Int      @default(0)
   successfulQuests   Int      @default(0)
   contractCost       Int      @default(20)
   contractDemand     Int      @default(20)

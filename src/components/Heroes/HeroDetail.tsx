@@ -82,7 +82,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
                 <br></br>
                 <h4 className="text-2xl font-bold flex underline border border-black bg-slate-300 p-2 rounded-t-xl">Stats:</h4>
                 <div className="border border-black bg-slate-200 p-1">Kills: {props.kills}</div>
-                <div className="border border-black bg-slate-200 p-1">Successful Quests: {props.successfulQuests}</div>
+                <div className="border border-black bg-slate-200 p-1">Quests: {props.successfulQuests}/{props.attemptedQuests}</div>
                 <div className="border border-black bg-slate-200 p-1 rounded-b">Total Purse Acquired: {props.purseAcquired}</div>
             </div>
 
