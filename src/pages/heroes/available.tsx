@@ -6,13 +6,15 @@ import HeroPreview from "../../components/Heroes/HeroPreview";
 import BasicFacet from "../../components/Navigation/BasicFacet";
 import { Alignments } from "../../types/alignments";
 import { Classes } from "../../types/classes";
+import { Races } from "../../types/races";
 import { trpc } from "../../utils/trpc";
 
 const HeroesPage: NextPage = () => {
     const router = useRouter();
     const [classes, setClasses] = useState<string[]>();
     const [alignments, setAlignments] = useState<string[]>();
-    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0", classes: classes, alignments: alignments })?.data;
+    const [races, setRaces] = useState<string[]>();
+    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0", classes: classes, alignments: alignments, races: races })?.data;
     const [guildId, setGuildId] = useState("");
 
     useEffect(() => {
@@ -26,13 +28,17 @@ const HeroesPage: NextPage = () => {
     useEffect(() => {
         const classValues = router.query.Class || [];
         const alignmentValues = router.query.Alignment || [];
+        const raceValues = router.query.Race || [];
         let selectedClasses: string[] = [];
         let selectedAlignments: string[] = [];
+        let selectedRaces: string[] = [];
         selectedClasses = selectedClasses.concat(classValues);
         selectedAlignments = selectedAlignments.concat(alignmentValues);
+        selectedRaces = selectedRaces.concat(raceValues);
         setClasses(selectedClasses);
         setAlignments(selectedAlignments);
-    }, [router.query.Class, router.query.Alignment]);
+        setRaces(selectedRaces);
+    }, [router.query.Class, router.query.Alignment, router.query.Race]);
 
     return (
         <div>
@@ -45,6 +51,7 @@ const HeroesPage: NextPage = () => {
                     </ul>
                 </div>
                 <BasicFacet FacetName="Class" FacetValues={Classes} />
+                <BasicFacet FacetName="Race" FacetValues={Races} />
                 <BasicFacet FacetName="Alignment" FacetValues={Alignments} />
             </div>
             {!heroes && <p>Loading...</p>}
