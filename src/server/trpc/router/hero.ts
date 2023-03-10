@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Classes } from "../../../types/classes";
 import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler, removeHeroFromGuildHandler } from "../../controllers/heroController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
+import { Races } from '../../../types/races';
 
 export const heroRouter = router({
   addHero: protectedProcedure
@@ -52,7 +53,8 @@ export const heroRouter = router({
     .input(z.object({
       id: z.string(),
       classes: z.array(z.string()).nullish(),
-      alignments: z.array(z.string()).nullish()
+      alignments: z.array(z.string()).nullish(),
+      races: z.array(z.string()).nullish()
     }))
     .query(({ input, ctx }) => {
       return ctx.prisma.hero.findMany({
@@ -65,6 +67,9 @@ export const heroRouter = router({
           },
           alignment: {
             in: input?.alignments && input?.alignments?.length > 0 ? input?.alignments : Alignments
+          },
+          race: {
+            in: input?.races && input?.races?.length > 0 ? input?.races : Races
           }
         },
         orderBy: [
