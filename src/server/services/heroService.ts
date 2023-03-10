@@ -206,7 +206,8 @@ export const GenerateHero = async () => {
         movement: mov,
         speed: spd,
         purse: getRandomInt(0, 100),
-        contractExpiration: "9999-01-01T00:00:00Z"
+        contractExpiration: "9999-01-01T00:00:00Z",
+        contractCost: getRandomInt(16, 26),
     };
 };
 export const RemoveHeroFromGuild = async (input: string) => {

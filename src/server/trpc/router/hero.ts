@@ -49,7 +49,7 @@ export const heroRouter = router({
       })
     }),
   getHeroesByGuild: protectedProcedure
-    .input(z.object({ 
+    .input(z.object({
       id: z.string(),
       classes: z.array(z.string()).nullish(),
       alignments: z.array(z.string()).nullish()
@@ -66,7 +66,21 @@ export const heroRouter = router({
           alignment: {
             in: input?.alignments && input?.alignments?.length > 0 ? input?.alignments : Alignments
           }
-        }
+        },
+        orderBy: [
+          {
+            level: 'desc'
+          },
+          {
+            contractCost: 'asc'
+          },
+          {
+            name: 'asc'
+          },
+          {
+            class: 'asc'
+          }
+        ]
       })
     }),
   getHeroesByPartyId: protectedProcedure
