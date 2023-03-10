@@ -22,24 +22,16 @@ const Preview = (hero : Hero): JSX.Element => {
     return (
         <div className="border border-indigo-900 rounded-3xl">
             <div className="p-4 bg-blue-100 rounded-t-3xl">
-                <div className="border border-indigo-900 rounded-2xl mb-4 bg-gray-300 p-1">
-                    <div className="flex justify-between gap-2">Level: <span>{hero.level}</span></div>
-                    <div className="grid grid-cols-2 text-center gap-2">
-                        <div className="bg-white">
-                            <p className="border-b-2 border-black mx-1">Race</p>
+                <div className="rounded-2xl mb-4 bg-indigo-400 p-1">
+                    <h4 className="flex justify-center bg-gray-300 text-lg font-bold rounded-t-xl border-2 border-black">{hero.name}</h4>
+                    <div className="grid grid-cols-2 text-center">
+                        <div className="bg-gray-100 border-2 border-t border-black rounded-bl-2xl">
+                            <p className="border-b-2 border-black mx-2 font-bold">Race</p>
                             <p>{hero.race}</p>
                         </div>
-                        <div className="bg-white">
-                            <p className="border-b-2 border-black mx-1">Alignment</p>
+                        <div className="bg-gray-100 border-2 border-t border-black rounded-br-xl">
+                            <p className="border-b-2 border-black mx-2 font-bold">Alignment</p>
                             <p>{hero.alignment}</p>
-                        </div>
-                        <div className="bg-white rounded-bl-2xl">
-                            <p className="border-b-2 border-black mx-1">Class</p>
-                            <p>{hero.class}</p>
-                        </div>
-                        <div className="bg-white rounded-br-2xl">
-                            <p className="border-b-2 border-black mx-1">Subclass</p>
-                            <p>{hero.subclass}</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +45,7 @@ const Preview = (hero : Hero): JSX.Element => {
             </div>
             <div className="bg-indigo-400 rounded-b-3xl">
                 <table className="text-center mx-auto w-full border border-indigo-900 border-separate rounded-b-3xl">
-                    <caption className="border border-indigo-900 font-bold text-lg">{hero.name}</caption>
+                    <caption className="border border-indigo-900 font-bold">Level: {hero.level} - {hero.class} ({hero.subclass})</caption>
                     <thead>
                         <tr>
                             <th className="table-cell tbl-cell">Str</th>
