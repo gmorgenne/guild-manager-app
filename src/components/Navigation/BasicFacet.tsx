@@ -37,13 +37,24 @@ const Facet = (props: FacetProps): JSX.Element => {
                 ...router.query,
                 [props.FacetName]: selectedFilters
             }
-        })
-    }
+        });
+    };
+
+    const clearSelectedFacetValues = () => {
+        const selectedFilters = facetValues.filter((f) => { f.selected });
+        selectedFilters.forEach((f) => f.selected = false);
+        router.push({
+            query: {
+                ...router.query,
+                [props.FacetName]: ""
+            }
+        });
+    };
 
     return (
-        <div>
+        <div className="text-center">
             <h5>Filter By {props.FacetName}</h5>
-            <form className="grid grid-cols-3 gap-2">
+            <form className="grid grid-cols-3 gap-2 text-left">
                 {facetValues.map((facetValue, i) => {
                     return (
                     <fieldset key={i}>
@@ -53,7 +64,7 @@ const Facet = (props: FacetProps): JSX.Element => {
                     )
                 })}
             </form>
-
+            {facetValues.some((facet) => facet.selected) && <button className="btn" onClick={() => clearSelectedFacetValues()}>Clear {props.FacetName} Selections</button>}
         </div>
     )
 };
