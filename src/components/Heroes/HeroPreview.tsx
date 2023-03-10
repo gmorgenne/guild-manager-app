@@ -23,7 +23,7 @@ const Preview = (hero : Hero): JSX.Element => {
         <div className="border border-indigo-900 rounded-3xl">
             <div className="p-4 bg-blue-100 rounded-t-3xl">
                 <div className="rounded-2xl mb-4 bg-indigo-400 p-1">
-                    <h4 className="flex justify-center bg-gray-300 text-[1vw] font-bold rounded-t-xl border-2 border-black">{hero.name}</h4>
+                    <h4 className="flex justify-center bg-gray-300 text-lg text-center font-bold rounded-t-xl border-2 border-black">{hero.name}</h4>
                     <div className="grid grid-cols-2 text-center">
                         <div className="bg-gray-100 border-2 border-t border-black rounded-bl-2xl">
                             <p className="border-b-2 border-black mx-2 font-bold">Race</p>
