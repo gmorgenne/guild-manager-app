@@ -24,10 +24,24 @@ const Preview = (hero : Hero): JSX.Element => {
             <div className="p-4 bg-blue-100 rounded-t-3xl">
                 <div className="border border-indigo-900 rounded-2xl mb-4 bg-gray-300 p-1">
                     <div className="flex justify-between gap-2">Level: <span>{hero.level}</span></div>
-                    <div className="flex justify-between gap-2">Race: <span>{hero.race}</span></div>
-                    <div className="flex justify-between gap-2">Class: <span>{hero.class}</span></div>
-                    <div className="flex justify-between gap-2">Subclass: <span>{hero.subclass}</span></div>
-                    <div className="flex justify-between gap-2">Alignment: <span className="ml-1">{hero.alignment}</span></div>
+                    <div className="grid grid-cols-2 text-center gap-2">
+                        <div className="bg-white">
+                            <p className="border-b-2 border-black mx-1">Race</p>
+                            <p>{hero.race}</p>
+                        </div>
+                        <div className="bg-white">
+                            <p className="border-b-2 border-black mx-1">Alignment</p>
+                            <p>{hero.alignment}</p>
+                        </div>
+                        <div className="bg-white rounded-bl-2xl">
+                            <p className="border-b-2 border-black mx-1">Class</p>
+                            <p>{hero.class}</p>
+                        </div>
+                        <div className="bg-white rounded-br-2xl">
+                            <p className="border-b-2 border-black mx-1">Subclass</p>
+                            <p>{hero.subclass}</p>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" className="m-auto" height={120} width={100} />
