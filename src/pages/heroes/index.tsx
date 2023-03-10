@@ -9,13 +9,13 @@ const HeroesPage: NextPage = () => {
     const [guildId, setGuildId] = useState("");
 
     useEffect(() => {
-        if (typeof window === 'undefined') 
+        if (typeof window === 'undefined')
             return;
         const guild = sessionStorage.getItem("guild") ?? "";
         if (guild)
             setGuildId(guild);
     }, []);
-    
+
     if (isLoading) {
         return <div>Loading...</div>
     }
@@ -28,11 +28,13 @@ const HeroesPage: NextPage = () => {
     return (
         <div>
             <h1 className="text-2xl my-8">All Heroes</h1>
-            <div className="tabs-container">
-                <ul className="tabs">
-                    <li className="tab active"><Link href="#">All</Link></li>
-                    <li className="tab"><Link href="/heroes/available">Available</Link></li>
-                </ul>
+            <div className="flex mb-8 justify-between border-b border-gray-200 dark:border-gray-700">
+                <div className="tabs-container">
+                    <ul className="tabs">
+                        <li className="tab active"><Link href="#">All</Link></li>
+                        <li className="tab"><Link href="/heroes/available">Available</Link></li>
+                    </ul>
+                </div>
             </div>
             <div className="cards">
                 {data && data.map((hero, i) => {
