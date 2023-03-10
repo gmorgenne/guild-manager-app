@@ -55,7 +55,7 @@ const Facet = (props: FacetProps): JSX.Element => {
         <details>
             <summary className={`text-xl py-8 px-4 border-t-4 border-b-2 border-black${facetValues.some((facet) => facet.selected) ? " bg-yellow-200" : ""}`}>Filter by {props.FacetName}</summary>
             <div className="border-t-2 border-black text-center">
-                <form className="grid grid-cols-3 gap-2 text-left my-4 px-4">
+                <form className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 text-left my-4 px-4">
                     {facetValues.map((facetValue, i) => {
                         return (
                             <fieldset key={i}>
