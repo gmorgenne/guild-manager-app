@@ -69,8 +69,8 @@ const HeroesPage: NextPage = () => {
                 </div>
                 <div>
                     <button className="btn" onClick={() => toggleFilter()}>Filter</button>
-                    <div ref={filterRef} className={`fixed top-0 ${filterOpen ? "" : "translate-x-full"} left-full z-10 h-screen w-full max-w-md overflow-y-auto transition-transform -translate-x-full duration-300 border-l-4 border-black shadow-left-xl bg-white dark:bg-gray-800`}>
-                        <h3 className="text-center text-2xl mb-8">Filter Heroes</h3>
+                    <div ref={filterRef} className={`fixed top-0 ${filterOpen ? "" : "translate-x-full"} left-full z-10 h-screen w-full max-w-md overflow-y-auto transition-transform -translate-x-full duration-300 border-l-8 border-black shadow-left-xl bg-white dark:bg-gray-800`}>
+                        <h3 className="text-center text-2xl py-8 border-b-2 border-black">Filter Heroes</h3>
                         <BasicFacet FacetName="Class" FacetValues={Classes} />
                         <BasicFacet FacetName="Race" FacetValues={Races} />
                         <BasicFacet FacetName="Alignment" FacetValues={Alignments} />
