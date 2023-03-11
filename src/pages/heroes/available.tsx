@@ -67,9 +67,9 @@ const HeroesPage: NextPage = () => {
                         <li className="tab active"><Link href="#">Available</Link></li>
                     </ul>
                 </div>
-                <div>
+                <div ref={filterRef}>
                     <button className={`btn${(classes && classes.length > 0) || (alignments && alignments.length > 0) || (races && races.length > 0) ? " btn--active" : "" }`} onClick={() => toggleFilter()}>Filter</button>
-                    <div ref={filterRef} className={`fixed${filterClosed ? "" : " -translate-x-full"} left-full z-10 w-full max-w-4xl shadow-xl rounded-b-2xl bg-indigo-100 overflow-y-auto transition-transform duration-300 border-8 border-black shadow-left-xl dark:bg-gray-800`}>
+                    <div className={`fixed${filterClosed ? "" : " -translate-x-full"} left-full z-10 w-full max-w-4xl shadow-xl rounded-b-2xl bg-indigo-100 overflow-y-auto transition-transform duration-300 border-8 border-black shadow-left-xl dark:bg-gray-800`}>
                         <h3 className="text-center text-2xl py-8 border-b-2 border-black">Filter Heroes</h3>
                         <BasicFacet FacetName="Class" FacetValues={Classes} />
                         <BasicFacet FacetName="Race" FacetValues={Races} />
