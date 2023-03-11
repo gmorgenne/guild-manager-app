@@ -31,7 +31,7 @@ const HeroesPage: NextPage = () => {
             setGuildId(guild);
 
         const outsideClick = (event: any) => {
-            if (filterClosed && filterRef.current && !filterRef.current.contains(event.target)) {
+            if (!filterClosed && filterRef.current && !filterRef.current.contains(event.target)) {
                 setFilterClosed(true);
             }
         };
