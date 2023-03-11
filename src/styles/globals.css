@@ -17,6 +17,9 @@
 .btn--full {
     @apply bg-indigo-400 hover:bg-indigo-500 flex w-full whitespace-nowrap justify-center items-center font-bold text-center border border-gray-400 rounded shadow mx-auto py-2;
 }
+.btn--active {
+    @apply bg-yellow-200;
+}
 
 .cards {
     @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5;

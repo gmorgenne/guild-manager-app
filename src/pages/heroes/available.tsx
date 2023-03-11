@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HeroPreview from "../../components/Heroes/HeroPreview";
 import BasicFacet from "../../components/Navigation/BasicFacet";
 import { Alignments } from "../../types/alignments";
@@ -16,12 +16,12 @@ const HeroesPage: NextPage = () => {
     const [races, setRaces] = useState<string[]>();
     const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: "0", classes: classes, alignments: alignments, races: races })?.data;
     const [guildId, setGuildId] = useState("");
-    const [filterOpen, setFilterOpen] = useState(false);
+    const [filterClosed, setFilterClosed] = useState(true);
     const filterRef = useRef<HTMLDivElement | null>(null);
 
-    const toggleFilter = useCallback(() => {
-        setFilterOpen(!filterOpen);
-    }, [filterOpen]);
+    const toggleFilter = () => {
+        setFilterClosed(!filterClosed);
+    };
 
     useEffect(() => {
         if (typeof window === 'undefined')
@@ -31,16 +31,16 @@ const HeroesPage: NextPage = () => {
             setGuildId(guild);
 
         const outsideClick = (event: any) => {
-            if (filterOpen && filterRef.current && !filterRef.current.contains(event.target)) {
-                toggleFilter();
+            if (filterClosed && filterRef.current && !filterRef.current.contains(event.target)) {
+                setFilterClosed(true);
             }
         };
-        document.addEventListener("click", outsideClick, true);
+        document.addEventListener("click", outsideClick, false);
 
         return () => {
-            document.removeEventListener("click", outsideClick, true);
+            document.removeEventListener("click", outsideClick, false);
         }
-    }, [filterOpen, toggleFilter]);
+    }, [filterClosed]);
 
     useEffect(() => {
         const classValues = router.query.Class || [];
@@ -68,8 +68,8 @@ const HeroesPage: NextPage = () => {
                     </ul>
                 </div>
                 <div>
-                    <button className="btn" onClick={() => toggleFilter()}>Filter</button>
-                    <div ref={filterRef} className={`fixed top-0 ${filterOpen ? "" : "translate-x-full"} left-full z-10 h-screen w-full max-w-md overflow-y-auto transition-transform -translate-x-full duration-300 border-l-8 border-black shadow-left-xl bg-white dark:bg-gray-800`}>
+                    <button className={`btn${(classes && classes.length > 0) || (alignments && alignments.length > 0) || (races && races.length > 0) ? " btn--active" : "" }`} onClick={() => toggleFilter()}>Filter</button>
+                    <div ref={filterRef} className={`fixed${filterClosed ? "" : " -translate-x-full"} left-full z-10 w-full max-w-4xl shadow-xl rounded-b-2xl bg-indigo-100 overflow-y-auto transition-transform duration-300 border-8 border-black shadow-left-xl dark:bg-gray-800`}>
                         <h3 className="text-center text-2xl py-8 border-b-2 border-black">Filter Heroes</h3>
                         <BasicFacet FacetName="Class" FacetValues={Classes} />
                         <BasicFacet FacetName="Race" FacetValues={Races} />
