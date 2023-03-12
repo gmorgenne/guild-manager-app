@@ -54,7 +54,9 @@ export const heroRouter = router({
       id: z.string(),
       classes: z.array(z.string()).nullish(),
       alignments: z.array(z.string()).nullish(),
-      races: z.array(z.string()).nullish()
+      races: z.array(z.string()).nullish(),
+      levelSort: z.string().nullish(),
+      contractCostSort: z.string().nullish()
     }))
     .query(({ input, ctx }) => {
       return ctx.prisma.hero.findMany({
@@ -74,16 +76,13 @@ export const heroRouter = router({
         },
         orderBy: [
           {
-            level: 'desc'
+            level: input.levelSort == 'asc' ? 'asc' : 'desc'
           },
           {
-            contractCost: 'asc'
+            contractCost: input.contractCostSort == 'asc' ? 'asc' : 'desc'
           },
           {
             name: 'asc'
-          },
-          {
-            class: 'asc'
           }
         ]
       })
