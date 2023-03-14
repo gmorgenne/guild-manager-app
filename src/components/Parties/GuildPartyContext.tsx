@@ -106,7 +106,6 @@ const GuildPartyContextProvider = ({ children, guildId, partyBuilderRef }: Guild
 
     useEffect(() => {
         if (parties) {
-            console.log('parties changed', parties);
             setGuildParties(parties);
         }
     }, [parties]);
