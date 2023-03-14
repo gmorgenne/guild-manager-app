@@ -105,7 +105,7 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
                     <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>
                     <button onClick={assignPartyToTraining} className="btn">Assign Party To Training</button>
                     <button onClick={editParty} className="btn">Edit Party</button>
-                    <button onClick={deleteParty} className="btn">Delete Party</button>
+                    <button disabled={party.heroes?.length > 0} onClick={deleteParty} className={`btn${party.heroes?.length > 0 ? " btn--disabled" : ""}`} title="Delete Party: NOTE party can't have heroes assigned to delete.">Delete Party</button>
                 </div>
             )}
         </section>

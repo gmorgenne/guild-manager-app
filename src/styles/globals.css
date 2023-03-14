@@ -20,6 +20,9 @@
 .btn--active {
     @apply bg-yellow-200;
 }
+.btn--disabled {
+    @apply bg-red-200 hover:bg-red-500;
+}
 
 .cards {
     @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5;
