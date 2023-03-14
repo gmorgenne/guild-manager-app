@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ActiveParties from "../../components/Guilds/ActiveParties";
+import ActiveParties from "../../components/Parties/ActiveParties";
 import GuildPreview from "../../components/Guilds/GuildPreview";
-import PartyBuilder from "../../components/Guilds/PartyBuilder";
+import PartyBuilder from "../../components/Parties/PartyBuilder";
 import { trpc } from "../../utils/trpc";
+import GuildPartyContextProvider from "../../components/Parties/GuildPartyContext";
 
 const GuildPage: NextPage = () => {
     const { asPath } = useRouter();
@@ -64,8 +65,10 @@ const GuildPage: NextPage = () => {
                             </div>
                         </div>
                     </section>
-                    <ActiveParties guildId={id} />
-                    <PartyBuilder />
+                    <GuildPartyContextProvider guildId={id}>
+                        <ActiveParties />
+                        <PartyBuilder />
+                    </GuildPartyContextProvider>
                 </section>
             )}
         </section>
