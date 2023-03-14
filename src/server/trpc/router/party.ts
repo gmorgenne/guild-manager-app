@@ -44,6 +44,32 @@ export const partyRouter = router({
             quest: z.string().nullable().optional()
         }))
         .mutation(({ input, ctx }) => createPartyHandler({ input, ctx })),
+    deleteParty: protectedProcedure
+        .input(z.string())
+        .mutation(async ({ input, ctx }) => {
+            const heroes = await ctx.prisma.hero.findMany({
+                where: {
+                   partyId: input
+                }
+            });
+            heroes.map((hero) => {
+                ctx.prisma.hero.update({
+                    where: {
+                        id: hero.id
+                    },
+                    data: {
+                        party: {
+                            disconnect: true
+                        }
+                    }
+                });
+            });
+            return await ctx.prisma.party.delete({
+                where: {
+                    id: input
+                }
+            });
+        }),
     getAvailablePartiesByGuildId: protectedProcedure
         .input(z.object({ id: z.string() }))
         .query(({ input, ctx }) => {
@@ -71,7 +97,8 @@ export const partyRouter = router({
                     }
                 },
                 include: {
-                    heroes: true
+                    heroes: true,
+                    quest: true
                 }
             })
         }),
@@ -94,8 +121,8 @@ export const partyRouter = router({
             id: z.string(),
             name: z.string()
         }))
-        .mutation(({ input, ctx }) => {
-            const updated = ctx.prisma.party.update({
+        .mutation(async ({ input, ctx }) => {
+            const updated = await ctx.prisma.party.update({
                 where: {
                     id: input.id
                 },
@@ -103,6 +130,62 @@ export const partyRouter = router({
                     name: input.name
                 }
             });
-            updated.then((data) => { return { data: data}});
+            return { data: updated }
+        }),
+    updateParty: protectedProcedure
+        .input(z.object({
+            addHeroIds: z.array(z.string()),
+            compatibility: z.number(),
+            id: z.string(),
+            removeHeroIds: z.array(z.string()),
+        }))
+        .mutation(async ({ input, ctx }) => {
+            const addedHeroes: string[] = [];
+            input.addHeroIds.map(async (id) => {
+                const added = await ctx.prisma.hero.update({
+                    where: {
+                        id: id
+                    },
+                    data: {
+                        party: {
+                            connect: {
+                                id: input.id
+                            }
+                        }
+                    }
+                });
+                if (added) {
+                    addedHeroes.push(added.id);
+                }
+            });
+            const removedHeroes: string[] = [];
+            input.removeHeroIds.map(async (id) => {
+                const removed = await ctx.prisma.hero.update({
+                    where: {
+                        id: id
+                    },
+                    data: {
+                        party: {
+                            disconnect: true
+                        }
+                    }
+                });
+                if (removed) {
+                    removedHeroes.push(removed.id);
+                }
+            });
+            const update = await ctx.prisma.party.update({
+                where: {
+                    id: input.id
+                },
+                data: {
+                    compatibility: input.compatibility
+                }
+            });
+            return {
+                added: addedHeroes,
+                data: update,
+                removed: removedHeroes
+            }
         })
 });

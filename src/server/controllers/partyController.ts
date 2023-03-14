@@ -7,7 +7,7 @@ export const createPartyHandler = async ({ input }: { input: CreatePartyInput; c
         const party = await createParty(input);
         input.heroIds.forEach((id) => {
             AddHeroToParty({ heroId: id, partyId: party.id });
-        })
+        });
 
 
         return {
@@ -20,7 +20,7 @@ export const createPartyHandler = async ({ input }: { input: CreatePartyInput; c
     catch (err: any) {
         throw err;
       }
-}
+};
 
 // privates :p lolz
 const createParty = async (input: CreatePartyInput) => {
@@ -49,4 +49,4 @@ const createParty = async (input: CreatePartyInput) => {
             }
         }
     });
-}
+};

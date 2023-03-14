@@ -1,15 +1,18 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ActiveParties from "../../components/Guilds/ActiveParties";
+import ActiveParties from "../../components/Parties/ActiveParties";
 import GuildPreview from "../../components/Guilds/GuildPreview";
-import PartyBuilder from "../../components/Guilds/PartyBuilder";
+import PartyBuilder from "../../components/Parties/PartyBuilder";
 import { trpc } from "../../utils/trpc";
+import GuildPartyContextProvider from "../../components/Parties/GuildPartyContext";
+import { useRef } from "react";
 
 const GuildPage: NextPage = () => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop() || "";
     const guild = trpc.guild.getGuildById.useQuery({ id: id })?.data;
+    const partyBuilderRef = useRef<HTMLDivElement>(null);
 
     // TODO:
     // determine other info for guild screen: facilities, guild upgrades, world/city view, contract expiration warnings, 
@@ -64,8 +67,12 @@ const GuildPage: NextPage = () => {
                             </div>
                         </div>
                     </section>
-                    <ActiveParties guildId={id} />
-                    <PartyBuilder />
+                    <GuildPartyContextProvider guildId={id} partyBuilderRef={partyBuilderRef}>
+                        <ActiveParties />
+                        <div ref={partyBuilderRef}>
+                            <PartyBuilder />
+                        </div>
+                    </GuildPartyContextProvider>
                 </section>
             )}
         </section>

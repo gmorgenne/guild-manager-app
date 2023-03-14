@@ -9,3 +9,8 @@ export type CreatePartyInput = {
     name: string;
     quest?: string | null | undefined;
 };
+export type UpdatePartyInput = {
+    compatibility: number;
+    heroIds: string[];
+    id: string;
+}

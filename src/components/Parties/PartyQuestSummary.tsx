@@ -1,17 +1,20 @@
-import type { Party } from "@prisma/client";
+import type { Hero, Party, Quest } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "react-modal";
 import { trpc } from "../../utils/trpc";
+import type { IGuildPartyContext } from "./GuildPartyContext";
+import { GuildPartyContext } from "./GuildPartyContext";
 
 export interface PartyQuestSummaryProps {
-    party: Party
+    party: (Party & { heroes: Hero[]; quest: Quest | null });
 }
 
 const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
-    const quest = trpc.party.getPartyQuest.useQuery({ id: party.questId ?? "0" })?.data;
+    const quest = party.quest;
     const cancelTrainingAvailable = party.questId ? party.questId === "0" : false;
+    const guildPartyContext = useContext<IGuildPartyContext>(GuildPartyContext);
     const [show, setShow] = useState(party.questId && party.questId.length > 0);
     const [modalOpen, setModalOpen] = useState(false);
     const [questSuccess, setQuestSuccess] = useState(false);
@@ -28,7 +31,7 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
             setShow(false);
         }
     });
-    const assignPartyMutation = trpc.party.assignPartyToQuest.useMutation()
+    const assignPartyMutation = trpc.party.assignPartyToQuest.useMutation();
 
     const assignPartyToTraining = () => {
         assignPartyMutation.mutate({
@@ -37,34 +40,37 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
         });
         router.push(`/guild/facilities/training-grounds/${party.guildId}`);
     };
-
     const assignPartyToQuest = () => {
         router.push('/quests');
-    }
-
+    };
     const cancelTraining = () => {
         // TODO: We need to compute results of training
         resetQuestMutation.mutate({ partyId: party.id });
-    }
-
+    };
     const completeQuest = () => {
         if (quest && quest.id) {
             processQuestMutation.mutate({ partyId: party.id, questId: quest.id })
             setModalOpen(true);
         }
+    };
+    const deleteParty = () => {
+        guildPartyContext.deleteParty(party.id);
     }
-
+    const editParty = () => {
+        guildPartyContext.setEditingParty(party);
+        guildPartyContext.partyBuilderRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
     const resetPartyQuest = () => {
         setModalOpen(false);
         resetQuestMutation.mutate({ partyId: party.id });
-    }
+    };
 
     return (
-        <>
+        <section id="partyQuestSummary">
             {show && (
                 <div className={`border-t-2 border-b-2 border-black my-4 text-center ${show ? "" : "hidden"}`}>
                 <h3 className="text-lg">Current Quest</h3>
-                {party.questId=== "0"
+                {party.questId === "0"
                 ? 
                     <div><h4>Quest: {quest?.name}</h4></div>
                 :
@@ -98,9 +104,11 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
                 <div>
                     <button onClick={assignPartyToQuest} className="btn">Assign Party To Quest</button>
                     <button onClick={assignPartyToTraining} className="btn">Assign Party To Training</button>
+                    <button onClick={editParty} className="btn">Edit Party</button>
+                    <button onClick={deleteParty} className="btn">Delete Party</button>
                 </div>
             )}
-        </>
+        </section>
     )
 };
 export default PartyQuestSummary;
