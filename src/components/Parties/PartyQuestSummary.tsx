@@ -58,7 +58,7 @@ const PartyQuestSummary = ({ party }: PartyQuestSummaryProps): JSX.Element => {
     }
     const editParty = () => {
         guildPartyContext.setEditingParty(party);
-        guildPartyContext.scrollToBottom();
+        guildPartyContext.partyBuilderRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     const resetPartyQuest = () => {
         setModalOpen(false);

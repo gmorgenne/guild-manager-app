@@ -6,11 +6,13 @@ import GuildPreview from "../../components/Guilds/GuildPreview";
 import PartyBuilder from "../../components/Parties/PartyBuilder";
 import { trpc } from "../../utils/trpc";
 import GuildPartyContextProvider from "../../components/Parties/GuildPartyContext";
+import { useRef } from "react";
 
 const GuildPage: NextPage = () => {
     const { asPath } = useRouter();
     const id = asPath.split('/').pop() || "";
     const guild = trpc.guild.getGuildById.useQuery({ id: id })?.data;
+    const partyBuilderRef = useRef<HTMLDivElement>(null);
 
     // TODO:
     // determine other info for guild screen: facilities, guild upgrades, world/city view, contract expiration warnings, 
@@ -65,9 +67,11 @@ const GuildPage: NextPage = () => {
                             </div>
                         </div>
                     </section>
-                    <GuildPartyContextProvider guildId={id}>
+                    <GuildPartyContextProvider guildId={id} partyBuilderRef={partyBuilderRef}>
                         <ActiveParties />
-                        <PartyBuilder />
+                        <div ref={partyBuilderRef}>
+                            <PartyBuilder />
+                        </div>
                     </GuildPartyContextProvider>
                 </section>
             )}

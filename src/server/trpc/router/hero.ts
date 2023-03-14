@@ -101,4 +101,21 @@ export const heroRouter = router({
   removeHeroFromGuild: protectedProcedure
     .input(z.string())
     .mutation(({ input, ctx }) => removeHeroFromGuildHandler({ input, ctx })),
+  removeHeroFromParty: protectedProcedure // TODO: is this needed? Not using yet, but might need it...
+    .input(z.string())
+    .mutation(async ({ input, ctx }) => {
+      const update = await ctx.prisma.hero.update({
+        where: {
+          id: input
+        },
+        data: {
+          party: {
+            disconnect: true
+          }
+        }
+      });
+      return {
+        data: update
+      };
+    })
 });

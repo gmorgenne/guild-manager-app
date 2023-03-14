@@ -1,6 +1,7 @@
 import type { Hero, Party, Quest } from "@prisma/client";
-import type { Dispatch, SetStateAction} from "react";
-import { createContext, useState , useRef} from "react";
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import { useEffect } from "react";
+import { createContext, useState } from "react";
 import type { CreatePartyInput, UpdatePartyInput } from "../../types/party";
 import { trpc } from "../../utils/trpc";
 
@@ -11,13 +12,14 @@ export interface IGuildPartyContext {
     editingParty?: (Party & { heroes: Hero[]; quest: Quest | null }) | undefined;
     guildId: string;
     parties: (Party & { heroes: Hero[]; quest: Quest | null })[] | undefined;
-    renameParty: (partyId: string, newName: string) => {status: boolean; newName: string};
+    partyBuilderRef: RefObject<HTMLDivElement>;
+    renameParty: (partyId: string, newName: string) => void;
+    setAvailableHeroes: Dispatch<SetStateAction<Hero[]>>;
     setEditingParty: Dispatch<SetStateAction<(Party & {
         heroes: Hero[];
         quest: Quest | null;
     }) | undefined>>;
-    scrollToBottom: () => void;
-    updateParty: ({}: UpdatePartyInput) => void;
+    updateParty: ({ }: UpdatePartyInput) => void;
 }
 
 const defaultGuildParty: IGuildPartyContext = {
@@ -25,27 +27,52 @@ const defaultGuildParty: IGuildPartyContext = {
     createParty: ({}) => { console.log('create party'); },
     guildId: "",
     parties: [],
+    partyBuilderRef: { current: null },
     deleteParty: (partyId) => { console.log('partyId: ', partyId); },
-    renameParty: (partyId, newName) => { console.log('partyId: ', partyId); return { status: false, newName: newName }; },
+    renameParty: (partyId, newName) => { console.log(`partyId: ${partyId} newName: ${newName}`); },
+    setAvailableHeroes: () => { return [] },
     setEditingParty: () => { return {}; },
-    scrollToBottom: () => { console.log('scrollToBottom'); },
     updateParty: ({}) => { console.log('update party'); }
 };
 
+type GuildPartyContextProps = {
+    children: string | ReactNode | JSX.Element | JSX.Element[]
+    guildId: string;
+    partyBuilderRef: RefObject<HTMLDivElement>;
+}
+
 export const GuildPartyContext = createContext(defaultGuildParty);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const GuildPartyContextProvider = ({ children, guildId }: any) => {
-    const heroes = trpc.hero.getHeroesByGuild.useQuery({ id: guildId })?.data;
-    const parties = trpc.party.getPartiesByGuildId.useQuery({ id: guildId })?.data;
-    const availableHeroes = heroes?.filter((hero) => { return hero.partyId == null }) ?? [];
+const GuildPartyContextProvider = ({ children, guildId, partyBuilderRef }: GuildPartyContextProps) => {
+    const heroesQuery = trpc.hero.getHeroesByGuild.useQuery({ id: guildId });
+    const heroes = heroesQuery?.data;
+    const partiesQuery = trpc.party.getPartiesByGuildId.useQuery({ id: guildId });
+    const parties = partiesQuery?.data;
+    const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(heroes?.filter((hero) => { return hero.partyId == null }) || []);
     const [editingParty, setEditingParty] = useState<(Party & { heroes: Hero[]; quest: Quest | null }) | undefined>();
     const [guildParties, setGuildParties] = useState<(Party & { heroes: Hero[]; quest: Quest | null })[]>(parties || []);
-    const createPartyMutation = trpc.party.createParty.useMutation();
-    const deletePartyMutation = trpc.party.deleteParty.useMutation();
-    const renamePartyMutation = trpc.party.renameParty.useMutation();
-    const updatePartyMutation = trpc.party.updateParty.useMutation();
-    const bottomDiv = useRef<HTMLDivElement | null>(null);
+    const createPartyMutation = trpc.party.createParty.useMutation({
+        onSuccess: () => {
+            partiesQuery.refetch();
+        }
+    });
+    const deletePartyMutation = trpc.party.deleteParty.useMutation({
+        onSuccess: () => {
+            partiesQuery.refetch();
+            heroesQuery.refetch();
+        }
+    });
+    const renamePartyMutation = trpc.party.renameParty.useMutation({
+        onSuccess: () => {
+            partiesQuery.refetch();
+        }
+    });
+    const updatePartyMutation = trpc.party.updateParty.useMutation({
+        onSuccess: () => {
+            partiesQuery.refetch();
+            heroesQuery.refetch();
+        }
+    });
 
     const createParty = ({ compatibility, guild, heroIds, name, quest }: CreatePartyInput) => {
         createPartyMutation.mutate({
@@ -57,20 +84,11 @@ const GuildPartyContextProvider = ({ children, guildId }: any) => {
         });
     };
     const deleteParty = (partyId: string) => {
-        const updatedParties = guildParties.filter((party) => party.id != partyId);
-        setGuildParties(updatedParties);
         deletePartyMutation.mutate(partyId);
     };
     const renameParty = (partyId: string, newName: string) => {
+        if (newName.length === 0) return;
         renamePartyMutation.mutate({ id: partyId, name: newName });
-        return {
-            status: renamePartyMutation.isSuccess,
-            newName: newName
-        }
-        //  TODO: determine if we need to update the context parties or does it redraw because renameParty has been called?
-    };
-    const scrollToBottom = () => {
-        bottomDiv.current?.scrollIntoView({ behavior: "smooth" });
     };
     const updateParty = ({ compatibility, heroIds, id }: UpdatePartyInput) => {
         const party = guildParties.find((party) => party.id == id);
@@ -86,7 +104,20 @@ const GuildPartyContextProvider = ({ children, guildId }: any) => {
         });
     };
 
-    return(
+    useEffect(() => {
+        if (parties) {
+            console.log('parties changed', parties);
+            setGuildParties(parties);
+        }
+    }, [parties]);
+
+    useEffect(() => {
+        if (heroes) {
+            setAvailableHeroes(heroes?.filter((hero) => { return hero.partyId == null }) || []);
+        }
+    }, [heroes]);
+
+    return (
         <GuildPartyContext.Provider value={{
             availableHeroes: availableHeroes,
             createParty: createParty,
@@ -94,13 +125,13 @@ const GuildPartyContextProvider = ({ children, guildId }: any) => {
             editingParty: editingParty,
             guildId: guildId,
             parties: guildParties,
+            partyBuilderRef: partyBuilderRef,
             renameParty: renameParty,
+            setAvailableHeroes: setAvailableHeroes,
             setEditingParty: setEditingParty,
-            scrollToBottom: scrollToBottom,
             updateParty: updateParty
         }}>
             {children}
-            <div ref={bottomDiv}></div>
         </GuildPartyContext.Provider>
     );
 };

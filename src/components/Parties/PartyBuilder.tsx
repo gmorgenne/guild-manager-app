@@ -77,7 +77,7 @@ const PartyBuilder = (): JSX.Element => {
     const addHeroToParty = (hero: Hero) => {
         setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
         const heroes = availableHeroes?.filter((h) => { return hero != h });
-        guildPartyContext.availableHeroes = heroes;
+        guildPartyContext.setAvailableHeroes(heroes);
     };
     const assignPartyToQuest = () => {
         if (party.id) {
@@ -115,7 +115,7 @@ const PartyBuilder = (): JSX.Element => {
         router.push(`/guild/facilities/training-grounds/${guildPartyContext.guildId}`);
     };
     const removeHeroFromParty = (hero: Hero) => {
-        guildPartyContext.availableHeroes = availableHeroes?.concat({ ...hero }) ?? [hero];
+        guildPartyContext.setAvailableHeroes(availableHeroes?.concat({ ...hero }) ?? [hero]);
         const index = partyHeroes?.indexOf(hero) ?? -1;
         if (index > -1) {
             const heroes = partyHeroes?.filter((h) => { return hero != h });
@@ -146,11 +146,10 @@ const PartyBuilder = (): JSX.Element => {
         }
         guildPartyContext.setEditingParty(undefined);
         setPartyHeroes([]);
-        setPartyName("");
+        setPartyName("Party 1");
     };
 
     useEffect(() => {
-        // TODO: is this needed?
         setValue("NewPartyName", party.name);
     }, [party.name, partyName, setValue])
 
@@ -168,7 +167,7 @@ const PartyBuilder = (): JSX.Element => {
                 <div>
                     <h2 className="text-center text-3xl my-8">Party Builder</h2>
                     <p>Assign heroes to parties to take on quests! Once the party is assigned a quest that party will not be editable until they return.</p>
-                    {partyHeroes && partyHeroes.length > 0 && (
+                    {((partyHeroes && partyHeroes.length > 0) || party.id) && (
                         <div className="bg-gray-400 p-4 rounded-3xl">
                             <div className="lg:flex justify-between items-center">
                                 <div className="text-xl my-2">
