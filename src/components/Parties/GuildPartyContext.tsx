@@ -54,6 +54,7 @@ const GuildPartyContextProvider = ({ children, guildId, partyBuilderRef }: Guild
     const createPartyMutation = trpc.party.createParty.useMutation({
         onSuccess: () => {
             partiesQuery.refetch();
+            heroesQuery.refetch();
         }
     });
     const deletePartyMutation = trpc.party.deleteParty.useMutation({
