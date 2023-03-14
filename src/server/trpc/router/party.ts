@@ -52,8 +52,8 @@ export const partyRouter = router({
                    partyId: input
                 }
             });
-            heroes.map((hero) => {
-                ctx.prisma.hero.update({
+            heroes.map(async (hero) => {
+                await ctx.prisma.hero.update({
                     where: {
                         id: hero.id
                     },
