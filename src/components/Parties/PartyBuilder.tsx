@@ -75,8 +75,10 @@ const PartyBuilder = (): JSX.Element => {
     }, [partyHeroes, partyName, guildPartyContext.editingParty?.id]);
 
     const addHeroToParty = (hero: Hero) => {
-        setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
-        const heroes = availableHeroes?.filter((h) => { return hero != h });
+        if (partyHeroes.filter((h) => h.id === hero.id)?.length === 0) {
+            setPartyHeroes(partyHeroes?.concat({ ...hero }) ?? [hero]);
+        }
+        const heroes = availableHeroes?.filter((h) => { return hero.id !== h.id });
         guildPartyContext.setAvailableHeroes(heroes);
     };
     const assignPartyToQuest = () => {
