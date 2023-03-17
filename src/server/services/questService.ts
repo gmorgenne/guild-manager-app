@@ -135,6 +135,7 @@ export const processQuest = async (questId: string, partyId: string) => {
     let availableHeroes = heroCombatants;
     let encounterSuccess = false;
     let encounterFailureMessage = "";
+    let encounterPurseGain = 0;
     if (encounters?.length === 0) {
         encounterSuccess = true;
         questSummary += "<p>No encounters!</p>";
@@ -173,11 +174,13 @@ export const processQuest = async (questId: string, partyId: string) => {
         }
         questSummary += "<p>Encounter Completed!</p>";
         encounterSuccess = true;
+        encounterPurseGain += encounter.purseGain;
         heroCombatants.forEach((heroCombatant) => {
             heroCombatant.experienceGained += encounter.experienceGain;
         });
     });
 
+    const heroPurseGainShare = Math.floor(encounterPurseGain / (heroes.length + 1)); // heroes + 1 so the guild gets a share of the reward
     heroCombatants.forEach((heroCombatant) => {
         const hero = heroes.filter((h) => h.id == heroCombatant.id)[0];
         if (hero) {
@@ -187,21 +190,39 @@ export const processQuest = async (questId: string, partyId: string) => {
                 questSummary += `<p>${heroCombatant.name} got ${heroCombatant.kills} kills!</p>`;
             }
 
-            UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess).then((updatedMessage) => {
-                if (updatedMessage.leveldUp) {
-                    questSummary += `<h5 class="text-lg">${heroCombatant.name} has leveled up!</h5>`;
-                    questSummary += `<div class="flex justify-evenly"><p>new hp: ${heroCombatant.maxHealthPoints} -> +${updatedMessage.updatedHealth}</p>`;
-                    questSummary += `<p>strength: ${heroCombatant.strength} -> +${updatedMessage.updatedStats.str}</p>`;
-                    questSummary += `<p>dexterity: ${heroCombatant.dexterity} -> +${updatedMessage.updatedStats.dex}</p>`;
-                    questSummary += `<p>magic: ${heroCombatant.magic} -> +${updatedMessage.updatedStats.mag}</p>`;
-                    questSummary += `<p>constitution: ${heroCombatant.constitution} -> +${updatedMessage.updatedStats.con}</p>`;
-                    questSummary += `<p>resistance: ${heroCombatant.resistance} -> +${updatedMessage.updatedStats.res}</p>`;
-                    questSummary += `<p>defense: ${heroCombatant.defense} -> +${updatedMessage.updatedStats.def}</p></div>`;
-                }
-            });
-            questSummary += `<p class="end-turn"></p>`;          
+            if (heroPurseGainShare > 0) {
+                heroCombatant.purse = heroPurseGainShare;
+                questSummary += `<p>${heroCombatant.name} gained ${heroPurseGainShare} gold!</p>`;
+                encounterPurseGain -= heroPurseGainShare;
+            }
+
+            const updatedMessage = UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess);
+            if (updatedMessage.leveldUp) {
+                questSummary += `<h5 class="text-lg">${heroCombatant.name} has leveled up!</h5>`;
+                questSummary += `<div class="flex justify-evenly"><p>new hp: ${heroCombatant.maxHealthPoints} -> +${updatedMessage.updatedHealth}</p>`;
+                questSummary += `<p>strength: ${heroCombatant.strength} -> +${updatedMessage.updatedStats.str}</p>`;
+                questSummary += `<p>dexterity: ${heroCombatant.dexterity} -> +${updatedMessage.updatedStats.dex}</p>`;
+                questSummary += `<p>magic: ${heroCombatant.magic} -> +${updatedMessage.updatedStats.mag}</p>`;
+                questSummary += `<p>constitution: ${heroCombatant.constitution} -> +${updatedMessage.updatedStats.con}</p>`;
+                questSummary += `<p>resistance: ${heroCombatant.resistance} -> +${updatedMessage.updatedStats.res}</p>`;
+                questSummary += `<p>defense: ${heroCombatant.defense} -> +${updatedMessage.updatedStats.def}</p></div>`;
+            }
+            questSummary += `<p class="end-turn"></p>`;
         }
     });
+    if (encounterPurseGain > 0) {
+        questSummary += `<p>The guild has gained ${encounterPurseGain} gold!</p>`;
+        await prisma.guild.update({
+            where: {
+                id: party?.guildId || ""
+            },
+            data: {
+                purse: {
+                    increment: encounterPurseGain
+                }
+            }
+        });
+    }
 
     if (!encounterSuccess) {
         questSummary += `<p>found giver, travelled to location, failed encounter: ${encounterFailureMessage}</p>`
