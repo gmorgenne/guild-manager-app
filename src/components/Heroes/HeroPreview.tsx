@@ -39,8 +39,8 @@ const Preview = (hero : Hero): JSX.Element => {
                     <Image src="https://via.placeholder.com/100?text=Hero" alt="hero preview thumbnail" className="m-auto" height={120} width={100} />
                 </div> 
             </div>
-            <div className="bg-red-500">
-                <div className="bg-green-500 text-right" style={{ width: `${ (hero.healthPoints / hero.maxHealthPoints) * 100 }%`}}>&nbsp;</div>
+            <div className="bg-red-400">
+                <div className="bg-green-400 text-right" style={{ width: `${ (hero.healthPoints / hero.maxHealthPoints) * 100 }%`}}>&nbsp;</div>
                 <div className="float-right -mt-6 text-center w-full">{hero.healthPoints} / {hero.maxHealthPoints}</div>
             </div>
             <div className="bg-indigo-400 rounded-b-3xl">
