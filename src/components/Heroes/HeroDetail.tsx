@@ -64,7 +64,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
                 </div>
             </section>
             <section className="grid sm:flex gap-8 my-4">
-                <div className="flex flex-wrap sm:flex-col justify-center gap-4">
+                <div className="flex flex-wrap sm:flex-col justify-center sm:justify-start gap-4">
                     <div>
                         <div className="border border-black bg-indigo-400 w-28 h-8 text-center font-bold rounded-t-xl">
                             Strength:
@@ -129,7 +129,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
                         <div className="border border-black bg-slate-200 p-1 rounded-b">Total Purse Acquired: {props.purseAcquired}</div>
                     </div>
                 </div>
-                <div className="flex flex-wrap sm:flex-col justify-center gap-4">
+                <div className="flex flex-wrap sm:flex-col justify-center sm:justify-start gap-4">
                     <div>
                         <div className="border border-black font-bold bg-slate-200 p-4 w-28 h-20 text-center text-4xl rounded-t-xl">
                             {props.purse}
