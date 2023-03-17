@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import HeroPreview from "../../components/Heroes/HeroPreview";
 import QuestDetail from "../../components/Quests/QuestDetail";
 import { trpc } from "../../utils/trpc";
 
@@ -21,7 +22,7 @@ const QuestPage: NextPage = () => {
     };
 
     useEffect(() => {
-        if (typeof window === 'undefined') 
+        if (typeof window === 'undefined')
             return;
         const guild = sessionStorage.getItem("guild") ?? "";
         if (guild)
@@ -33,24 +34,26 @@ const QuestPage: NextPage = () => {
             <section>
                 {quest && <QuestDetail encounters={quest.encounters} municipality={quest.municipality} quest={quest} />}
             </section>
-            <section>
+            <section className="bg-indigo-300 p-4 rounded-3xl divide-y-8 divide-black">
                 {parties && parties.map((party, i) => {
                     return (
                         <div key={i}>
-                            {party.name}
-                            <br /><br />
-                            {party.compatibility}
-                            <br /><br />
-                            {party.heroes && party.heroes.map((hero, i) => {
-                                return (
-                                    <>
-                                        <br />
-                                        {hero.name}
-                                        <br />
-                                    </>
-                                )
-                            })}
-                            <button className="btn" onClick={() => assignPartyToQuest(party.id)}>Assign Party to Quest</button>
+                            <div className="lg:flex justify-between items-center">
+                                <div className="text-xl my-2">
+                                    <h2 className="text-3xl px-2">{party.name}</h2>
+                                </div>
+                                <button className="btn" onClick={() => assignPartyToQuest(party.id)}>Assign Party to Quest</button>
+                                <span>Compatibility: <span className="font-bold">{`${(party.compatibility * 100).toFixed(2)}%`}</span></span>
+                            </div>
+                            <div className="cards mb-4">
+                                {party.heroes && party.heroes.map((hero, i) => {
+                                    return (
+                                        <div className="card" key={i}>
+                                            <HeroPreview hero={hero} link={false} />
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     )
                 })}
