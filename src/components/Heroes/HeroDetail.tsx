@@ -26,7 +26,7 @@ const HeroDetail = (props: Hero): JSX.Element => {
                         {props.name}
                     </div>
                 </div>
-                <div className="flex flex-wrap gap-x-4 justify-around lg:w-2/3">
+                <div className="flex flex-wrap gap-x-4 justify-around lg:w-2/3 p-2">
                     <div>
                         <strong className="block">Class:</strong>
                         {props.class}
