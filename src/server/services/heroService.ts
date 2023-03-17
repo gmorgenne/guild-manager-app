@@ -63,6 +63,7 @@ export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
             initiative: getRandomInt(0, 20) + hero.dexterity,
             group: group,
             kills: 0,
+            purse: 0,
             type: `${hero.class}-${hero.subclass}`
         }));
     });
@@ -221,7 +222,7 @@ export const RemoveHeroFromGuild = async (input: string) => {
     });
     return hero;
 };
-export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, success: boolean) => {
+export const UpdateHeroWithCombatant = (hero: Hero, combatant: Combatant, success: boolean) => {
     const newXP = hero.experience + combatant.experienceGained;
     const lvl = LevelUpMap.get(hero.level) || 5000;
     let levelUp = false;
@@ -238,7 +239,7 @@ export const UpdateHeroWithCombatant = async (hero: Hero, combatant: Combatant, 
     const stats = generateStats(0, maxStatBoost);
     const updatedStats = levelUp ? allocateStatsByClass(hero.class, stats) : { con: 0, def: 0, dex: 0, mag: 0, res: 0, str: 0 };
     
-    const updatedHero = await prisma?.hero.update({
+    const updatedHero = prisma?.hero.update({
         where: {
             id: hero.id
         },
