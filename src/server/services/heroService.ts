@@ -1,3 +1,4 @@
+import type { heroUpdate} from './../../types/hero';
 import { LevelUpMap } from './../../types/hero';
 import { prisma } from './../db/client';
 import type { Hero, Prisma } from '@prisma/client';
@@ -436,25 +437,4 @@ const generateStats = (min: number, max: number) => {
     }
     arr.sort((a, b) => { return b - a });
     return arr;
-};
-
-type heroUpdate = {
-    heroId: string;
-    leveledUp: boolean;
-    kills: number;
-    newHP: number;
-    newLvl: number;
-    newMaxHP: number;
-    newXP: number;
-    purse: number;
-    questSuccess: boolean;
-    updatedHealth: number;
-    updatedStats: {
-        str: number;
-        dex: number;
-        mag: number;
-        con: number;
-        res: number;
-        def: number;
-    }
 };

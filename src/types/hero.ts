@@ -21,6 +21,26 @@ export type CreateHeroInput = {
     speed: number;
     purse: number;
 };
+export type heroUpdate = {
+    heroId: string;
+    leveledUp: boolean;
+    kills: number;
+    newHP: number;
+    newLvl: number;
+    newMaxHP: number;
+    newXP: number;
+    purse: number;
+    questSuccess: boolean;
+    updatedHealth: number;
+    updatedStats: {
+        str: number;
+        dex: number;
+        mag: number;
+        con: number;
+        res: number;
+        def: number;
+    }
+};
 export const LevelUpMap = new Map<number, number>();
 LevelUpMap.set(1, 100);
 LevelUpMap.set(2, 225);
