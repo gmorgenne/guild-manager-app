@@ -1,7 +1,7 @@
 import { Alignments } from './../../../types/alignments';
 import { z } from "zod";
 import { Classes } from "../../../types/classes";
-import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler, removeHeroFromGuildHandler } from "../../controllers/heroController";
+import { addHeroToGuildHandler, createHeroHandler, generateHeroHandler } from "../../controllers/heroController";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { Races } from '../../../types/races';
 
@@ -98,24 +98,4 @@ export const heroRouter = router({
         }
       })
     }),
-  removeHeroFromGuild: protectedProcedure
-    .input(z.string())
-    .mutation(({ input, ctx }) => removeHeroFromGuildHandler({ input, ctx })),
-  removeHeroFromParty: protectedProcedure // TODO: is this needed? Not using yet, but might need it...
-    .input(z.string())
-    .mutation(async ({ input, ctx }) => {
-      const update = await ctx.prisma.hero.update({
-        where: {
-          id: input
-        },
-        data: {
-          party: {
-            disconnect: true
-          }
-        }
-      });
-      return {
-        data: update
-      };
-    })
 });

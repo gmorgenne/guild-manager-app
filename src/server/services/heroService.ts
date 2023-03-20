@@ -212,13 +212,22 @@ export const GenerateHero = async () => {
         contractCost: getRandomInt(16, 26),
     };
 };
-export const RemoveHeroFromGuild = async (input: string) => {
+export const RemoveHeroFromGuild = async (input: string, level: number) => {
     const hero = await prisma?.hero.update({
         where: {
             id: input
         },
         data: {
-            guildId: "0"
+            party: {
+                disconnect: true
+            },
+            guild: {
+                connect: {
+                    id: "0" // set guild to "free agents"
+                }
+            },
+            contractExpiration: "9999-01-01T00:00:00Z",
+            contractCost: getRandomInt(16 + (level * 10), 26 + (level * 10))
         }
     });
     return hero;

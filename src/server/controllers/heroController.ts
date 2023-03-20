@@ -1,4 +1,5 @@
 import { AddHeroToGuild, CreateHero, GenerateHero, RemoveHeroFromGuild } from '../services/heroService';
+import type { Hero } from '@prisma/client';
 import type { Context } from '../trpc/context';
 import type { AddHeroToGuildInput, CreateHeroInput } from '../../types/hero';
 
@@ -58,6 +59,19 @@ export const createHeroHandler = async ({ input }: { input: CreateHeroInput; ctx
         throw err;
     }
 };
+export const expireHeroContractsHandler = async (heroes: Hero[]) => {
+    try {
+        heroes.forEach((hero) => {
+            RemoveHeroFromGuild(hero.id, hero.level);
+        });
+        return {
+            success: true
+        }
+    }
+    catch (err: any) {
+        throw (err);
+    }
+};
 export const generateHeroHandler = async () => {
     try {
         const heroInput = await GenerateHero();
@@ -71,20 +85,6 @@ export const generateHeroHandler = async () => {
         }
     }
     catch (err: any) {
-        throw err;
-    }
-};
-export const removeHeroFromGuildHandler = async ({ input }: { input: string; ctx: Context }) => {
-    try {
-        const hero = RemoveHeroFromGuild(input);
-
-        return {
-            status: 'success',
-            data: {
-                hero
-            }
-        }
-    } catch (err: any) {
         throw err;
     }
 };
