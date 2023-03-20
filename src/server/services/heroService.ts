@@ -55,7 +55,7 @@ export const AddHeroToGuild = async (input: AddHeroToGuildInput) => {
     }
 };
 export const ConvertHeroesToCombatants = (heroes: Hero[], group: number) => {
-    const combatants : Combatant[] = [];
+    const combatants: Combatant[] = [];
     heroes.forEach((hero) => {
         combatants.push(Object.assign(hero, {
             damageDealt: 0,
@@ -222,88 +222,98 @@ export const RemoveHeroFromGuild = async (input: string) => {
     });
     return hero;
 };
-export const UpdateHeroWithCombatant = (hero: Hero, combatant: Combatant, success: boolean) => {
-    const newXP = hero.experience + combatant.experienceGained;
-    const lvl = LevelUpMap.get(hero.level) || 5000;
-    let levelUp = false;
-    let newMaxHp = hero.maxHealthPoints;
-    let newHp = combatant.healthPoints > 0 ? combatant.healthPoints : 0;
-    let hpBoost = 0;
-    if (newXP > lvl) {
-        levelUp = true;
-        hpBoost = getRandomInt(hero.constitution, (hero.constitution + 6));
-        newMaxHp += hpBoost;
-        newHp = newMaxHp;
-    }
-    const maxStatBoost = levelUp ? 3 : 0; // TODO: is this exponential? Does it scale by level?
-    const stats = generateStats(0, maxStatBoost);
-    const updatedStats = levelUp ? allocateStatsByClass(hero.class, stats) : { con: 0, def: 0, dex: 0, mag: 0, res: 0, str: 0 };
-    
-    const updatedHero = prisma?.hero.update({
+export const UpdateHero = async (input: heroUpdate) => {
+    const updatedHero = await prisma?.hero.update({
         where: {
-            id: hero.id
+            id: input.heroId
         },
         data: {
             kills: {
-                increment: combatant.kills
+                increment: input.kills
             },
             experience: {
-                set: newXP
+                increment: input.newXP
             },
             purse: {
-                increment: combatant.purse
+                increment: input.purse
             },
             purseAcquired: {
-                increment: combatant.purse
+                increment: input.purse
             },
             attemptedQuests: {
                 increment: 1
             },
             successfulQuests: {
-                increment: success ? 1 : 0
+                increment: input.questSuccess ? 1 : 0
             },
             happiness: {
-                increment: success ? 5 : -5
+                increment: input.questSuccess ? 5 : -5
             },
             healthPoints: {
-                set: newHp
+                set: input.newHP
             },
             maxHealthPoints: {
-                set: newMaxHp
+                set: input.newMaxHP
             },
             level: {
-                increment: levelUp ? 1 : 0
+                increment: input.leveledUp ? 1 : 0
             },
             strength: {
-                increment: levelUp ? updatedStats.str : 0
+                increment: input.leveledUp ? input.updatedStats.str : 0
             },
             dexterity: {
-                increment: levelUp ? updatedStats.dex : 0
+                increment: input.leveledUp ? input.updatedStats.dex : 0
             },
             magic: {
-                increment: levelUp ? updatedStats.mag : 0
+                increment: input.leveledUp ? input.updatedStats.mag : 0
             },
             constitution: {
-                increment: levelUp ? updatedStats.con : 0
+                increment: input.leveledUp ? input.updatedStats.con : 0
             },
             resistance: {
-                increment: levelUp ? updatedStats.res : 0
+                increment: input.leveledUp ? input.updatedStats.res : 0
             },
             defense: {
-                increment: levelUp ? updatedStats.def : 0
+                increment: input.leveledUp ? input.updatedStats.def : 0
             }
         }
     });
     return {
-        hero: updatedHero,
-        leveldUp: levelUp,
+        hero: updatedHero
+    }
+}
+export const UpdateHeroWithCombatant = (hero: Hero, combatant: Combatant) => {
+    const newXP = hero.experience + combatant.experienceGained;
+    const lvl = LevelUpMap.get(hero.level) || 5000;
+    let levelUp = false;
+    let newLvl = hero.level;
+    let newMaxHp = hero.maxHealthPoints;
+    let newHP = combatant.healthPoints > 0 ? combatant.healthPoints : 0;
+    let hpBoost = 0;
+    if (newXP > lvl) {
+        levelUp = true;
+        hpBoost = getRandomInt(hero.constitution, (hero.constitution + 6));
+        newMaxHp += hpBoost;
+        newHP = newMaxHp;
+        newLvl += 1;
+    }
+    const maxStatBoost = levelUp ? 3 : 0; // TODO: is this exponential? Does it scale by level?
+    const stats = generateStats(0, maxStatBoost);
+    const updatedStats = levelUp ? allocateStatsByClass(hero.class, stats) : { con: 0, def: 0, dex: 0, mag: 0, res: 0, str: 0 };
+
+    return {
+        leveledUp: levelUp,
+        newHP: newHP,
+        newLvl: newLvl,
+        newMaxHP: newMaxHp,
+        purse: combatant.purse,
         updatedHealth: hpBoost,
         updatedStats: updatedStats
     }
 };
 
 // privates :p lolz
-const allocateStatsByClass = (heroClass: string, stats: number[])  => {
+const allocateStatsByClass = (heroClass: string, stats: number[]) => {
     stats = stats || [1, 1, 1, 0, 0, 0];
     let str = 0;
     let dex = 0;
@@ -426,4 +436,25 @@ const generateStats = (min: number, max: number) => {
     }
     arr.sort((a, b) => { return b - a });
     return arr;
+};
+
+type heroUpdate = {
+    heroId: string;
+    leveledUp: boolean;
+    kills: number;
+    newHP: number;
+    newLvl: number;
+    newMaxHP: number;
+    newXP: number;
+    purse: number;
+    questSuccess: boolean;
+    updatedHealth: number;
+    updatedStats: {
+        str: number;
+        dex: number;
+        mag: number;
+        con: number;
+        res: number;
+        def: number;
+    }
 };

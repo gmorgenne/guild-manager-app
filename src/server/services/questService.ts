@@ -1,4 +1,4 @@
-import { ConvertHeroesToCombatants, UpdateHeroWithCombatant } from './heroService';
+import { ConvertHeroesToCombatants, UpdateHero, UpdateHeroWithCombatant } from './heroService';
 import { FIGHT } from './combatService';
 import { prisma } from './../db/client';
 import type { Hero, Prisma } from '@prisma/client';
@@ -196,10 +196,17 @@ export const processQuest = async (questId: string, partyId: string) => {
                 encounterPurseGain -= heroPurseGainShare;
             }
 
-            const updatedMessage = UpdateHeroWithCombatant(hero, heroCombatant, encounterSuccess);
-            if (updatedMessage.leveldUp) {
-                questSummary += `<h5 class="text-lg">${heroCombatant.name} has leveled up!</h5>`;
-                questSummary += `<div class="flex justify-evenly"><p>new hp: ${heroCombatant.maxHealthPoints} -> +${updatedMessage.updatedHealth}</p>`;
+            const updatedMessage = UpdateHeroWithCombatant(hero, heroCombatant);
+            UpdateHero({
+                heroId: hero.id,
+                kills: heroCombatant.kills,
+                questSuccess: encounterSuccess,
+                newXP: heroCombatant.experienceGained,
+                ...updatedMessage
+            });
+            if (updatedMessage.leveledUp) {
+                questSummary += `<h5 class="text-lg">${heroCombatant.name} has leveled up to Level ${updatedMessage.newLvl}!</h5>`;
+                questSummary += `<div class="flex justify-evenly"><p>${hero.maxHealthPoints} hp +${updatedMessage.updatedHealth} -> ${hero.maxHealthPoints + updatedMessage.updatedHealth}</p>`;
                 questSummary += `<p>strength: ${heroCombatant.strength} -> +${updatedMessage.updatedStats.str}</p>`;
                 questSummary += `<p>dexterity: ${heroCombatant.dexterity} -> +${updatedMessage.updatedStats.dex}</p>`;
                 questSummary += `<p>magic: ${heroCombatant.magic} -> +${updatedMessage.updatedStats.mag}</p>`;
