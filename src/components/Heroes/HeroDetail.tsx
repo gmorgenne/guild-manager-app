@@ -1,9 +1,10 @@
-import type { Hero } from "@prisma/client";
+import type { Guild, Hero } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { trpc } from "../../utils/trpc";
+import GuildPreview from "../Guilds/GuildPreview";
 
-const HeroDetail = (hero: Hero): JSX.Element => {
+const HeroDetail = (hero: (Hero & { guild: Guild | null })): JSX.Element => {
     const { data: sessionData } = useSession();
     const isAuthenticated = sessionData?.user != undefined;
     const mutation = trpc.hero.addHero.useMutation();
@@ -12,7 +13,7 @@ const HeroDetail = (hero: Hero): JSX.Element => {
 
     const addHeroToGuild = () => {
         mutation.mutate({ guildId: guildId, heroId: hero.id });
-    }
+    };
 
     return (
         <div>
@@ -158,6 +159,9 @@ const HeroDetail = (hero: Hero): JSX.Element => {
                             Speed:
                         </div>
                     </div>
+                </div>
+                <div>
+                    {hero.guild && <GuildPreview {...hero.guild} />}
                 </div>
             </section>
             <div className="flex">

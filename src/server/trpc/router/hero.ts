@@ -46,6 +46,9 @@ export const heroRouter = router({
           id: {
             equals: input?.id ?? ""
           }
+        },
+        include: {
+          guild: true
         }
       })
     }),
